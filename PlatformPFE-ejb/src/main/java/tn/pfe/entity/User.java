@@ -21,7 +21,7 @@ public abstract class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO) //azzzzz
 	private int id;
 	private String lastName;
 	private String firstName;
