@@ -1,4 +1,4 @@
-package tn.pfe.student.Student;
+package tn.pfe.service.Student;
 
 
 import java.util.List;
@@ -18,7 +18,7 @@ import tn.pfe.entity.Student;
 @LocalBean
 public class StudentService implements StudentServiceRemote, StudentServiceLocal {
 
-	@PersistenceContext(unitName="PlateformPFEDS")
+	@PersistenceContext(unitName="PlatformPFEDS")
 	EntityManager em;
 	
     /**

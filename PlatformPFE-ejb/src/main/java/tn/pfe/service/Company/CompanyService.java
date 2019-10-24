@@ -17,7 +17,7 @@ import tn.pfe.entity.Student;
 @LocalBean
 public class CompanyService implements CompanyServiceRemote, CompanyServiceLocal {
 
-	@PersistenceContext(unitName="PlateformPFEDS")
+	@PersistenceContext(unitName="PlatformPFEDS")
 	EntityManager em;
 	
     /**

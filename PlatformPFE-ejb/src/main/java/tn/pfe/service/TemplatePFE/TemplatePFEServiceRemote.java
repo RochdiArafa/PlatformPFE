@@ -17,6 +17,8 @@ public interface TemplatePFEServiceRemote {
 	public void modifier(TemplatePFE E);
 	
 	public void delete(int id);
+	
+	public void exportTemplateFile(int id);
 
 	
 }

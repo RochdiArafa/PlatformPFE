@@ -17,7 +17,7 @@ import tn.pfe.entity.Student;
 @LocalBean
 public class ProjectCategorie implements ProjectCategorieRemote, ProjectCategorieLocal {
 
-	@PersistenceContext(unitName="PlateformPFEDS")
+	@PersistenceContext(unitName="PlatformPFEDS")
 	EntityManager em;
 	
     /**

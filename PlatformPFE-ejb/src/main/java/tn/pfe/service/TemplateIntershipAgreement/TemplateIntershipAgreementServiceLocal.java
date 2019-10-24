@@ -19,4 +19,6 @@ public interface TemplateIntershipAgreementServiceLocal {
 
 	public void delete(int id);
 
+	public void exportTemplateIntershipAgreement(int id);
+
 }

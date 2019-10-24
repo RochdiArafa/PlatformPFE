@@ -71,6 +71,14 @@ public class TemplateIntershipAgreementRest {
 			return "there is no object with the id = "+id;
 	}
 	
+	@GET
+	@Path("/export")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String exportTemplatePFE(@QueryParam(value="id")int id) {
+		templateIntershipAgreementService.exportTemplateIntershipAgreement(id);
+		return "Template exported !!";
+	}
+	
 	
 	
 

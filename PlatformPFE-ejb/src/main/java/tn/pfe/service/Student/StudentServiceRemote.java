@@ -1,16 +1,18 @@
-package tn.pfe.student.Student;
+package tn.pfe.service.Student;
 
 
 import java.util.List;
 
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 import tn.pfe.entity.Student;
 
-@Local
-public interface StudentServiceLocal {
+@Remote
+public interface StudentServiceRemote {
+
 	public List<Student> getAllStudent();
 	public List<Student> getAllStudentRecrutedoverContry();
 	public List<Student> getAllStudentRecrutedByContryByYear(String contry , String year);
+
 
 }

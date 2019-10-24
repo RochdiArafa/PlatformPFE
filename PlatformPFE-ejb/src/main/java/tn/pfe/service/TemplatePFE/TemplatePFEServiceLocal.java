@@ -17,5 +17,8 @@ public interface TemplatePFEServiceLocal {
 	public void modifier(TemplatePFE T);
 
 	public void delete(int id);
+	
+	public void exportTemplateFile(int id);
+
 
 }

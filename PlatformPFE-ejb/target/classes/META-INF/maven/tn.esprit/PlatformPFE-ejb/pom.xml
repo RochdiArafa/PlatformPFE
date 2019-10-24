@@ -101,6 +101,33 @@
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>               
         </dependency>
+        
+        
+        <!-- https://mvnrepository.com/artifact/com.docraptor/docraptor -->
+         
+		<dependency>
+		    <groupId>com.docraptor</groupId>
+		    <artifactId>docraptor</artifactId>
+		    <version>1.1.0</version>
+		</dependency>
+         
+         
+		<!-- https://mvnrepository.com/artifact/com.pdfcrowd/pdfcrowd -->
+		
+		<dependency>
+		    <groupId>com.pdfcrowd</groupId>
+		    <artifactId>pdfcrowd</artifactId>
+		    <version>4.3.5</version>
+		</dependency>
+		 
+
+		<!-- https://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker -->
+		<dependency>
+		    <groupId>com.itextpdf.tool</groupId>
+		    <artifactId>xmlworker</artifactId>
+		    <version>5.5.7</version>
+		</dependency>
+
 
     </dependencies>
 
