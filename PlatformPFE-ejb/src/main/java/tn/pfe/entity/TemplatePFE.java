@@ -2,11 +2,13 @@ package tn.pfe.entity;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class TemplatePFE implements Serializable {
@@ -15,6 +17,9 @@ public class TemplatePFE implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String Template;
+	
+	@OneToMany(mappedBy="templatePFE")
+	private List<GradProjectFile> gradProjectFiles;
 	
 	
 	public int getId() {
@@ -31,13 +36,23 @@ public class TemplatePFE implements Serializable {
 	}
 	
 	
+	
+	public List<GradProjectFile> getGradProjectFiles() {
+		return gradProjectFiles;
+	}
+	public void setGradProjectFiles(List<GradProjectFile> gradProjectFiles) {
+		this.gradProjectFiles = gradProjectFiles;
+	}
 	public TemplatePFE(String template) {
 		Template = template;
 	}
+	
 	public TemplatePFE(int id, String template) {
 		this.id = id;
 		Template = template;
 	}
+	
+	
 	public TemplatePFE() {
 	}
 	
@@ -46,6 +61,11 @@ public class TemplatePFE implements Serializable {
 	@Override
 	public String toString() {
 		return "TemplatePFE [id=" + id + ", Template=" + Template + "]";
+	}
+	public TemplatePFE(int id, String template, List<GradProjectFile> gradProjectFiles) {
+		this.id = id;
+		Template = template;
+		this.gradProjectFiles = gradProjectFiles;
 	}
 	
 	

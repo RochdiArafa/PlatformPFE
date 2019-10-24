@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -36,6 +37,9 @@ public class GradProjectFile implements Serializable{
 	List<projectCategory>category;
 	@OneToOne(mappedBy="gradproj")
 	private Company company;
+	
+	@ManyToOne
+	private TemplatePFE templatePFE;
 
 	public GradProjectFile(int title, int description, int problem, int functionnalities, int keyword,
 			List<projectCategory> category, Company company) {
@@ -90,6 +94,33 @@ public class GradProjectFile implements Serializable{
 	}
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public TemplatePFE getTemplatePFE() {
+		return templatePFE;
+	}
+	public void setTemplatePFE(TemplatePFE templatePFE) {
+		this.templatePFE = templatePFE;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public GradProjectFile(int id, int title, int description, int problem, int functionnalities, int keyword,
+			List<projectCategory> category, Company company, TemplatePFE templatePFE) {
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.problem = problem;
+		this.functionnalities = functionnalities;
+		this.keyword = keyword;
+		this.category = category;
+		this.company = company;
+		this.templatePFE = templatePFE;
 	}
 	
 	

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -32,6 +33,9 @@ public class InternshipAgreement implements Serializable {
 	@OneToOne(mappedBy="internagreement")
 	private Company company;
 	
+	
+	@ManyToOne
+	private TemplateIntershipAgreement templateIntershipAgreement;
 	
 	public InternshipAgreement(Date beginningDate, Date endingDate, Company company) {
 		super();
@@ -64,5 +68,24 @@ public class InternshipAgreement implements Serializable {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
+	public TemplateIntershipAgreement getTemplateIntershipAgreement() {
+		return templateIntershipAgreement;
+	}
+	public void setTemplateIntershipAgreement(TemplateIntershipAgreement templateIntershipAgreement) {
+		this.templateIntershipAgreement = templateIntershipAgreement;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public InternshipAgreement(int id, Date beginningDate, Date endingDate, Company company,
+			TemplateIntershipAgreement templateIntershipAgreement) {
+		this.id = id;
+		this.beginningDate = beginningDate;
+		this.endingDate = endingDate;
+		this.company = company;
+		this.templateIntershipAgreement = templateIntershipAgreement;
+	}
+	
+	
 	
 }
