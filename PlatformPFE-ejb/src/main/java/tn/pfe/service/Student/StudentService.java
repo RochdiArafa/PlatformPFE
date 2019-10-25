@@ -34,19 +34,19 @@ public class StudentService implements StudentServiceRemote, StudentServiceLocal
 		List<Student> Students = em.createQuery("Select s from Student s", Student.class).getResultList();
 		return Students;
 	}
-
+	
 	@Override
 	public List<Student> getAllStudentRecrutedoverContry() {
 		// TODO Auto-generated method stub
-		List<Student> Students = em.createQuery("Select s from Student s , Company c where c.country not like 'tunisia' AND c.id = s.id", Student.class).getResultList();
+		List<Student> Students = em.createQuery("Select s from Student s , Company c where c.country Not like 'tunisia' AND c.id = s.company.id", Student.class).getResultList();
 		return Students;
-	}
+	} 
 
 	@Override
-	public List<Student> getAllStudentRecrutedByContryByYear(String contry, String year) {
+	public List<Student> getAllStudentRecrutedByContryByYear(String contry, int year) {
 		// TODO Auto-generated method stub
 		List<Student> Students ;
-		Query query =  em.createQuery("Select s from Student s , Company c where c.country=:contry AND c.year =:year AND c.id = s.id").setParameter(1, contry).setParameter(2, year);
+		Query query =  em.createQuery("Select s from Student s , Company c  , InternshipAgreement ia where c.country like :contry and extract(year from ia.beginningDate) like :year and c.id = s.company.id and c.internagreement.id = ia.id ").setParameter("contry", contry).setParameter("year", year);
 		Students = query.getResultList();
 		return Students;
 	}

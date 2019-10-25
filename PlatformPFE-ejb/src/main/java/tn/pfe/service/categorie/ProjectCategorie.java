@@ -8,7 +8,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import tn.pfe.entity.GradProjectFile;
 import tn.pfe.entity.Student;
+import tn.pfe.entity.projectCategory;
 
 /**
  * Session Bean implementation class ProjectCategorie
@@ -28,12 +30,20 @@ public class ProjectCategorie implements ProjectCategorieRemote, ProjectCategori
     }
 
 	@Override
-	public List<Object> getNbStageParCategorie() {
+	public List<GradProjectFile> getNbStageParCategorie(int id_category) {
+		projectCategory c = em.find(projectCategory.class, id_category);
 		// TODO Auto-generated method stub
-		List<Object> stages = em.createQuery("Select COUNT(s) as nb from GradProject_File s , project_Categoy c where c.ID_projectCategory = s.ID_gradproject group by c.ID_projectCategory", Object.class).getResultList();
+		//List<Object> stages = em.createQuery("Select COUNT(*) as nb from GradProject_File s , project_Categoy c where  c.ID_projectCategory =:id_category", Object.class).setParameter("id_category", id_category).getResultList();
+		List<GradProjectFile> stages = c.getGradProjectFiles();
+		for (GradProjectFile g : stages) {
+			System.out.println(g);
+			
+		}
 		return stages;
 	}
+	
+}	
     
     
 
-}
+

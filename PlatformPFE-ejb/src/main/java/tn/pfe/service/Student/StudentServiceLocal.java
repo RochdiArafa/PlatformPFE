@@ -11,6 +11,6 @@ import tn.pfe.entity.Student;
 public interface StudentServiceLocal {
 	public List<Student> getAllStudent();
 	public List<Student> getAllStudentRecrutedoverContry();
-	public List<Student> getAllStudentRecrutedByContryByYear(String contry , String year);
+	public List<Student> getAllStudentRecrutedByContryByYear(String contry , int year);
 
 }

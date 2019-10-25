@@ -5,9 +5,11 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import tn.pfe.entity.GradProjectFile;
+
 @Local
 public interface ProjectCategorieLocal {
 
-	public List<Object> getNbStageParCategorie();
+	public List<GradProjectFile> getNbStageParCategorie(int id_category);
 
 }

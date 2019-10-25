@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import tn.pfe.entity.GradProjectFile;
+
 @Remote
 public interface ProjectCategorieRemote {
 
-	public List<Object> getNbStageParCategorie();
+	public List<GradProjectFile> getNbStageParCategorie(int id_category);
 }

@@ -1,12 +1,15 @@
 package tn.pfe.entity;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -23,105 +26,133 @@ public class GradProjectFile implements Serializable{
 	@Column(name="ID_gradproject")
 	private int id;
 	@Column(name="title_gradproject")
-	private int title;
+	private String title;
 	@Column(name="description_gradproject")
-	private int description;
+	private String description;
 	@Column(name="problem_gradproject")
-	private int problem;
+	private String problem;
 	@Column(name="functionnalities_gradproject")
-	private int functionnalities;
+	private String functionnalities;
 	@Column(name="keyword_gradproject")
-	private int keyword;
-	@OneToMany(mappedBy="GradProject_File")
-	@Column(name="category_gradproject")
-	List<projectCategory>category;
+	private String keyword;
+
 	@OneToOne(mappedBy="gradproj")
 	private Company company;
 	
 	@ManyToOne
 	private TemplatePFE templatePFE;
-
-	public GradProjectFile(int title, int description, int problem, int functionnalities, int keyword,
-			List<projectCategory> category, Company company) {
-		super();
-		this.title = title;
-		this.description = description;
-		this.problem = problem;
-		this.functionnalities = functionnalities;
-		this.keyword = keyword;
-		this.category = category;
-		this.company = company;
-	}
-	public int getTitle() {
-		return title;
-	}
-	public void setTitle(int title) {
-		this.title = title;
-	}
-	public int getDescription() {
-		return description;
-	}
-	public void setDescription(int description) {
-		this.description = description;
-	}
-	public int getProblem() {
-		return problem;
-	}
-	public void setProblem(int problem) {
-		this.problem = problem;
-	}
-	public int getFunctionnalities() {
-		return functionnalities;
-	}
-	public void setFunctionnalities(int functionnalities) {
-		this.functionnalities = functionnalities;
-	}
-	public int getKeyword() {
-		return keyword;
-	}
-	public void setKeyword(int keyword) {
-		this.keyword = keyword;
-	}
 	
-	public List<projectCategory> getCategory() {
-		return category;
-	}
-	public void setCategory(List<projectCategory> category) {
-		this.category = category;
-	}
-	public Company getCompany() {
-		return company;
-	}
-	public void setCompany(Company company) {
-		this.company = company;
-	}
+	@ManyToMany(mappedBy="gradProjectFiles" , fetch=FetchType.EAGER)
+	private List<projectCategory> Categorys = new ArrayList<>();
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getProblem() {
+		return problem;
+	}
+
+	public void setProblem(String problem) {
+		this.problem = problem;
+	}
+
+	public String getFunctionnalities() {
+		return functionnalities;
+	}
+
+	public void setFunctionnalities(String functionnalities) {
+		this.functionnalities = functionnalities;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
 	public TemplatePFE getTemplatePFE() {
 		return templatePFE;
 	}
+
 	public void setTemplatePFE(TemplatePFE templatePFE) {
 		this.templatePFE = templatePFE;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public GradProjectFile(int id, int title, int description, int problem, int functionnalities, int keyword,
-			List<projectCategory> category, Company company, TemplatePFE templatePFE) {
+
+
+	public List<projectCategory> getCategorys() {
+		return Categorys;
+	}
+
+	public void setCategorys(List<projectCategory> categorys) {
+		Categorys = categorys;
+	}
+
+	public GradProjectFile(int id, String title, String description, String problem, String functionnalities,
+			String keyword, Company company, TemplatePFE templatePFE, List<projectCategory> categorys) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.problem = problem;
 		this.functionnalities = functionnalities;
 		this.keyword = keyword;
-		this.category = category;
 		this.company = company;
 		this.templatePFE = templatePFE;
+		Categorys = categorys;
 	}
+
+	public GradProjectFile() {
+	}
+
+	@Override
+	public String toString() {
+		return "GradProjectFile [id=" + id + ", title=" + title + ", description=" + description + ", problem="
+				+ problem + ", functionnalities=" + functionnalities + ", keyword=" + keyword + ", company=" + company
+				+ ", templatePFE=" + templatePFE + ", Categorys=" + Categorys + "]";
+	}
+
+
+	
+	
+
+
+
+	
 	
 	
 	
