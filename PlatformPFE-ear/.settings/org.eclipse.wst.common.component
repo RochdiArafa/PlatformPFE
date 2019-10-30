@@ -62,5 +62,23 @@
         <dependent-module archiveName="itextpdf.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/itextpdf/itextpdf/5.5.7/itextpdf-5.5.7.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="mail.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/mail/mail/1.5.0-b01/mail-1.5.0-b01.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="activation.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/activation/activation/1.1.1/activation-1.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javax.mail-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/mail/javax.mail-api/1.6.2/javax.mail-api-1.6.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="passay.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/passay/passay/1.0/passay-1.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cryptacular.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/cryptacular/cryptacular/1.0/cryptacular-1.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="bcprov-jdk15on.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/bouncycastle/bcprov-jdk15on/1.50/bcprov-jdk15on-1.50.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

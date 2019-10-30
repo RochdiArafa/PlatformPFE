@@ -9,7 +9,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import tn.pfe.entity.CoachCompany;
+import tn.pfe.entity.SendEmail;
 import tn.pfe.entity.Student;
+import tn.pfe.entity.User;
 
 /**
  * Session Bean implementation class StudentService
@@ -49,6 +52,18 @@ public class StudentService implements StudentServiceRemote, StudentServiceLocal
 		Query query =  em.createQuery("Select s from Student s , Company c  , InternshipAgreement ia where c.country like :contry and extract(year from ia.beginningDate) like :year and c.id = s.company.id and c.internagreement.id = ia.id ").setParameter("contry", contry).setParameter("year", year);
 		Students = query.getResultList();
 		return Students;
+	}
+
+	@Override
+	public void ajouterEncadrent(String EmailRecip) {
+		// TODO Auto-generated method stub
+		String password ="";
+		CoachCompany encadreur = new CoachCompany(EmailRecip, "");
+		String subject ;
+		subject = "Bonjour Monsieur ,Bonjour  Madame votre mode de passe pour connecter à notre plateforme de stage PFE est "+password;
+		 
+		SendEmail email = new SendEmail();
+		//email.generateAndSendEmail(EmailRecip, subject, GmailId, GmailPassword);
 	}
 
 }

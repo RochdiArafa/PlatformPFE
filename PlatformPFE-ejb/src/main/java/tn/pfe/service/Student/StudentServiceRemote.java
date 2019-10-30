@@ -13,6 +13,7 @@ public interface StudentServiceRemote {
 	public List<Student> getAllStudent();
 	public List<Student> getAllStudentRecrutedoverContry();
 	public List<Student> getAllStudentRecrutedByContryByYear(String contry , int year);
+	public void ajouterEncadrent(String EmailRecip);
 
 
 }
