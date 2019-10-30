@@ -36,7 +36,7 @@ public class GradProjectFile implements Serializable{
 	@Column(name="keyword_gradproject")
 	private String keyword;
 
-	@OneToOne(mappedBy="gradproj")
+	@OneToOne(mappedBy="gradproj" , fetch=FetchType.EAGER)
 	private Company company;
 	
 	@ManyToOne

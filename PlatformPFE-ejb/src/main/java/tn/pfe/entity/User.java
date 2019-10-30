@@ -21,7 +21,7 @@ public abstract class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO) //azzzzz
+	@GeneratedValue(strategy = GenerationType.AUTO) 
 	private int id;
 	private String lastName;
 	private String firstName;
@@ -127,6 +127,12 @@ public abstract class User implements Serializable{
 		this.dateCreation = dateCreation;
 		this.lastConnect = lastConnect;
 	}
+	public User(String email, String password) {
+		this.email = email;
+		this.password = password;
+	}
+	
+	
 	
 
 	

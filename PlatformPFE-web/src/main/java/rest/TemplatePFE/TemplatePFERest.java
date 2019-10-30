@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import rest.Secured;
 import tn.pfe.entity.TemplatePFE;
 import tn.pfe.service.TemplatePFE.TemplatePFEServiceRemote;
 
@@ -51,7 +52,7 @@ public class TemplatePFERest {
 			return "there is no object with the id = "+id;
 	}
 	
-	
+	@Secured
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public TemplatePFE searchTemplatePFE(@QueryParam(value="id")int id) {

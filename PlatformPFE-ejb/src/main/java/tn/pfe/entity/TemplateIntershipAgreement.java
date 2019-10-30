@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +19,7 @@ public class TemplateIntershipAgreement implements Serializable {
 	private int id;
 	private String Template;
 	
-	@OneToMany(mappedBy="templateIntershipAgreement")
+	@OneToMany(mappedBy="templateIntershipAgreement" , fetch=FetchType.EAGER)
 	private List<InternshipAgreement> internshipAgreement;
 	
 	
