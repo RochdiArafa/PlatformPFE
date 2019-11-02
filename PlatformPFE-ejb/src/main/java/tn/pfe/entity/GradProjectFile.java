@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
+
 
 import tn.pfe.entity.Student;
 
@@ -59,6 +61,9 @@ private boolean preValidated;
 	private Student Student;
 	
 	
+	@OneToOne(mappedBy="pfe",cascade =CascadeType.MERGE,fetch=FetchType.EAGER)
+	private Soutenance soutenance ;
+	
 	
 	@OneToOne(mappedBy="gradproj" , fetch=FetchType.EAGER)
 	private Company company;
@@ -73,7 +78,15 @@ private boolean preValidated;
 	
 	
 	
-	
+	@XmlElement
+	public Soutenance getSoutenance() {
+		return soutenance;
+	}
+
+	public void setSoutenance(Soutenance soutenance) {
+		this.soutenance = soutenance;
+	}
+
 	@XmlElement
 	public int getId() {
 		return id;

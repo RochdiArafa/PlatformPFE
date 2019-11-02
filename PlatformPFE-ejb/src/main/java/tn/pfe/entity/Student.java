@@ -8,6 +8,7 @@ import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+
 import tn.pfe.entity.*;
 
 @Entity
@@ -23,7 +24,8 @@ public class Student extends User implements Serializable{
 	
 	@ManyToOne
 	private Teacher  rapporteurs;
-	
+	@ManyToOne
+	private Admin admin ;
 	
 	@OneToOne(mappedBy = "Student")
 	private GradProjectFile PfeFile;
@@ -32,7 +34,14 @@ public class Student extends User implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	@XmlElement
+	public Admin getAdmin() {
+		return admin;
+	}
 
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
+	}
 	
 	@XmlTransient
 	public Teacher getEncadrants() {
