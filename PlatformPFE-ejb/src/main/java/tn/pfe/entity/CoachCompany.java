@@ -19,14 +19,11 @@ public class CoachCompany extends User implements Serializable{
 		this.company = company;
 	}
 
-	public CoachCompany(String email, String password, Company company) {
-		super(email, password);
-		this.company = company;
+	public CoachCompany(String email, String password, boolean isEnable) {
+		super(email, password, isEnable);
 	}
-	
-	public CoachCompany(String email, String password) {
-		super(email, password);
-	}
+
+
 	
 	
 	

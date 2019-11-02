@@ -15,7 +15,7 @@ public class SendEmail {
 	static Session getMailSession;
 	static MimeMessage generateMailMessage;
 	
-	public static void generateAndSendEmail(String EmailRecip  , String subject , String GmailId , String GmailPassword ) throws AddressException, MessagingException {
+	public static void generateAndSendEmail(String EmailRecip  , String subject , String emailcontent , String GmailId , String GmailPassword ) throws AddressException, MessagingException {
 		 
 		// Step1
 		System.out.println("\n 1st ===> setup Mail Server Properties..");
@@ -30,8 +30,8 @@ public class SendEmail {
 		getMailSession = Session.getDefaultInstance(mailServerProperties, null);
 		generateMailMessage = new MimeMessage(getMailSession);
 		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(EmailRecip));
-		generateMailMessage.setSubject("Greetings from Crunchify..");
-		String emailBody = subject;
+		generateMailMessage.setSubject(subject);
+		String emailBody = emailcontent;
 		generateMailMessage.setContent(emailBody, "text/html");
 		System.out.println("Mail Session has been created successfully..");
  
