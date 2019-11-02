@@ -22,7 +22,7 @@ public abstract class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) 
-	private int id;
+	private int id;// aaa
 	private String lastName;
 	private String firstName;
 	private String email;
