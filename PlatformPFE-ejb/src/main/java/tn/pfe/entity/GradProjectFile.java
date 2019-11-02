@@ -1,7 +1,10 @@
 package tn.pfe.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +17,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import tn.pfe.entity.Student;
 
 
 
@@ -22,8 +31,7 @@ import javax.persistence.Table;
 public class GradProjectFile implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="ID_gradproject")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(name="title_gradproject")
 	private String title;
@@ -36,6 +44,22 @@ public class GradProjectFile implements Serializable{
 	@Column(name="keyword_gradproject")
 	private String keyword;
 
+	
+	
+private boolean preValidated;
+	
+	@Temporal(TemporalType.DATE)
+	private Date anneeScolaire =  new Date();
+	
+	private String Motif;
+	
+	private double note;
+
+	@OneToOne
+	private Student Student;
+	
+	
+	
 	@OneToOne(mappedBy="gradproj" , fetch=FetchType.EAGER)
 	private Company company;
 	
@@ -43,8 +67,14 @@ public class GradProjectFile implements Serializable{
 	private TemplatePFE templatePFE;
 	
 	@ManyToMany(mappedBy="gradProjectFiles" , fetch=FetchType.EAGER)
-	private List<projectCategory> Categorys = new ArrayList<>();
+	private Set<projectCategory> Categorys = new HashSet<>();
 
+	
+	
+	
+	
+	
+	@XmlElement
 	public int getId() {
 		return id;
 	}
@@ -53,6 +83,70 @@ public class GradProjectFile implements Serializable{
 		this.id = id;
 	}
 
+	
+
+	
+	@XmlElement
+	public double getNote() {
+		return note;
+	}
+
+	public void setNote(double note) {
+		this.note = note;
+	}
+
+	@XmlElement
+	public boolean isPreValidated() {
+		return preValidated;
+	}
+
+	public void setPreValidated(boolean preValidated) {
+		this.preValidated = preValidated;
+	}
+
+	
+	@XmlElement
+	public Date getAnneeScolaire() {
+		return anneeScolaire;
+	}
+
+	public void setAnneeScolaire(Date anneeScolaire) {
+		this.anneeScolaire = anneeScolaire;
+	}
+
+	@XmlTransient
+	public Student getStudent() {
+		return Student;
+	}
+
+	public void setStudent(Student student) {
+		Student = student;
+	}
+
+	
+
+	@XmlElement
+	public Set<projectCategory> getCategoriesoffile() {
+		return Categorys;
+	}
+
+	public void setCategoriesoffile(Set<projectCategory> categoriesoffile) {
+		this.Categorys= categoriesoffile;
+	}
+
+	@XmlElement
+	public String getMotif() {
+		return Motif;
+	}
+
+	public void setMotif(String motif) {
+		Motif = motif;
+	}
+	
+	
+	
+	
+	
 	public String getTitle() {
 		return title;
 	}
@@ -115,16 +209,18 @@ public class GradProjectFile implements Serializable{
 	}
 
 
-	public List<projectCategory> getCategorys() {
+
+
+	public Set<projectCategory> getCategorys() {
 		return Categorys;
 	}
 
-	public void setCategorys(List<projectCategory> categorys) {
+	public void setCategorys(Set<projectCategory> categorys) {
 		Categorys = categorys;
 	}
 
 	public GradProjectFile(int id, String title, String description, String problem, String functionnalities,
-			String keyword, Company company, TemplatePFE templatePFE, List<projectCategory> categorys) {
+			String keyword, Company company, TemplatePFE templatePFE) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -133,12 +229,13 @@ public class GradProjectFile implements Serializable{
 		this.keyword = keyword;
 		this.company = company;
 		this.templatePFE = templatePFE;
-		Categorys = categorys;
+		//Categorys = categorys;
 	}
 
 	public GradProjectFile() {
 	}
 
+	
 	@Override
 	public String toString() {
 		return "GradProjectFile [id=" + id + ", title=" + title + ", description=" + description + ", problem="

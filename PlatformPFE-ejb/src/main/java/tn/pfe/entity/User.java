@@ -15,14 +15,15 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-@Table(name="User")
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+//@Table(name="User")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO) 
-	private int id;// aaa
+
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private int id;
 	private String lastName;
 	private String firstName;
 	private String email;
