@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0uto-merging PlatformPFE-ejb/src/main/java/tn/pfe/entity/User.java
 
 
+=======
+Manifest-Version: 1.0
+>>>>>>> sofien
 Built-By: sofiene
 Build-Jdk: 1.8.0_211
 Created-By: Maven Integration for Eclipse

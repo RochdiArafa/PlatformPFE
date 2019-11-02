@@ -1,10 +1,8 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: aziiz
-Build-Jdk: 1.8.0_60
-=======
 Built-By: sofiene
 Build-Jdk: 1.8.0_211
->>>>>>> update
+Built-By: sofiene
+Build-Jdk: 1.8.0_211
+>>>>>>> sofien
 Created-By: Maven Integration for Eclipse
 
