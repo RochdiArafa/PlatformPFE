@@ -1,51 +1,79 @@
 package tn.pfe.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import tn.pfe.entity.Teacher;
 
 @Entity
-@Table(name="project_Categoy")
+@Table
 public class projectCategory implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID_projectCategory")
 	private int id;
-	@Column(name="name_projectCategory")
-	private String name;
+		
+	private String Name;
+	
+	private String Description;
+
+	private Boolean valide;
+	
+	@ManyToMany(mappedBy = "PreferedCategories" , cascade= CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Teacher> teacherspreferdCategorie = new HashSet<>();
+
+	
+	@ManyToOne
+	private Teacher Teacher;
+	
+	
 	
 	
 	@ManyToMany
 	private List<GradProjectFile> gradProjectFiles;
 	
 	
+	
+	
+	
+	
+	
+	
+	@XmlTransient
+	public Set<Teacher> getTeacherpreferdCategories() {
+		return teacherspreferdCategorie;
+	}
+
+	public void setTeacherspreferdCategorie(Set<Teacher> teachers) {
+		this.teacherspreferdCategorie = teachers;
+	}
+
+	
+	
+	
 	public projectCategory(String name) {
 		super();
-		this.name = name;
+		//this.name = name;
 	}
 	
 	public projectCategory(){}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 
 	public List<GradProjectFile> getGradProjectFiles() {
 		return gradProjectFiles;
@@ -61,13 +89,83 @@ public class projectCategory implements Serializable{
 
 	public projectCategory(int id, String name, List<GradProjectFile> gradProjectFiles) {
 		this.id = id;
-		this.name = name;
+		this.Name = name;
 		this.gradProjectFiles = gradProjectFiles;
 	}
 
 
 	
 
+	@XmlElement
+	public Teacher getTeacher() {
+		return Teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		Teacher = teacher;
+	}
+
+	
+
+	@XmlElement
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@XmlElement
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
+
+	@XmlElement
+	public String getDescription() {
+		return Description;
+	}
+
+	public void setDescription(String description) {
+		Description = description;
+	}
+
+	
+    @XmlElement
+	public Boolean getValide() {
+		return valide;
+	}
+
+	public void setValide(Boolean valide) {
+		this.valide = valide;
+	}
+
+	@XmlTransient
+	public Set<Teacher> getTeacherspreferdCategorie() {
+		return teacherspreferdCategorie;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((Description == null) ? 0 : Description.hashCode());
+		result = prime * result + ((Name == null) ? 0 : Name.hashCode());
+		result = prime * result + ((Teacher == null) ? 0 : Teacher.hashCode());
+		result = prime * result + ((gradProjectFiles == null) ? 0 : gradProjectFiles.hashCode());
+		result = prime * result + id;
+		result = prime * result + (( Name == null) ? 0 : Name.hashCode());
+		result = prime * result + ((teacherspreferdCategorie == null) ? 0 : teacherspreferdCategorie.hashCode());
+		result = prime * result + ((valide == null) ? 0 : valide.hashCode());
+		return result;
+	}
+
+	
+	
 
 
 	

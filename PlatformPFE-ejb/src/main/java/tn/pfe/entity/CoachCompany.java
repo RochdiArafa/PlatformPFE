@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class CoachCompany extends User implements Serializable{
 
+	//private int attr;
 	@ManyToOne
 	private Company company;
 
@@ -23,6 +24,11 @@ public class CoachCompany extends User implements Serializable{
 		super(email, password, isEnable);
 	}
 
+
+	public CoachCompany() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	
 	
