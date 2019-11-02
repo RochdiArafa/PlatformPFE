@@ -11,6 +11,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 
 
@@ -40,72 +42,84 @@ public abstract class User implements Serializable{
 	
 		
 	public User(){}
+	@XmlAttribute
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
+	@XmlElement
 	public String getLastName() {
 		return lastName;
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	@XmlElement
 	public String getFirstName() {
 		return firstName;
 	}
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+	@XmlElement
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	@XmlElement
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	@XmlElement
 	public int getPhoneNumber() {
 		return phoneNumber;
 	}
 	public void setPhoneNumber(int phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	@XmlElement
 	public Date getBirthDay() {
 		return birthDay;
 	}
 	public void setBirthDay(Date birthDay) {
 		this.birthDay = birthDay;
 	}
+	@XmlElement
 	public Boolean getIsEnable() {
 		return isEnable;
 	}
 	public void setIsEnable(Boolean isEnable) {
 		this.isEnable = isEnable;
 	}
+	@XmlElement
 	public Boolean getConnected() {
 		return connected;
 	}
 	public void setConnected(Boolean connected) {
 		this.connected = connected;
 	}
+	@XmlElement
 	public String getToken() {
 		return token;
 	}
 	public void setToken(String token) {
 		this.token = token;
 	}
+	@XmlElement
 	public Date getDateCreation() {
 		return dateCreation;
 	}
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
 	}
+	@XmlElement
 	public Date getLastConnect() {
 		return lastConnect;
 	}

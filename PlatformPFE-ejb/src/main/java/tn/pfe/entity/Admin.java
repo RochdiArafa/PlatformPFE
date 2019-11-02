@@ -60,7 +60,7 @@ public class Admin extends User implements Serializable {
 	@OneToMany(mappedBy ="admin",fetch= FetchType.EAGER, cascade= CascadeType.ALL)
 private Set<Classes> classes = new HashSet<Classes>();
 	
-	@OneToMany(mappedBy = "admin")
+	@OneToMany(mappedBy = "admin",fetch= FetchType.EAGER, cascade= CascadeType.ALL)
 	private List<Payment> payments = new ArrayList<Payment>();
 	
 

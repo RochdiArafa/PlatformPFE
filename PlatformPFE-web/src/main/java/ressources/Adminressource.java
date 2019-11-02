@@ -34,7 +34,7 @@ public class Adminressource {
 		return "c bn" ;
 	}
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_XML)
 	public List<Admin> Getadmins() 
 	{
 		
