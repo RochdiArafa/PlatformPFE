@@ -1,15 +1,5 @@
-<<<<<<< HEAD
-Manifesr-Version: 1.0
-r: Failed to merge in the changes.
-
-
-Built-By: sofiene
-Build-Jdk: 1.8.0_211
->>>>>>> update
-=======
 Manifest-Version: 1.0
-Built-By: sofiene
-Build-Jdk: 1.8.0_211
->>>>>>> sofien
+Built-By: aziiz
+Build-Jdk: 1.8.0_60
 Created-By: Maven Integration for Eclipse
 

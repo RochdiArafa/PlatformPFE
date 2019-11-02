@@ -1,10 +1,9 @@
 package tn.pfe.entity;
 
-<<<<<<< HEAD
-public class Admin {
 
-=======
->>>>>>> sofien
+
+
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ public class Admin extends User implements Serializable {
 
 	private String Element;
 	
-	
+	private String testaziz ; //testtlouledd 
 	@OneToMany(mappedBy = "admin")
 	private List<Payment> payments = new ArrayList<Payment>();
 	
@@ -34,10 +33,6 @@ public class Admin extends User implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-<<<<<<< HEAD
-}
-=======
->>>>>>> sofien
 
 	public List<Payment> getPayments() {
 		return payments;
@@ -45,11 +40,10 @@ public class Admin extends User implements Serializable {
 
 	public void setPayments(List<Payment> payments) {
 		this.payments = payments;
-<<<<<<< HEAD
-=======
+
 	}
 	
 	
 	
->>>>>>> sofien
+
 }
