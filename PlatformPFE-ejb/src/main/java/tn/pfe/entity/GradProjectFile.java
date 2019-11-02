@@ -54,6 +54,8 @@ private boolean preValidated;
 	private String Motif;
 	
 	private double note;
+	
+	private double note_Rapporteur;
 
 	@OneToOne
 	private Student Student;
@@ -241,6 +243,14 @@ private boolean preValidated;
 		return "GradProjectFile [id=" + id + ", title=" + title + ", description=" + description + ", problem="
 				+ problem + ", functionnalities=" + functionnalities + ", keyword=" + keyword + ", company=" + company
 				+ ", templatePFE=" + templatePFE + ", Categorys=" + Categorys + "]";
+	}
+
+	public double getNote_Rapporteur() {
+		return note_Rapporteur;
+	}
+
+	public void setNote_Rapporteur(double note_Rapporteur) {
+		this.note_Rapporteur = note_Rapporteur;
 	}
 
 
