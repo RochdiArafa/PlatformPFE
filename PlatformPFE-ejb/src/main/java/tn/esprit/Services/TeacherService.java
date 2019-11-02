@@ -155,9 +155,15 @@ public class TeacherService implements TeacherServiceRemote, TeacherServiceLocal
 
 
 	@Override
-	public void prevalide(int idt, int idfile) {
+	public void prevalide(int idt, int idfile,String role) {
 		
-		Set<GradProjectFile> pfefiles = listerFileEncadrer(idt);
+		Set<GradProjectFile> pfefiles ;
+		if(role.equals("encadrant")) {
+pfefiles = listerFileEncadrer(idt);
+		}
+		else {
+			 pfefiles = listerFileRapporter(idt);
+		}
 		
 		for( GradProjectFile file : pfefiles ) {
 			if(file != null) {
@@ -171,10 +177,15 @@ public class TeacherService implements TeacherServiceRemote, TeacherServiceLocal
 
 
 	@Override
-	public void noterpfeFile(int idt, int idfile, double note) {
+	public void noterpfeFile(int idt, int idfile, double note, String Role) {
 		
-	Set<GradProjectFile> pfefiles = listerFileEncadrer(idt);
-		
+		Set<GradProjectFile> pfefiles ;
+		if(Role.equals("encadrant")) {
+pfefiles = listerFileEncadrer(idt);
+		}
+		else {
+			 pfefiles = listerFileRapporter(idt);
+		}
 		for( GradProjectFile file : pfefiles ) {
 			if(file != null) {
 			if(file.getId() == idfile) {

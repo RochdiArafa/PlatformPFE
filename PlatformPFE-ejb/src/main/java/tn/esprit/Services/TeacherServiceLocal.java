@@ -21,8 +21,8 @@ public interface TeacherServiceLocal {
 	Set<Student> listerSdtarapporter(int idT);
 	Set<GradProjectFile> listerFileEncadrer(int idt);
 	Set<GradProjectFile> listerFileRapporter(int idt);
-	void prevalide(int idt,int idfile);
-	void noterpfeFile(int idt,int idfile,double note);
+	void prevalide(int idt,int idfile,String role);
+	void noterpfeFile(int idt,int idfile,double note,String role);
 	
 	
 	//stat

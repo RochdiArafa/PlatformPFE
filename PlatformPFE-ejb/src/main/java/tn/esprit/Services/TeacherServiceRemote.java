@@ -20,8 +20,8 @@ public interface TeacherServiceRemote {
 	Set<GradProjectFile> listerFileEncadrer(int idt);
 	Set<GradProjectFile> listerFileRapporter(int idt);
 	Set<Student> listerSdtarapporter(int idT);
-	void prevalide(int idt,int idfile);
-	void noterpfeFile(int idt,int idfile,double note);
+	void prevalide(int idt,int idfile,String role);
+	void noterpfeFile(int idt,int idfile,double note,String role);
 	void rappporterEtudiant(int idT, int idStu);
 	
 	//stat

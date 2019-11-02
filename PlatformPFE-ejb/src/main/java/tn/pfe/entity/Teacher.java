@@ -53,8 +53,8 @@ public class Teacher  extends User  implements Serializable {
 	@OneToMany(mappedBy = "rapporteurs", cascade= CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<Student> Etudiantarapporter = new HashSet<>();
 	
-	
-	
+	@OneToMany(mappedBy="teacher")
+	private Set<ActionTeacher> ActionsTeacher = new HashSet<>();
 	
 	
 	public void addCategorie(projectCategory c) {
