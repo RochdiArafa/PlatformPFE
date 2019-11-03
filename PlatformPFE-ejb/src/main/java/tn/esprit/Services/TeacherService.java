@@ -556,7 +556,7 @@ Set<Student> setStudent = new HashSet<>();
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 		
-		return categoriesStat;
+		return result;
 	}
 
 	
@@ -592,7 +592,7 @@ Set<Student> setStudent = new HashSet<>();
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 		
-		return categoriesStat;
+		return result;
 	}
 
 
@@ -626,7 +626,7 @@ Set<Student> setStudent = new HashSet<>();
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 		
-		return categoriesStat;
+		return result;
 	}
 
 
@@ -728,7 +728,7 @@ Set<Student> setStudent = new HashSet<>();
 					
 				 }
 				 else {
-						mapcat.put(c,file.getNote() );
+						mapcat.put(c,file.getNote_rapporteur() );
 					}
 				}
 		 }

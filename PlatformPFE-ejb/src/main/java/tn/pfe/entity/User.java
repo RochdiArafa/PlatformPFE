@@ -13,12 +13,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
 
 @Entity
 //@Table(name="User")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@XmlRootElement
 public abstract class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -42,7 +44,7 @@ public abstract class User implements Serializable{
 	
 		
 	public User(){}
-	@XmlAttribute
+	@XmlElement
 	public int getId() {
 		return id;
 	}

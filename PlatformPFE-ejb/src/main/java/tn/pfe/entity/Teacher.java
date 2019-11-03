@@ -1,8 +1,6 @@
 package tn.pfe.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.*;
 
 import javax.persistence.*;
@@ -118,9 +116,9 @@ public class Teacher  extends User  implements Serializable {
 	}
 
 
-	/*@XmlElement
-	@XmlElementWrapper*/
-	@XmlTransient
+	@XmlElement
+	@XmlElementWrapper
+	//@XmlTransient
 	public Set<projectCategory> getCategoriesProposed() {
 		return categoriesProposed;
 	}
@@ -144,9 +142,9 @@ public class Teacher  extends User  implements Serializable {
 	}
 
 
-	/*@XmlElement
-	@XmlElementWrapper*/
-	@XmlTransient
+	@XmlElement
+	@XmlElementWrapper
+	//@XmlTransient
 	public Set<projectCategory> getPreferedCategories() {
 		return PreferedCategories;
 	}
@@ -203,6 +201,39 @@ public class Teacher  extends User  implements Serializable {
 
 
 	public void setEtudiantsapresident(Set<Student> etudiantsapresident) {
+		Etudiantsapresident = etudiantsapresident;
+	}
+
+
+	public Teacher(String email, String password, boolean isEnable) {
+		super(email, password, isEnable);
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Teacher(String lastName, String firstName, String email, String password, int phoneNumber, Date birthDay,
+			Boolean isEnable, Boolean connected, String token, Date dateCreation, Date lastConnect) {
+		super(lastName, firstName, email, password, phoneNumber, birthDay, isEnable, connected, token, dateCreation,
+				lastConnect);
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Teacher(String image, String departement, Set<projectCategory> preferedCategories,
+			Set<projectCategory> categoriesProposed, Set<Section> sections, Set<Recomendation> recomendations,
+			Set<Skill> skills, Set<Student> etudiantAEncadrer, Set<Student> etudiantarapporter,
+			Set<ActionTeacher> actionsTeacher, Set<Student> etudiantsapresident) {
+		super();
+		this.image = image;
+		this.departement = departement;
+		PreferedCategories = preferedCategories;
+		this.categoriesProposed = categoriesProposed;
+		Sections = sections;
+		Recomendations = recomendations;
+		Skills = skills;
+		EtudiantAEncadrer = etudiantAEncadrer;
+		Etudiantarapporter = etudiantarapporter;
+		ActionsTeacher = actionsTeacher;
 		Etudiantsapresident = etudiantsapresident;
 	}
 

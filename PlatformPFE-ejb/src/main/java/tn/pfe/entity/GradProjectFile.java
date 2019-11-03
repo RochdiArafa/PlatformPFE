@@ -225,7 +225,7 @@ private boolean preValidated;
 
 
 
-
+@XmlTransient
 	public Set<projectCategory> getCategorys() {
 		return Categorys;
 	}
