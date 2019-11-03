@@ -2,7 +2,7 @@ package ressources;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.sql.*;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -20,6 +20,7 @@ import tn.esprit.Services.servicesoutenance;
 import tn.esprit.Services.servicestudent;
 import tn.pfe.entity.Classes;
 import tn.pfe.entity.Soutenance;
+import tn.pfe.entity.Teacher;
 
 
 
@@ -47,11 +48,21 @@ ss.addsoutenance(s);
 	 
 	   @GET
 	   @Produces(MediaType.APPLICATION_JSON)
-	   public List <Soutenance> affpfevalide() throws ParseException{
-			SimpleDateFormat sd= new SimpleDateFormat("hh/dd/MM/yyyy");
-		   return ss.algo("/01/04/1996", es.pfe_v_E_R(), sc.affclasses());}
+	   public List <Integer> affpfevalide() throws ParseException{
+		   SimpleDateFormat sd= new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		   Date d =sd.parse("03/11/2019 08:00:00");
+		   return ss.teacherocupper(d);}
 	   
-	   
+	   @Path("{idt}")
+	   @GET
+	   @Produces(MediaType.TEXT_PLAIN)
+	   public boolean verif(@PathParam("idt")int idt) throws ParseException {
+		   
+		   SimpleDateFormat sd= new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		   Date d =sd.parse("03/11/2019 08:00:00");
+		   return ss.affecterpresident(d,idt);
+		   
+	   }
 	   
 
 	   @Path("algo")
@@ -67,5 +78,21 @@ ss.addsoutenance(s);
 	   
 	   
 	   }
+	   @POST
+	   @Path("affecterpresident/{ids}/{idp}")
+	   @Produces(MediaType.TEXT_PLAIN)
+	   public String affecterdstos(@PathParam(value = "ids")int ids,@PathParam(value = "idp")int idp) throws ParseException {
+		   SimpleDateFormat sd= new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		   Date d =sd.parse("03/11/2019 08:00:00");
+	  String s="";
+	   	if(es.affecterPtoS(ids, idp, d)==false) {
+	   		s=s+"president affecter avec succes";
+	   		
+	   	}else
+	   		s=s+"erreur d'affectation il faut chercher un ensiegnant libre dans cette date";
+	   	
+	   	return s;
+	   
+}
 	   
 }

@@ -65,6 +65,7 @@ public class servicesoutenance implements servicesoutenanceRemote, servicesouten
 		int j = 0;
 		int k = pfevalide.size()/classes.size();
 		int reste =pfevalide.size()%classes.size();
+		
 		int indicestemps =reste ;
 		
 		
@@ -109,7 +110,7 @@ public class servicesoutenance implements servicesoutenanceRemote, servicesouten
 				if (reste!=0) {
 					for (int r=0;r<reste;r++) {
 						soutenance_avecclasse.get(j).setClasse(classes.get(r));
-						soutenance_avecclasse.get(j).setDatesoutenance(sd.parse(datesoutenance+tableaudesheures[reste]));
+						soutenance_avecclasse.get(j).setDatesoutenance(sd.parse(datesoutenance+tableaudesheures[k]));
 						
 						j++;
 						
@@ -131,6 +132,37 @@ for(Soutenance s :ss) {
 	em.persist(s);
 }
 		return null;
+	}
+
+	
+
+	@Override
+	public List<Soutenance> getSsoutenancebaydate(Date datesoutenance) {
+		
+		Soutenance s= new Soutenance();
+	
+		return (List<Soutenance>) em.createQuery("select s from Soutenance s where s.datesoutenance=:datesoutenance ",Soutenance.class).setParameter("datesoutenance",datesoutenance ).getResultList();
+	
+		
+	}
+	@Override
+	public List<Integer> teacherocupper(Date ds) {
+		
+		List<Integer>  idteacher = new ArrayList<Integer>();
+		for(Soutenance s : getSsoutenancebaydate(ds)) {
+		idteacher.add(s.getPfe().getStudent().getEncadrants().getId());
+		
+			idteacher.add(s.getPfe().getStudent().getRapporteurs().getId());
+		}
+		
+		return idteacher;
+		
+	}
+
+	@Override
+	public boolean affecterpresident(Date ds,int idt) {
+		// TODO Auto-generated method stub
+		return teacherocupper(ds).contains(idt);
 	}
 	
 		

@@ -206,6 +206,93 @@ public class Teacher  extends User  implements Serializable {
 		Etudiantsapresident = etudiantsapresident;
 	}
 
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((ActionsTeacher == null) ? 0 : ActionsTeacher.hashCode());
+		result = prime * result + ((EtudiantAEncadrer == null) ? 0 : EtudiantAEncadrer.hashCode());
+		result = prime * result + ((Etudiantarapporter == null) ? 0 : Etudiantarapporter.hashCode());
+		result = prime * result + ((Etudiantsapresident == null) ? 0 : Etudiantsapresident.hashCode());
+		result = prime * result + ((PreferedCategories == null) ? 0 : PreferedCategories.hashCode());
+		result = prime * result + ((Recomendations == null) ? 0 : Recomendations.hashCode());
+		result = prime * result + ((Sections == null) ? 0 : Sections.hashCode());
+		result = prime * result + ((Skills == null) ? 0 : Skills.hashCode());
+		result = prime * result + ((categoriesProposed == null) ? 0 : categoriesProposed.hashCode());
+		result = prime * result + ((departement == null) ? 0 : departement.hashCode());
+		result = prime * result + ((image == null) ? 0 : image.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Teacher other = (Teacher) obj;
+		if (ActionsTeacher == null) {
+			if (other.ActionsTeacher != null)
+				return false;
+		} else if (!ActionsTeacher.equals(other.ActionsTeacher))
+			return false;
+		if (EtudiantAEncadrer == null) {
+			if (other.EtudiantAEncadrer != null)
+				return false;
+		} else if (!EtudiantAEncadrer.equals(other.EtudiantAEncadrer))
+			return false;
+		if (Etudiantarapporter == null) {
+			if (other.Etudiantarapporter != null)
+				return false;
+		} else if (!Etudiantarapporter.equals(other.Etudiantarapporter))
+			return false;
+		if (Etudiantsapresident == null) {
+			if (other.Etudiantsapresident != null)
+				return false;
+		} else if (!Etudiantsapresident.equals(other.Etudiantsapresident))
+			return false;
+		if (PreferedCategories == null) {
+			if (other.PreferedCategories != null)
+				return false;
+		} else if (!PreferedCategories.equals(other.PreferedCategories))
+			return false;
+		if (Recomendations == null) {
+			if (other.Recomendations != null)
+				return false;
+		} else if (!Recomendations.equals(other.Recomendations))
+			return false;
+		if (Sections == null) {
+			if (other.Sections != null)
+				return false;
+		} else if (!Sections.equals(other.Sections))
+			return false;
+		if (Skills == null) {
+			if (other.Skills != null)
+				return false;
+		} else if (!Skills.equals(other.Skills))
+			return false;
+		if (categoriesProposed == null) {
+			if (other.categoriesProposed != null)
+				return false;
+		} else if (!categoriesProposed.equals(other.categoriesProposed))
+			return false;
+		if (departement == null) {
+			if (other.departement != null)
+				return false;
+		} else if (!departement.equals(other.departement))
+			return false;
+		if (image == null) {
+			if (other.image != null)
+				return false;
+		} else if (!image.equals(other.image))
+			return false;
+		return true;
+	}
+
 	
 
 	
