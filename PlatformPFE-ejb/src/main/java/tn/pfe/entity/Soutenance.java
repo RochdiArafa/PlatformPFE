@@ -68,19 +68,19 @@ public Classes getClasse() {
 
 
 
-@XmlElement
-	public GradProjectFile getPfe() {
-		return pfe;
-	}
+
 @XmlElement
 	public Date getDatesoutenance() {
 	return datesoutenance;
 }
-
 public void setDatesoutenance(Date datesoutenance) {
 	this.datesoutenance = datesoutenance;
 }
 
+@XmlTransient
+public GradProjectFile getPfe() {
+	return pfe;
+}
 	public void setPfe(GradProjectFile pfe) {
 		this.pfe = pfe;
 	}

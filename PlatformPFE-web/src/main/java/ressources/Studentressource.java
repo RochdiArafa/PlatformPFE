@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import tn.esprit.Services.servicestudent;
 import tn.pfe.entity.GradProjectFile;
 import tn.pfe.entity.Student;
+import tn.pfe.entity.Teacher;
 
 
 
@@ -74,14 +75,14 @@ public String addetudiant( @PathParam("ida")int ida,Student s) {
    @Path("pfe")
    @GET
    @Produces(MediaType.APPLICATION_JSON)
-   public List <GradProjectFile> affpfevalide(){
-	   return es.pfe_v_E_R();}
+   public List <Teacher> affpfevalide(){
+	   return es.getencadrant();}
    
    @Path("mail")
    @GET
    @Produces(MediaType.TEXT_PLAIN)
    public String mail() {
-es.notifchefdepartement();
+es.notifchefdepartement();;
 	   return "mail ok"
 ;   }
    

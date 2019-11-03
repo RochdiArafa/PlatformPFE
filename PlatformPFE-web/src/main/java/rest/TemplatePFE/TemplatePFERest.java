@@ -19,15 +19,14 @@ import javax.ws.rs.core.Response.Status;
 
 import rest.Secured;
 import tn.pfe.entity.TemplatePFE;
-import tn.pfe.service.TemplatePFE.TemplatePFEServiceRemote;
+import tn.pfe.service.TemplatePFE.TemplatePFEServiceLocal;
 
 
 @Path("templatePFE")
 public class TemplatePFERest {
 	
-	@EJB(mappedName="PlatformPFE-ear/PlatformPFE-ejb/TemplatePFEService!tn.pfe.service.TemplatePFE.TemplatePFEServiceRemote")  
-	TemplatePFEServiceRemote templateService;
-	
+	@EJB
+	TemplatePFEServiceLocal templateService;
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)

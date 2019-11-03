@@ -18,14 +18,14 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import tn.pfe.entity.TemplateIntershipAgreement;
-import tn.pfe.service.TemplateIntershipAgreement.TemplateIntershipAgreementServiceRemote;
+import tn.pfe.service.TemplateIntershipAgreement.TemplateIntershipAgreementServiceLocal;
 
 
 @Path("templateIntershipAgreement")
 public class TemplateIntershipAgreementRest {
 	
-	@EJB(mappedName="PlatformPFE-ear/PlatformPFE-ejb/TemplateIntershipAgreementService!tn.pfe.service.TemplateIntershipAgreement.TemplateIntershipAgreementServiceRemote")  
-	TemplateIntershipAgreementServiceRemote templateIntershipAgreementService;
+	@EJB
+	TemplateIntershipAgreementServiceLocal templateIntershipAgreementService;
 	
 	
 	@POST

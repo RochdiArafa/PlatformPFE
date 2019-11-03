@@ -19,15 +19,14 @@ import javax.ws.rs.core.Response.Status;
 
 import tn.pfe.entity.TemplatePFE;
 import tn.pfe.entity.TemplateTrainingCertificate;
-import tn.pfe.service.TemplatePFE.TemplatePFEServiceRemote;
-import tn.pfe.service.TemplateTrainingCertificated.TemplateTrainingCertificateServiceRemote;
+import tn.pfe.service.TemplateTrainingCertificated.TemplateTrainingCertificateServiceLocal;
 
 
 @Path("templateTrainingCertificate")
 public class TemplateTrainingCertificateRest {
 	
-	@EJB(mappedName="PlatformPFE-ear/PlatformPFE-ejb/TemplatePFEService!tn.pfe.service.TemplatePFE.TemplatePFEServiceRemote")  
-	TemplateTrainingCertificateServiceRemote templateService;
+	@EJB
+	TemplateTrainingCertificateServiceLocal templateService;
 	
 	
 	@POST

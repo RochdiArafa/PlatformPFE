@@ -15,16 +15,14 @@ import javax.ws.rs.core.Response.Status;
 import tn.pfe.entity.GradProjectFile;
 import tn.pfe.entity.Student;
 import tn.pfe.entity.projectCategory;
-import tn.pfe.service.Company.CompanyServiceRemote;
-import tn.pfe.service.Student.StudentServiceRemote;
-import tn.pfe.service.categorie.ProjectCategorieRemote;
+import tn.pfe.service.Student.StudentServiceLocal;
 
 
 @Path("student")
 public class StudentRest {
 
-	@EJB(mappedName="PlatformPFE-ear/PlatformPFE-ejb/StudentService!tn.pfe.service.Student.StudentServiceRemote")  
-	StudentServiceRemote studentService;
+	@EJB
+	StudentServiceLocal studentService;
 	
 	
 	@GET
