@@ -53,8 +53,14 @@ public class Teacher  extends User  implements Serializable {
 	@OneToMany(mappedBy = "rapporteurs", cascade= CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<Student> Etudiantarapporter = new HashSet<>();
 	
-	@OneToMany(mappedBy="teacher")
+	@OneToMany(mappedBy="teacher", fetch=FetchType.EAGER)
 	private Set<ActionTeacher> ActionsTeacher = new HashSet<>();
+	
+	
+	
+	@OneToMany(mappedBy = "president", fetch = FetchType.EAGER)
+	private Set<Student> Etudiantsapresident = new HashSet<>();
+	
 	
 	
 	public void addCategorie(projectCategory c) {
@@ -177,6 +183,27 @@ public class Teacher  extends User  implements Serializable {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+
+	@XmlTransient
+	public Set<ActionTeacher> getActionsTeacher() {
+		return ActionsTeacher;
+	}
+
+
+	public void setActionsTeacher(Set<ActionTeacher> actionsTeacher) {
+		ActionsTeacher = actionsTeacher;
+	}
+
+	@XmlTransient
+	public Set<Student> getEtudiantsapresident() {
+		return Etudiantsapresident;
+	}
+
+
+	public void setEtudiantsapresident(Set<Student> etudiantsapresident) {
+		Etudiantsapresident = etudiantsapresident;
 	}
 
 	

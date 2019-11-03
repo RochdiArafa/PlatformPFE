@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -29,6 +30,11 @@ public class Student extends User implements Serializable{
 	
 	@OneToOne(mappedBy = "Student")
 	private GradProjectFile PfeFile;
+	
+	
+	@ManyToOne
+	private Teacher president;
+	
 	
 	public Student() {
 		super();
@@ -97,6 +103,12 @@ public class Student extends User implements Serializable{
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+	public Teacher getPresident() {
+		return president;
+	}
+	public void setPresident(Teacher president) {
+		this.president = president;
 	}
 	
 	

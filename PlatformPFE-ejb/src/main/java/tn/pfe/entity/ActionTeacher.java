@@ -1,6 +1,7 @@
 package tn.pfe.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,8 @@ public class ActionTeacher implements Serializable {
 	private String title;
 	
 	private String Description;
+	
+	private Timestamp dateaction = new Timestamp(System.currentTimeMillis());
 
 	@ManyToOne
 	private Teacher teacher;
@@ -58,6 +61,21 @@ public class ActionTeacher implements Serializable {
 
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+
+	public ActionTeacher( String title, String description, Teacher teacher) {
+		super();
+		this.title = title;
+		Description = description;
+		this.teacher = teacher;
+	}
+
+	public Timestamp getDateaction() {
+		return dateaction;
+	}
+
+	public void setDateaction(Timestamp dateaction) {
+		this.dateaction = dateaction;
 	}
 	
 	

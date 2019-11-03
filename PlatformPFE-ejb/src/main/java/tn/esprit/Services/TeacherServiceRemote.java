@@ -16,22 +16,35 @@ public interface TeacherServiceRemote {
 	boolean updateTeacherById(Teacher t);
 	Teacher getTeacherById(int id);
 	void encadrerEtudiant(int idT,int idStu);
+	void rappporterEtudiant(int idT, int idStu);
 	Set<Student> listerSdtEncadre(int idT);
 	Set<GradProjectFile> listerFileEncadrer(int idt);
 	Set<GradProjectFile> listerFileRapporter(int idt);
+	Set<Student> listerSdtpresedent(int idT);
 	Set<Student> listerSdtarapporter(int idT);
+	Set<GradProjectFile> listerFilePresedent(int idt);
 	void prevalide(int idt,int idfile,String role);
 	void noterpfeFile(int idt,int idfile,double note,String role);
-	void rappporterEtudiant(int idT, int idStu);
+	void donnerUnMotif(int idt,int idfile,String motif,String role);
 	
 	//stat
 	List<GradProjectFile> getFilesencadredByYear(int idt, int year);
 	List<GradProjectFile> getFilesencadredBetween2Years(int idt, int year1, int year2);
 	List<GradProjectFile> getFilesrapportedByYear(int idt, int year);
 	List<GradProjectFile> getFilesrapportedBetween2Years(int idt, int year1, int year2);
+	List<GradProjectFile> getFilespresendentdByYear(int idt, int year);
+	List<GradProjectFile> getFilespresedentBetween2Years(int idt, int year1, int year2);
+	
 	Map<projectCategory, Integer> getmostencadredCategorie(int idt);
+	Map<projectCategory, Integer> getmostRapportedCategorie(int idt);
+	Map<projectCategory, Integer> getmostpresedentCategorie(int idt);
+	
+	
 	Map<GradProjectFile, Double> getFileMostNote(int idt);
+	
 	Map<projectCategory, Double> getcategorieMostNote(int idt);
+	Map<projectCategory, Double> getcategorieMostNoteenTTQRapporteur(int idt);
+	
 	//auto complete
 		Map<projectCategory, Double> autoCompletePreferdCategorie(int idt);
 	

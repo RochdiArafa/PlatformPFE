@@ -19,10 +19,13 @@ public interface TeacherServiceLocal {
 	void rappporterEtudiant(int idT, int idStu);
 	Set<Student> listerSdtEncadre(int idT);
 	Set<Student> listerSdtarapporter(int idT);
+	Set<Student> listerSdtpresedent(int idT);
 	Set<GradProjectFile> listerFileEncadrer(int idt);
 	Set<GradProjectFile> listerFileRapporter(int idt);
+	Set<GradProjectFile> listerFilePresedent(int idt);
 	void prevalide(int idt,int idfile,String role);
 	void noterpfeFile(int idt,int idfile,double note,String role);
+	void donnerUnMotif(int idt,int idfile,String motif,String role);
 	
 	
 	//stat
@@ -30,10 +33,17 @@ public interface TeacherServiceLocal {
 	List<GradProjectFile> getFilesencadredBetween2Years(int idt, int year1, int year2);
 	List<GradProjectFile> getFilesrapportedByYear(int idt, int year);
 	List<GradProjectFile> getFilesrapportedBetween2Years(int idt, int year1, int year2);
+	List<GradProjectFile> getFilespresendentdByYear(int idt, int year);
+	List<GradProjectFile> getFilespresedentBetween2Years(int idt, int year1, int year2);
+	
 	Map<projectCategory, Integer> getmostencadredCategorie(int idt);
+	Map<projectCategory, Integer> getmostRapportedCategorie(int idt);
+	Map<projectCategory, Integer> getmostpresedentCategorie(int idt);
+
 	Map<GradProjectFile, Double> getFileMostNote(int idt);
 	Map<projectCategory, Double> getcategorieMostNote(int idt);
 	
+	Map<projectCategory, Double> getcategorieMostNoteenTTQRapporteur(int idt);
 	//auto complete
 	Map<projectCategory, Double> autoCompletePreferdCategorie(int idt);
 	

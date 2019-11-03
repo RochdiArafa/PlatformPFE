@@ -1,6 +1,7 @@
 package tn.esprit.Services;
 
 import java.io.File;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -37,6 +38,9 @@ public class TeacherService implements TeacherServiceRemote, TeacherServiceLocal
 	
 	@EJB
 	CategorieService categorieser;
+	
+	@EJB
+	ActionTeacherServices ActionService;
 	
     /**
      * Default constructor. 
@@ -80,8 +84,10 @@ public class TeacherService implements TeacherServiceRemote, TeacherServiceLocal
 		teach.setPassword(t.getPassword());
 		teach.setLastName(t.getLastName());
 		//teach.set(t.getAddress());
-
+           Timestamp time = new Timestamp(System.currentTimeMillis());
 		
+		ActionTeacher action = new ActionTeacher("Modificatin De Profil"," Vous avez modifier votre profil le "+time,null);
+		ActionService.ajouterteacherAction(t.getId(), action);
 			//em.merge(t);
 		return true ;
 	}
@@ -144,6 +150,25 @@ public class TeacherService implements TeacherServiceRemote, TeacherServiceLocal
 
 
 	
+	@Override
+	public Set<GradProjectFile> listerFilePresedent(int idt) {
+	Set<Student> setStudent = new HashSet<>();
+		
+		setStudent = listerSdtpresedent(idt);
+		Set<GradProjectFile> files = new HashSet<>() ;
+		for(Student s : setStudent) {
+			
+			if(s.getPfeFile() != null) {
+			
+			files.add(s.getPfeFile());
+			}
+		}
+		return files;
+	}
+	
+	
+	
+	
 	
 	//extra
 	
@@ -161,6 +186,9 @@ public class TeacherService implements TeacherServiceRemote, TeacherServiceLocal
 		if(role.equals("encadrant")) {
 pfefiles = listerFileEncadrer(idt);
 		}
+		else if(role.equals("presedent")) {
+			pfefiles = listerFilePresedent(idt);
+		}
 		else {
 			 pfefiles = listerFileRapporter(idt);
 		}
@@ -169,6 +197,14 @@ pfefiles = listerFileEncadrer(idt);
 			if(file != null) {
 			if(file.getId() == idfile) {
 				file.setPreValidated(true);
+				
+				// Action
+				Timestamp time = new Timestamp(System.currentTimeMillis());
+					
+					ActionTeacher action = new ActionTeacher("Pre-validation d' une fiche pfe"," vous avez prevalider la fiche de"
+							+file.getStudent().getFirstName()+"  "+file.getStudent().getFirstName()+ " en ttq "+role+" le "+time,null);
+					ActionService.ajouterteacherAction(idt, action);
+				
 			}
 			}
 		}
@@ -183,6 +219,9 @@ pfefiles = listerFileEncadrer(idt);
 		if(Role.equals("encadrant")) {
 pfefiles = listerFileEncadrer(idt);
 		}
+		else if(Role.equals("presedent")) {
+			pfefiles = listerFilePresedent(idt);
+		}
 		else {
 			 pfefiles = listerFileRapporter(idt);
 		}
@@ -190,6 +229,15 @@ pfefiles = listerFileEncadrer(idt);
 			if(file != null) {
 			if(file.getId() == idfile) {
 				file.setNote(note);
+				
+				//action
+				Timestamp time = new Timestamp(System.currentTimeMillis());
+				
+				ActionTeacher action = new ActionTeacher("Noter une fiche pfe"," vous avez attribuer une note a la fiche de"
+						+file.getStudent().getFirstName()+"  "+file.getStudent().getFirstName()+ " en ttq "+Role+" le "+time,null);
+				ActionService.ajouterteacherAction(idt, action);
+				
+				
 			}
 			}
 		}
@@ -216,6 +264,18 @@ pfefiles = listerFileEncadrer(idt);
 		Teacher t  = em.find(Teacher.class, idT);
 		return t.getEtudiantarapporter();
 	}
+	
+	
+	@Override
+	public Set<Student> listerSdtpresedent(int idT) {
+		Teacher t  = em.find(Teacher.class, idT);
+		return t.getEtudiantsapresident();
+	}
+	
+	
+	
+	
+	
 
 	@Override
 	public Set<GradProjectFile> listerFileRapporter(int idt) {
@@ -343,6 +403,67 @@ Set<Student> setStudent = new HashSet<>();
 	}
 
 	
+	
+	
+	
+	
+	@Override
+	public List<GradProjectFile> getFilespresendentdByYear(int idt, int year) {
+		Set<GradProjectFile> listfiles = listerFilePresedent(idt);
+		List<GradProjectFile> listfileByYear= new ArrayList<GradProjectFile>();
+		//SimpleDateFormat df = 	new SimpleDateFormat("dd/MM/yyyy");
+		
+	
+		
+		
+			for( GradProjectFile file : listfiles ) {
+		
+			if(file != null) {
+		
+			
+		  if(((int)em.createQuery("select EXTRACT(YEAR FROM f.anneeScolaire) from GradProjectFile f where f.id =:id").setParameter("id", file.getId()).getSingleResult()) == year) {
+			  listfileByYear.add(file);
+		  }
+			}
+		}
+		
+		return listfileByYear;
+		
+	}
+
+
+	@Override
+	public List<GradProjectFile> getFilespresedentBetween2Years(int idt, int year1, int year2) {
+		Set<GradProjectFile> listfiles = listerFilePresedent(idt);
+		List<GradProjectFile> listfileBetwwen2Years= new ArrayList<GradProjectFile>();
+		//SimpleDateFormat df = 	new SimpleDateFormat("dd/MM/yyyy");
+		
+	
+		
+		
+			for( GradProjectFile file : listfiles ) {
+		
+			if(file != null) {
+		
+			
+		  if(((int)em.createQuery("select EXTRACT(YEAR FROM f.anneeScolaire) from GradProjectFile f where f.id =:id").setParameter("id", file.getId()).getSingleResult()) >= year1 
+				 &&  ((int)em.createQuery("select EXTRACT(YEAR FROM f.anneeScolaire) from GradProjectFile f where f.id =:id").setParameter("id", file.getId()).getSingleResult()) <= year2) {
+			  listfileBetwwen2Years.add(file);
+		  }
+			}
+		}
+		
+		return listfileBetwwen2Years;
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public Map<projectCategory, Double> autoCompletePreferdCategorie(int idt) {
 		
@@ -438,6 +559,91 @@ Set<Student> setStudent = new HashSet<>();
 		return categoriesStat;
 	}
 
+	
+	
+	
+	@Override
+	public Map<projectCategory, Integer> getmostRapportedCategorie(int idt) {
+		Map<projectCategory, Integer> categoriesStat = new HashMap<>();
+		Teacher t = em.find(Teacher.class, idt);	
+		Set<projectCategory> encaredCategories = new HashSet<>();
+		
+		for(GradProjectFile file :listerFileRapporter(idt)) {
+			encaredCategories.addAll(file.getCategoriesoffile());
+		}
+		
+		for(projectCategory c : encaredCategories) {
+			categoriesStat.put(c, 0);
+		}
+		
+		
+		//tret
+		for(GradProjectFile file :listerFileRapporter(idt)) {
+			for(projectCategory c :file.getCategoriesoffile()) {
+				if(categoriesStat.get(c)!=null) {
+				categoriesStat.put(c, categoriesStat.get(c)+1);
+				}
+			}
+		}
+		
+		
+		Map<projectCategory,Integer> result = categoriesStat.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+		
+		return categoriesStat;
+	}
+
+
+	@Override
+	public Map<projectCategory, Integer> getmostpresedentCategorie(int idt) {
+		Map<projectCategory, Integer> categoriesStat = new HashMap<>();
+		Teacher t = em.find(Teacher.class, idt);	
+		Set<projectCategory> encaredCategories = new HashSet<>();
+		
+		for(GradProjectFile file :listerFilePresedent(idt)) {
+			encaredCategories.addAll(file.getCategoriesoffile());
+		}
+		
+		for(projectCategory c : encaredCategories) {
+			categoriesStat.put(c, 0);
+		}
+		
+		
+		//tret
+		for(GradProjectFile file :listerFilePresedent(idt)) {
+			for(projectCategory c :file.getCategoriesoffile()) {
+				if(categoriesStat.get(c)!=null) {
+				categoriesStat.put(c, categoriesStat.get(c)+1);
+				}
+			}
+		}
+		
+		
+		Map<projectCategory,Integer> result = categoriesStat.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+		
+		return categoriesStat;
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	
 	
@@ -507,6 +713,83 @@ Set<Student> setStudent = new HashSet<>();
 		
 		return result;
 	}
+
+	
+	
+	@Override
+	public Map<projectCategory, Double> getcategorieMostNoteenTTQRapporteur(int idt) {
+		Set<GradProjectFile> files = listerFileRapporter(idt);
+		 Map<projectCategory, Double> mapcat = new HashMap<>();
+		 
+		 for(GradProjectFile file : files) {
+			 for(projectCategory c : file.getCategoriesoffile()) {
+				 if(mapcat.containsKey(c)) {
+					mapcat.put(c, (mapcat.get(c)+ file.getNote_rapporteur())/2  );
+					
+				 }
+				 else {
+						mapcat.put(c,file.getNote() );
+					}
+				}
+		 }
+		
+		
+		 Map<projectCategory, Double> result = mapcat.entrySet().stream()
+	                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+	                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+	                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+		
+		
+		return result;
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+
+	@Override
+	public void donnerUnMotif(int idt, int idfile, String motif, String role) {
+
+		Set<GradProjectFile> pfefiles ;
+		if(role.equals("encadrant")) {
+pfefiles = listerFileEncadrer(idt);
+		}
+		else {
+			 pfefiles = listerFileRapporter(idt);
+		}
+		
+		for( GradProjectFile file : pfefiles ) {
+			if(file != null) {
+			if(file.getId() == idfile) {
+				file.setMotif(motif);;
+				
+				// Action
+				Timestamp time = new Timestamp(System.currentTimeMillis());
+					
+					ActionTeacher action = new ActionTeacher(" Motif fiche pfe"," vous avez attribuer un motif a la fiche de"
+							+file.getStudent().getFirstName()+"  "+file.getStudent().getFirstName()+ " en ttq "+role+" le "+time,null);
+					ActionService.ajouterteacherAction(idt, action);
+				
+			}
+			}
+		}
+		
+		
+	}
+
+
+	
+	
+
+	
+
+
+	
 
 
 	
