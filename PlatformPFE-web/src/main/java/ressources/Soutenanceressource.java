@@ -33,26 +33,19 @@ public class Soutenanceressource {
 	@EJB
 	serviceclasses sc ;
 	
-	@POST
-	
-	@Produces(MediaType.TEXT_PLAIN)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public String addetudiant( Soutenance s) throws ParseException {
-		SimpleDateFormat sd= new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-	//s.setDatesoutenance(sd.parse("02/02/2012 08:00:00"));
-		s.setDatesoutenance(  sd.parse("01/01/2010 08:00:00"));
-ss.addsoutenance(s);
 
-		return "etudiant ajouter avec succes ";}
 	
+	//methode pout test methodeaffecterpresident 
 	 
 	   @GET
 	   @Produces(MediaType.APPLICATION_JSON)
-	   public List <Integer> affpfevalide() throws ParseException{
+	   public List <Integer> affidteacherocupp() throws ParseException{
 		   SimpleDateFormat sd= new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 		   Date d =sd.parse("03/11/2019 08:00:00");
 		   return ss.teacherocupper(d);}
+	    
 	   
+	   //methode pour teest methode affecter president
 	   @Path("{idt}")
 	   @GET
 	   @Produces(MediaType.TEXT_PLAIN)
@@ -60,18 +53,25 @@ ss.addsoutenance(s);
 		   
 		   SimpleDateFormat sd= new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 		   Date d =sd.parse("03/11/2019 08:00:00");
-		   return ss.affecterpresident(d,idt);
+		   return ss.verifteacherocuperbydate(d,idt);
 		   
 	   }
 	   
 
-	   @Path("algo")
+	   @Path("{dj}/{dm}/{da}")
 	   @GET
 	   @Produces(MediaType.TEXT_PLAIN)
 	   @Consumes(MediaType.APPLICATION_JSON)
-	   public String  addalgo() throws ParseException {
-		   List<Soutenance> s=ss.algo("01/04/1996 ", es.getpfe(), sc.affclasses());
-		   ss.add(s);
+	   public String  addalgo(@PathParam(value="dj")String dj,
+			   @PathParam(value="dm")String dm ,
+			   @PathParam(value="da")String da  
+			   ) throws ParseException {
+		   
+		   String s=dj+"/"+dm+"/"+da+" ";
+		 
+		   
+		   List<Soutenance> sa=ss.algo(s, es.getpfe(), sc.affclasses());
+		   ss.add(sa);
 		   
 		   
 		   return "ok";
@@ -79,17 +79,19 @@ ss.addsoutenance(s);
 	   
 	   }
 	   @POST
-	   @Path("affecterpresident/{ids}/{idp}")
+	   @Path("affecterpresident/{ids}/{idp}/{dj}/{dm}/{da}/{dh}/{dmm}/{ds}")
 	   @Produces(MediaType.TEXT_PLAIN)
-	   public String affecterdstos(@PathParam(value = "ids")int ids,@PathParam(value = "idp")int idp) throws ParseException {
+	   public String affecterdstos(@PathParam(value = "ids")int ids,@PathParam(value = "idp")int idp,@PathParam(value="dj")String dj,@PathParam(value="dm")String dm
+			   ,@PathParam(value="da")String da,@PathParam(value="dh")String dh,@PathParam(value="dmm")String dmm,@PathParam(value="ds")String ds) throws ParseException {
 		   SimpleDateFormat sd= new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-		   Date d =sd.parse("03/11/2019 08:00:00");
-	  String s="";
+		   String s=dj+"/"+dm+"/"+da+" "+dh+":"+dmm+":"+ds;
+		   Date d =sd.parse(s);
+	  
 	   	if(es.affecterPtoS(ids, idp, d)==false) {
 	   		s=s+"president affecter avec succes";
 	   		
 	   	}else
-	   		s=s+"erreur d'affectation il faut chercher un ensiegnant libre dans cette date";
+	   		s=s+" ensiegnant ocupper ou  soutenance deja affecter";
 	   	
 	   	return s;
 	   

@@ -284,7 +284,7 @@ public class servicestudent implements servicestudentRemote, servicestudentLocal
 		boolean a =false ;
 		Student s =em.find(Student.class, id_stduent);
 		Teacher prsident= em.find(Teacher.class, idpresident);
-		if( (ss.affecterpresident(ds, idpresident)==false)&&(s.getPfeFile()!=null)&&(s.getEncadrants()!=null)&&(s.getRapporteurs()!=null)) {
+		if( (ss.verifteacherocuperbydate(ds, idpresident)==false)&&(s.getPfeFile()!=null)&&(s.getEncadrants()!=null)&&(s.getRapporteurs()!=null)&&(s.getPresident()==null)) {
 			
 			s.setPresident(prsident);
 			prsident.getEtudiantsapresident().add(s);

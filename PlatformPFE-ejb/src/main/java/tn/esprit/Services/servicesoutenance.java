@@ -153,14 +153,19 @@ for(Soutenance s :ss) {
 		idteacher.add(s.getPfe().getStudent().getEncadrants().getId());
 		
 			idteacher.add(s.getPfe().getStudent().getRapporteurs().getId());
+			if(s.getPfe().getStudent().getPresident()!=null) {
+				idteacher.add(s.getPfe().getStudent().getPresident().getId());	
+			}
+			
 		}
+	
 		
 		return idteacher;
 		
 	}
 
 	@Override
-	public boolean affecterpresident(Date ds,int idt) {
+	public boolean verifteacherocuperbydate(Date ds,int idt) {
 		// TODO Auto-generated method stub
 		return teacherocupper(ds).contains(idt);
 	}

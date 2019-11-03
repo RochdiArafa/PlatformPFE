@@ -21,7 +21,7 @@ public interface servicesoutenanceLocal {
 	public List<Soutenance> algo(String datesoutenance ,List<GradProjectFile> pfes,List<Classes>classes )throws ParseException;
 	public String add(List<Soutenance> ss );
 	public List<Integer> teacherocupper(Date ds);
-	public boolean affecterpresident(Date ds,int idt);
+	public boolean verifteacherocuperbydate(Date ds,int idt);
 	public List<Soutenance> getSsoutenancebaydate(Date datesoutenance);
 	
 }
