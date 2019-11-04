@@ -61,7 +61,7 @@ public class Admin extends User implements Serializable {
 private Set<Classes> classes = new HashSet<Classes>();
 	
 	@OneToMany(mappedBy = "admin",fetch= FetchType.EAGER, cascade= CascadeType.ALL)
-	private List<Payment> payments = new ArrayList<Payment>();
+	private Set<Payment> payments = new HashSet<Payment>();
 	
 
 	public String getElement() {
@@ -74,11 +74,11 @@ private Set<Classes> classes = new HashSet<Classes>();
 
 	
 
-	public List<Payment> getPayments() {
+	public Set<Payment> getPayments() {
 		return payments;
 	}
 
-	public void setPayments(List<Payment> payments) {
+	public void setPayments(Set<Payment> payments) {
 		this.payments = payments;
 
 	}

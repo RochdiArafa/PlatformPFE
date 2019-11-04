@@ -3,6 +3,7 @@ package tn.pfe.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class TemplateIntershipAgreement implements Serializable {
@@ -19,8 +23,11 @@ public class TemplateIntershipAgreement implements Serializable {
 	private int id;
 	private String Template;
 	
-	@OneToMany(mappedBy="templateIntershipAgreement" , fetch=FetchType.EAGER)
-	private List<InternshipAgreement> internshipAgreement;
+	@OneToOne
+	private Site site;
+	
+	@OneToMany(mappedBy="templateIntershipAgreement" ,fetch =FetchType.EAGER)
+	private Set<InternshipAgreement> internshipAgreement;
 	
 	
 	public int getId() {
@@ -42,10 +49,7 @@ public class TemplateIntershipAgreement implements Serializable {
 	public TemplateIntershipAgreement(String template) {
 		Template = template;
 	}
-	public TemplateIntershipAgreement(int id, String template) {
-		this.id = id;
-		Template = template;
-	}
+
 	public TemplateIntershipAgreement() {
 	}
 	
@@ -54,16 +58,28 @@ public class TemplateIntershipAgreement implements Serializable {
 	public String toString() {
 		return "TemplatePFE [id=" + id + ", Template=" + Template + "]";
 	}
-	public TemplateIntershipAgreement(int id, String template, List<InternshipAgreement> internshipAgreement) {
+	public TemplateIntershipAgreement(int id, String template, Set<InternshipAgreement> internshipAgreement) {
 		this.id = id;
 		Template = template;
 		this.internshipAgreement = internshipAgreement;
 	}
-	public List<InternshipAgreement> getInternshipAgreement() {
+	public Set<InternshipAgreement> getInternshipAgreement() {
 		return internshipAgreement;
 	}
-	public void setInternshipAgreement(List<InternshipAgreement> internshipAgreement) {
+	public void setInternshipAgreement(Set<InternshipAgreement> internshipAgreement) {
 		this.internshipAgreement = internshipAgreement;
+	}
+	public Site getSite() {
+		return site;
+	}
+	public void setSite(Site site) {
+		this.site = site;
+	}
+
+	public TemplateIntershipAgreement(int id, String template, Site site) {
+		this.id = id;
+		Template = template;
+		this.site = site;
 	}
 	
 	
