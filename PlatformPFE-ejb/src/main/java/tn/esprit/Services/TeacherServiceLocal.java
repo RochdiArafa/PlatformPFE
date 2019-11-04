@@ -1,5 +1,6 @@
 package tn.esprit.Services;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,8 +42,8 @@ public interface TeacherServiceLocal {
 	Map<projectCategory, Integer> getmostpresedentCategorie(int idt);
 
 	Map<GradProjectFile, Double> getFileMostNote(int idt);
-	Map<projectCategory, Double> getcategorieMostNote(int idt);
 	
+	Map<projectCategory, Double> getcategorieMostNote(int idt);
 	Map<projectCategory, Double> getcategorieMostNoteenTTQRapporteur(int idt);
 	//auto complete
 	Map<projectCategory, Double> autoCompletePreferdCategorie(int idt);

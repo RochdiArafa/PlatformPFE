@@ -16,12 +16,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import com.itextpdf.tool.xml.html.head.Title;
 
 import tn.pfe.entity.Teacher;
 
 @Entity
 @Table
+@XmlRootElement
 public class projectCategory implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -45,7 +49,7 @@ public class projectCategory implements Serializable{
 	
 	
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<GradProjectFile> gradProjectFiles;
 	
 	
@@ -75,6 +79,7 @@ public class projectCategory implements Serializable{
 	public projectCategory(){}
 	
 
+	@XmlTransient
 	public List<GradProjectFile> getGradProjectFiles() {
 		return gradProjectFiles;
 	}
@@ -83,10 +88,7 @@ public class projectCategory implements Serializable{
 		this.gradProjectFiles = gradProjectFiles;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
+	
 	public projectCategory(int id, String name, List<GradProjectFile> gradProjectFiles) {
 		this.id = id;
 		this.Name = name;
@@ -96,7 +98,7 @@ public class projectCategory implements Serializable{
 
 	
 
-	@XmlElement
+	@XmlTransient
 	public Teacher getTeacher() {
 		return Teacher;
 	}
@@ -162,6 +164,11 @@ public class projectCategory implements Serializable{
 		result = prime * result + ((teacherspreferdCategorie == null) ? 0 : teacherspreferdCategorie.hashCode());
 		result = prime * result + ((valide == null) ? 0 : valide.hashCode());
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		return ""+id+" , "+Name;
 	}
 
 	

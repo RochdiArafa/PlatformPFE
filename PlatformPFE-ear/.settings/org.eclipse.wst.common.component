@@ -8,6 +8,9 @@
         <dependent-module archiveName="PlatformPFE-ejb.jar" deploy-path="/" handle="module:/resource/PlatformPFE-ejb/PlatformPFE-ejb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="gson.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/google/code/gson/gson/2.8.0/gson-2.8.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="docraptor.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/docraptor/docraptor/1.1.0/docraptor-1.1.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>

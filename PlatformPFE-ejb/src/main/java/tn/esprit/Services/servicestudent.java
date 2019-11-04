@@ -1,9 +1,11 @@
 package tn.esprit.Services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Schedule;
 import javax.ejb.Schedules;
@@ -31,6 +33,8 @@ public class servicestudent implements servicestudentRemote, servicestudentLocal
 	
 	@PersistenceContext
 	EntityManager em ;
+	@EJB
+	servicesoutenance ss;
 
     /**
      * Default constructor. 
@@ -97,7 +101,7 @@ public class servicestudent implements servicestudentRemote, servicestudentLocal
 	}
 
 	@Override
-//	@Schedule(second="0",minute="0",hour="*")
+	//@Schedule(second="0",minute="*",hour="*")
 	public void notifencadrant() {
 		Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -141,7 +145,7 @@ public class servicestudent implements servicestudentRemote, servicestudentLocal
 	@Override
 	public List<GradProjectFile> getpfe() {
 		// TODO Auto-generated method stub
-		return (List<GradProjectFile>) em.createQuery("select s from GradeProjectFile s ",GradProjectFile.class).getResultList();
+		return (List<GradProjectFile>) em.createQuery("select s from GradProjectFile s ",GradProjectFile.class).getResultList();
 	}
 
 	@Override
@@ -160,7 +164,7 @@ public class servicestudent implements servicestudentRemote, servicestudentLocal
 	}
 
 	@Override
-	//@Schedule(second="0",minute="*",hour="*")
+//@Schedule(second="0",minute="*",hour="*")
 	public void notifrapporteur() {
 		Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -266,13 +270,30 @@ public class servicestudent implements servicestudentRemote, servicestudentLocal
 	public List<GradProjectFile> PFEvalide(List<GradProjectFile> pfes) {
 		List<GradProjectFile> pfesvalides = new ArrayList<GradProjectFile>();
 		for(GradProjectFile p:pfes) {
-			if(p.isPreValidated()==true) {
+			if((p.isPreValidated()==true)&&(p.getStudent().getEncadrants()!=null)&&(p.getStudent().getRapporteurs()!=null)) {
 				pfesvalides.add(p);
 				
 			}
 			
 		}
 		return pfesvalides;
+	}
+
+	@Override
+	public boolean affecterPtoS(int id_stduent, int idpresident,Date ds) {
+		boolean a =false ;
+		Student s =em.find(Student.class, id_stduent);
+		Teacher prsident= em.find(Teacher.class, idpresident);
+		if( (ss.verifteacherocuperbydate(ds, idpresident)==false)&&(s.getPfeFile()!=null)&&(s.getEncadrants()!=null)&&(s.getRapporteurs()!=null)&&(s.getPresident()==null)) {
+			
+			s.setPresident(prsident);
+			prsident.getEtudiantsapresident().add(s);
+		}else {
+			a=true ;
+		}
+		
+return a;
+		
 	}
 
 	

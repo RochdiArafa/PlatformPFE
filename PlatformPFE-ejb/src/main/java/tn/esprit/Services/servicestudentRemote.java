@@ -1,5 +1,6 @@
 package tn.esprit.Services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -22,6 +23,7 @@ public interface servicestudentRemote {
 	public List <GradProjectFile> pfe_v_E_R();
 	public void notifchefdepartement();
 	public List<GradProjectFile> PFEvalide(List<GradProjectFile> pfes);
+	public boolean affecterPtoS(int id_stduent ,int idpresident,Date ds);
 
 
 

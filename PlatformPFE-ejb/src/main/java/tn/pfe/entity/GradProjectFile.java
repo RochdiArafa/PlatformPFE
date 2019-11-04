@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 
@@ -30,6 +31,7 @@ import tn.pfe.entity.Student;
 
 @Entity
 @Table(name="GradProject_File")
+@XmlRootElement(name ="GradProjectFile")
 public class GradProjectFile implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -59,7 +61,7 @@ private boolean preValidated;
 	
 	private double note_rapporteur;
 
-	@OneToOne
+	@OneToOne(fetch=FetchType.EAGER)
 	private Student Student;
 	
 	
@@ -161,7 +163,7 @@ private boolean preValidated;
 	
 	
 	
-	
+	@XmlElement
 	public String getTitle() {
 		return title;
 	}
@@ -169,7 +171,7 @@ private boolean preValidated;
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
+@XmlElement
 	public String getDescription() {
 		return description;
 	}
@@ -177,7 +179,7 @@ private boolean preValidated;
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+@XmlElement
 	public String getProblem() {
 		return problem;
 	}
@@ -185,7 +187,7 @@ private boolean preValidated;
 	public void setProblem(String problem) {
 		this.problem = problem;
 	}
-
+@XmlElement
 	public String getFunctionnalities() {
 		return functionnalities;
 	}
@@ -193,7 +195,7 @@ private boolean preValidated;
 	public void setFunctionnalities(String functionnalities) {
 		this.functionnalities = functionnalities;
 	}
-
+@XmlElement
 	public String getKeyword() {
 		return keyword;
 	}
@@ -202,7 +204,7 @@ private boolean preValidated;
 		this.keyword = keyword;
 	}
 
-
+@XmlElement
 	public Company getCompany() {
 		return company;
 	}
@@ -210,7 +212,7 @@ private boolean preValidated;
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-
+@XmlElement
 	public TemplatePFE getTemplatePFE() {
 		return templatePFE;
 	}
@@ -218,14 +220,14 @@ private boolean preValidated;
 	public void setTemplatePFE(TemplatePFE templatePFE) {
 		this.templatePFE = templatePFE;
 	}
-
+@XmlElement
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
 
 
-
+@XmlTransient
 	public Set<projectCategory> getCategorys() {
 		return Categorys;
 	}
