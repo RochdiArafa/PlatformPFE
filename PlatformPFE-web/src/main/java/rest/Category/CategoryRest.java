@@ -13,14 +13,14 @@ import javax.ws.rs.core.Response.Status;
 
 import tn.pfe.entity.GradProjectFile;
 import tn.pfe.entity.projectCategory;
-import tn.pfe.service.categorie.ProjectCategorieLocal;
+import tn.pfe.service.categorie.ProjectCategorieRemote;
 
 
 @Path("category")
 public class CategoryRest {
 
-	@EJB
-	ProjectCategorieLocal categorieService ;
+	@EJB(mappedName="PlatformPFE-ear/PlatformPFE-ejb/ProjectCategorie!tn.pfe.service.categorie.ProjectCategorieRemote")  
+	ProjectCategorieRemote categorieService ;
 	
 	
 	@GET

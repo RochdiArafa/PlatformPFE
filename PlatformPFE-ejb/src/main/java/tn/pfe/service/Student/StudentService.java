@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -58,19 +57,14 @@ public class StudentService implements StudentServiceRemote, StudentServiceLocal
 	@Override
 	public void ajouterEncadrent(String EmailRecip) {
 		// TODO Auto-generated method stub
-		String password ="1234";
-		CoachCompany encadreur = new CoachCompany(EmailRecip, "1234" , true);
-		em.persist(encadreur);
-		String emailcontent ;
-		emailcontent = "Bonjour Monsieur ,Bonjour Madame  <br>  <br>  Votre email pour connecter à notre plateforme de stage PFE est "+EmailRecip+" votre mot de passe est "+password;
+		String password ="";
+		CoachCompany encadreur = new CoachCompany(EmailRecip, "");
+		String subject ;
+		subject = "Bonjour Monsieur ,Bonjour  Madame votre mode de passe pour connecter à notre plateforme de stage PFE est "+password;
 		 
-		try {
-			SendEmail.generateAndSendEmail(EmailRecip, "Compte information", emailcontent, "keeptooui@gmail.com", "az191+AZ");
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		SendEmail email = new SendEmail();
+		//email.generateAndSendEmail(EmailRecip, subject, GmailId, GmailPassword);
 	}
+	
 
 }

@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,9 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 
 import tn.pfe.entity.Student;
 
@@ -31,7 +28,6 @@ import tn.pfe.entity.Student;
 
 @Entity
 @Table(name="GradProject_File")
-@XmlRootElement(name ="GradProjectFile")
 public class GradProjectFile implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -50,23 +46,24 @@ public class GradProjectFile implements Serializable{
 
 	
 	
-private boolean preValidated;
+private String state;
+
+private String stateRapport;
+	
+	private String anneeScolaire;
 	
 	@Temporal(TemporalType.DATE)
-	private Date anneeScolaire =  new Date();
+	private Date dateSaisie;
 	
 	private String Motif;
 	
-	private double note;
+	private double noteEncadrant;
 	
-	private double note_rapporteur;
+	private double noteRapporteur;
 
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(mappedBy = "PfeFile")
 	private Student Student;
 	
-	
-	@OneToOne(mappedBy="pfe",cascade =CascadeType.MERGE,fetch=FetchType.EAGER)
-	private Soutenance soutenance ;
 	
 	
 	@OneToOne(mappedBy="gradproj" , fetch=FetchType.EAGER)
@@ -78,19 +75,10 @@ private boolean preValidated;
 	@ManyToMany(mappedBy="gradProjectFiles" , fetch=FetchType.EAGER)
 	private Set<projectCategory> Categorys = new HashSet<>();
 
+	private String pays;
 	
 	
 	
-	
-	@XmlElement
-	public Soutenance getSoutenance() {
-		return soutenance;
-	}
-
-	public void setSoutenance(Soutenance soutenance) {
-		this.soutenance = soutenance;
-	}
-
 	@XmlElement
 	public int getId() {
 		return id;
@@ -104,30 +92,39 @@ private boolean preValidated;
 
 	
 	@XmlElement
-	public double getNote() {
-		return note;
+	public double getNoteEncadrant() {
+		return noteEncadrant;
 	}
 
-	public void setNote(double note) {
-		this.note = note;
+	public void setNoteEncadrant(double noteEncadrant) {
+		this.noteEncadrant = noteEncadrant;
+	}
+
+	public double getNoteRapporteur() {
+		return noteRapporteur;
+	}
+
+	public void setNoteRapporteur(double noteRapporteur) {
+		this.noteRapporteur = noteRapporteur;
 	}
 
 	@XmlElement
-	public boolean isPreValidated() {
-		return preValidated;
+	public String getState() {
+		return state;
 	}
 
-	public void setPreValidated(boolean preValidated) {
-		this.preValidated = preValidated;
+	public void setState(String state) {
+		this.state = state;
 	}
+
 
 	
 	@XmlElement
-	public Date getAnneeScolaire() {
+	public String getAnneeScolaire() {
 		return anneeScolaire;
 	}
 
-	public void setAnneeScolaire(Date anneeScolaire) {
+	public void setAnneeScolaire(String anneeScolaire) {
 		this.anneeScolaire = anneeScolaire;
 	}
 
@@ -163,7 +160,7 @@ private boolean preValidated;
 	
 	
 	
-	@XmlElement
+	
 	public String getTitle() {
 		return title;
 	}
@@ -171,7 +168,7 @@ private boolean preValidated;
 	public void setTitle(String title) {
 		this.title = title;
 	}
-@XmlElement
+
 	public String getDescription() {
 		return description;
 	}
@@ -179,7 +176,7 @@ private boolean preValidated;
 	public void setDescription(String description) {
 		this.description = description;
 	}
-@XmlElement
+
 	public String getProblem() {
 		return problem;
 	}
@@ -187,7 +184,7 @@ private boolean preValidated;
 	public void setProblem(String problem) {
 		this.problem = problem;
 	}
-@XmlElement
+
 	public String getFunctionnalities() {
 		return functionnalities;
 	}
@@ -195,7 +192,7 @@ private boolean preValidated;
 	public void setFunctionnalities(String functionnalities) {
 		this.functionnalities = functionnalities;
 	}
-@XmlElement
+
 	public String getKeyword() {
 		return keyword;
 	}
@@ -204,7 +201,7 @@ private boolean preValidated;
 		this.keyword = keyword;
 	}
 
-@XmlElement
+
 	public Company getCompany() {
 		return company;
 	}
@@ -212,7 +209,7 @@ private boolean preValidated;
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-@XmlElement
+
 	public TemplatePFE getTemplatePFE() {
 		return templatePFE;
 	}
@@ -220,14 +217,14 @@ private boolean preValidated;
 	public void setTemplatePFE(TemplatePFE templatePFE) {
 		this.templatePFE = templatePFE;
 	}
-@XmlElement
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
 
 
-@XmlTransient
+
 	public Set<projectCategory> getCategorys() {
 		return Categorys;
 	}
@@ -253,19 +250,61 @@ private boolean preValidated;
 	}
 
 	
+	
+	public String getPays() {
+		return pays;
+	}
+
+	public void setPays(String pays) {
+		this.pays = pays;
+	}
+
 	@Override
 	public String toString() {
 		return "GradProjectFile [id=" + id + ", title=" + title + ", description=" + description + ", problem="
-				+ problem + ", functionnalities=" + functionnalities + ", keyword=" + keyword + ", company=" + company
-				+ ", templatePFE=" + templatePFE + ", Categorys=" + Categorys + "]";
+				+ problem + ", functionnalities=" + functionnalities + ", keyword=" + keyword + ", state=" + state
+				+ ", stateRapport=" + stateRapport + ", anneeScolaire=" + anneeScolaire + ", dateSaisie=" + dateSaisie
+				+ ", Motif=" + Motif + ", noteEncadrant=" + noteEncadrant + ", noteRapporteur=" + noteRapporteur
+				+ ", Student=" + Student + ", company=" + company + ", templatePFE=" + templatePFE + ", Categorys="
+				+ Categorys + ", pays=" + pays + "]";
 	}
 
-	public double getNote_rapporteur() {
-		return note_rapporteur;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
 	}
 
-	public void setNote_rapporteur(double note_rapporteur) {
-		this.note_rapporteur = note_rapporteur;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GradProjectFile other = (GradProjectFile) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	public Date getDateSaisie() {
+		return dateSaisie;
+	}
+
+	public void setDateSaisie(Date dateSaisie) {
+		this.dateSaisie = dateSaisie;
+	}
+
+	public String getStateRapport() {
+		return stateRapport;
+	}
+
+	public void setStateRapport(String stateRapport) {
+		this.stateRapport = stateRapport;
 	}
 
 

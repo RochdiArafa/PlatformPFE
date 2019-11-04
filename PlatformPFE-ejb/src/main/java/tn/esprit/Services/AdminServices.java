@@ -12,7 +12,6 @@ import javax.validation.Payload;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
-
 import tn.pfe.entity.*;
 
 
@@ -56,39 +55,6 @@ public class AdminServices implements AdminServicesRemote, AdminServicesLocal {
 		}
 		}
 		return null;
-	}
-	public String addadmin(Admin admin) {
-		em.persist(admin);
-		
-		return "success";
-	}
-
-
-	@Override
-	public List<Admin> affadmin() {
-		
-		
-		
-		return (List<Admin>) em.createQuery("select a  from Admin a",Admin.class).getResultList();
-	}
-
-	@Override
-	public void affecter_SA_toA(int id_admin, int id_superadmin) {
-		
-		Admin admin =em.find(Admin.class, id_admin);
-		SuperAdmin sadmin=em.find(SuperAdmin.class,id_superadmin);
-		admin.setSuperadmin(sadmin);
-		sadmin.getAdmins().add(admin);
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void sendMessage()  {
-		
-		
-
-		
 	}
 
 }

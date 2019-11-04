@@ -4,11 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
-
 
 import tn.pfe.entity.*;
 
@@ -25,29 +23,16 @@ public class Student extends User implements Serializable{
 	
 	@ManyToOne
 	private Teacher  rapporteurs;
-	@ManyToOne
-	private Admin admin ;
 	
-	@OneToOne(mappedBy = "Student")
+	
+	@OneToOne
 	private GradProjectFile PfeFile;
-	
-	
-	@ManyToOne
-	private Teacher president;
-	
 	
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@XmlElement
-	public Admin getAdmin() {
-		return admin;
-	}
 
-	public void setAdmin(Admin admin) {
-		this.admin = admin;
-	}
 	
 	@XmlTransient
 	public Teacher getEncadrants() {
@@ -103,12 +88,6 @@ public class Student extends User implements Serializable{
 
 	public void setCompany(Company company) {
 		this.company = company;
-	}
-	public Teacher getPresident() {
-		return president;
-	}
-	public void setPresident(Teacher president) {
-		this.president = president;
 	}
 	
 	
