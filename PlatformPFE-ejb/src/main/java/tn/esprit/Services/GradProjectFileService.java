@@ -49,20 +49,18 @@ public class GradProjectFileService implements GradProjectFileServiceRemote, Gra
     	query.setParameter("pays", pays);
 		return query.getResultList();
     }
-    @Override 
-    public int findMaxArray(ArrayList<GradProjectFile> tab1,ArrayList<GradProjectFile> tab2,ArrayList<GradProjectFile> tab3) {
-    	int max=tab1.size();
-    	if(tab2.size()>max)
-    		max=tab2.size();
-    	if(tab3.size()>tab2.size())
-    		max=tab3.size();
-    	return max;
-    }
 	@Override
 	public List<GradProjectFile> getSheetsOfYear(){
 		TypedQuery<GradProjectFile> query = em.createQuery("SELECT f FROM GradProjectFile f WHERE f.state=:state AND f.anneeScolaire=:year ORDER BY f.dateSaisie DESC ", GradProjectFile.class);
     	query.setParameter("state", "encours");
     	query.setParameter("year", Calendar.getInstance().get(Calendar.YEAR)+"-"+(Calendar.getInstance().get(Calendar.YEAR)+1));
+		return query.getResultList();
+	}
+	@Override
+	public List<GradProjectFile> getWaitingDefense(){
+		TypedQuery<GradProjectFile> query = em.createQuery("SELECT f FROM GradProjectFile f WHERE f.noteEncadrant>:noteE AND f.noteRapporteur>:noteR ", GradProjectFile.class);
+    	query.setParameter("noteE", 0);
+    	query.setParameter("noteR", 0);
 		return query.getResultList();
 	}
 }

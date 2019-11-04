@@ -96,11 +96,10 @@ public class DirecteurRest {
 
 		else {
 			SendEmail mail=new SendEmail();
-			mail.getGenerateMailMessage().setSubject("Fiche acceptée");
-			mail.generateAndSendEmail("abdennadher.ismail@gmail.com", "Vous trouvez ci-joint une fiche acceptée "+
+			mail.generateAndSendEmail("abdennadher.ismail@gmail.com","Fiche acceptée", "Vous trouvez ci-joint une fiche acceptée "+
 			directeurServices.findGradFile(Integer.parseInt(id)).toString(), "ismail.abdennadher@esprit.tn", "22827736");//ne9sa
 			return Response.ok(directeurServices.findGradFile(Integer.parseInt(id)),MediaType.APPLICATION_JSON)
-					.header("Access-Control-Allow-Origin", "*").build();
+					.header("Access-Control-Allow-Origin", "*").build();//ne9sa
 		}
 	}
 	@Path("refuserFiche")
@@ -113,9 +112,8 @@ public class DirecteurRest {
 
 		else {
 			SendEmail mail=new SendEmail();
-			mail.getGenerateMailMessage().setSubject("Fiche refusée");
 			Student s=directeurServices.findGradFile(Integer.parseInt(id)).getStudent();
-			mail.generateAndSendEmail(s.getEmail(), "Mr "+s.getFirstName()+
+			mail.generateAndSendEmail(s.getEmail(),"Fiche refusée", "Mr "+s.getFirstName()+
 					" je vous informe que votre fiche a été refusée \n Veuillez corriger tout erreur"
 					, "ismail.abdennadher@esprit.tn", "22827736");//ne9sa
 			return Response.ok(directeurServices.findGradFile(Integer.parseInt(id)),MediaType.APPLICATION_JSON)

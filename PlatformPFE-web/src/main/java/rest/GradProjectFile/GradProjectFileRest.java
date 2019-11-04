@@ -64,7 +64,7 @@ public class GradProjectFileRest {
 	}
 	}
 	
-	@Path("Fichefiche")
+	@Path("ficheCetteAnnee")
 	@GET
 	@Produces("application/json")
 	public Response getSheetsThisYear() {
@@ -75,6 +75,18 @@ public class GradProjectFileRest {
 		return Response.ok(ficheService.getSheetsOfYear(), MediaType.APPLICATION_JSON)
 				.header("Access-Control-Allow-Origin", "*").build();
 	}
+	}
+	@Path("enattenteDeSoutenance")
+	@GET
+	@Produces("application/json")
+	public Response getWaitingDefense() {
+		if (ficheService.getWaitingDefense().size() == 0)
+			return Response.status(Response.Status.NO_CONTENT).entity("Pas de contenu").build();
+
+		else {
+			return Response.ok(ficheService.getWaitingDefense(), MediaType.APPLICATION_JSON)
+					.header("Access-Control-Allow-Origin", "*").build();
+		}
 	}
 	
 }
