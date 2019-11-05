@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class TemplatePFE implements Serializable {
@@ -18,6 +19,9 @@ public class TemplatePFE implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String Template;
+	
+	@OneToOne
+	private Site site;
 	
 	@OneToMany(mappedBy="templatePFE" , fetch=FetchType.EAGER)
 	private List<GradProjectFile> gradProjectFiles;
@@ -48,26 +52,42 @@ public class TemplatePFE implements Serializable {
 		Template = template;
 	}
 	
-	public TemplatePFE(int id, String template) {
-		this.id = id;
-		Template = template;
-	}
 	
 	
 	public TemplatePFE() {
 	}
 	
+	public TemplatePFE(int id, String template, Site site, List<GradProjectFile> gradProjectFiles) {
+		this.id = id;
+		Template = template;
+		this.site = site;
+		this.gradProjectFiles = gradProjectFiles;
+	}
 	
 	
 	@Override
 	public String toString() {
-		return "TemplatePFE [id=" + id + ", Template=" + Template + "]";
+		return "TemplatePFE [id=" + id + ", Template=" + Template + ", site=" + site + ", gradProjectFiles="
+				+ gradProjectFiles + "]";
 	}
-	public TemplatePFE(int id, String template, List<GradProjectFile> gradProjectFiles) {
+	public TemplatePFE(int id, String template, Site site) {
 		this.id = id;
 		Template = template;
-		this.gradProjectFiles = gradProjectFiles;
+		this.site = site;
 	}
+	public Site getSite() {
+		return site;
+	}
+	public void setSite(Site site) {
+		this.site = site;
+	}
+	public TemplatePFE(String template, Site site) {
+		Template = template;
+		this.site = site;
+	}
+	
+	
+
 	
 	
 	

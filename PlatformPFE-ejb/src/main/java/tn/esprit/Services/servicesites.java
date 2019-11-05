@@ -66,4 +66,10 @@ public class servicesites implements servicesitesRemote ,servicesiteLocal{
 		
 	}
 
+	@Override
+	public Site getSiteById(int id) {
+		// TODO Auto-generated method stub
+		return em.find(Site.class, id);
+	}
+
 }

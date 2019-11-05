@@ -16,6 +16,8 @@ public interface servicesiteLocal {
 	public void deletesitebyid(int ids);
 	public void updatesite(Site s );
 	public void affecter_DS_toS(int id_site,int id_ds);
+	public Site getSiteById(int id);
+
 
 
 }

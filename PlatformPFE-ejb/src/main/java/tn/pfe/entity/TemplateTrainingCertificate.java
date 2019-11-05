@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class TemplateTrainingCertificate implements Serializable {
@@ -19,6 +20,8 @@ public class TemplateTrainingCertificate implements Serializable {
 	private int id;
 	private String Template;
 	
+	@OneToOne
+	private Site site;
 	
 	public int getId() {
 		return id;
@@ -38,21 +41,21 @@ public class TemplateTrainingCertificate implements Serializable {
 		Template = template;
 	}
 	
-	public TemplateTrainingCertificate(int id, String template) {
-		this.id = id;
-		Template = template;
-	}
-	
 	
 	public TemplateTrainingCertificate() {
 	}
-	
-	
-	
-	@Override
-	public String toString() {
-		return "TemplatePFE [id=" + id + ", Template=" + Template + "]";
+	public Site getSite() {
+		return site;
 	}
+	public void setSite(Site site) {
+		this.site = site;
+	}
+	public TemplateTrainingCertificate(int id, String template, Site site) {
+		this.id = id;
+		Template = template;
+		this.site = site;
+	}
+	
 		
 	
 	

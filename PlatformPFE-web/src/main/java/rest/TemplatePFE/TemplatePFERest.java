@@ -18,6 +18,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import rest.Secured;
+import tn.esprit.Services.servicesiteLocal;
+import tn.pfe.entity.Site;
 import tn.pfe.entity.TemplatePFE;
 import tn.pfe.service.TemplatePFE.TemplatePFEServiceLocal;
 
@@ -28,27 +30,39 @@ public class TemplatePFERest {
 	@EJB
 	TemplatePFEServiceLocal templateService;
 	
+	@EJB
+	servicesiteLocal serviceSite;
+	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response ajouter(@QueryParam(value="template") String template) {
-		TemplatePFE T = new TemplatePFE(template);
-		
-		templateService.ajouter(T);
-		return Response.status(Status.CREATED).entity(T).build();
+	public String ajouter(@QueryParam(value="template") String template , @QueryParam(value="site_id") int site_id) {
+		Site s = serviceSite.getSiteById(site_id);
+		if(s != null) {
+			TemplatePFE T = new TemplatePFE(template , s);
+			templateService.ajouter(T);
+			return "Template added";
+		}else
+			return "there is no Site with the id = "+site_id;	
 	}
 	
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	public String modifier(@QueryParam(value="id") int id , @QueryParam(value="template") String Template) {
+	public String modifier(@QueryParam(value="id") int id , @QueryParam(value="template") String Template , @QueryParam(value="site_id") int site_id) {
+		Site s = serviceSite.getSiteById(site_id);
 		
-		TemplatePFE T = new TemplatePFE(id, Template);
-		
-		if(searchTemplatePFE(T.getId()) != null) {
-			templateService.modifier(T);;
-			return "The object was updated !";
+		if(s != null) {
+			TemplatePFE T = new TemplatePFE(id, Template , s);
+			
+			if(searchTemplatePFE(T.getId()) != null) {
+				templateService.modifier(T);;
+				return "The Template was updated !";
+			}
+			else	
+				return "there is no Template with the id = "+id;
 		}
-		else	
-			return "there is no object with the id = "+id;
+		else
+			return "there is no Site with the id = "+site_id;
+			
 	}
 	
 	@Secured

@@ -12,9 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import tn.pfe.entity.GradProjectFile;
 import tn.pfe.entity.Student;
-import tn.pfe.entity.projectCategory;
 import tn.pfe.service.Student.StudentServiceLocal;
 
 

@@ -6,18 +6,22 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import tn.esprit.Services.UserServiceLocal;
 import tn.pfe.entity.User;
 
 @Path("authentification")
@@ -26,17 +30,21 @@ public class AuthenticationEndPoint {
 	@Context
 	private UriInfo urlInfo;
 	
+	@EJB
+	UserServiceLocal userService;
 	
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response antentificateUser(Credentials cred) {
-		
-		authenticate(cred.getUsername() , cred.getPassword());
-		
-		String token = issueToken(cred.getUsername());
-		
-		return Response.ok(token).build();
+	public Response antentificateUser(@QueryParam(value="email")String email , @QueryParam(value="password")String password) {
+		if(userService.getUserByEmailandPassword(email, password) != null) {
+			authenticate(email , password);
+			
+			String token = issueToken(email);
+			
+			return Response.ok(token).build();
+		}
+		else
+			return Response.status(Status.NOT_FOUND).build();
 	}
 
 

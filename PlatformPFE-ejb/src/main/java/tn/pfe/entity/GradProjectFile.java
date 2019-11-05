@@ -55,6 +55,15 @@ public class GradProjectFile implements Serializable{
 	
 private boolean validated;
 private boolean preValidated;
+
+private String state;
+
+private String stateRapport;
+
+	private String anneeScolairee;
+
+	@Temporal(TemporalType.DATE)
+	private Date dateSaisie;
 	
 	@Temporal(TemporalType.DATE)
 	private Date anneeScolaire =  new Date();
@@ -68,8 +77,10 @@ private boolean preValidated;
 	
 	private double note_rapporteur;
 
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(mappedBy = "PfeFile",fetch=FetchType.EAGER)
 	private Student Student;
+
+	private String pays;
 	
 	@ManyToOne
 	private Teacher encadreur;
@@ -275,6 +286,68 @@ private boolean preValidated;
 
 	public void setNote_rapporteur(double note_rapporteur) {
 		this.note_rapporteur = note_rapporteur;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getStateRapport() {
+		return stateRapport;
+	}
+
+	public void setStateRapport(String stateRapport) {
+		this.stateRapport = stateRapport;
+	}
+
+	public String getAnneeScolairee() {
+		return anneeScolairee;
+	}
+
+	public void setAnneeScolairee(String anneeScolairee) {
+		this.anneeScolairee = anneeScolairee;
+	}
+
+	public Date getDateSaisie() {
+		return dateSaisie;
+	}
+
+	public void setDateSaisie(Date dateSaisie) {
+		this.dateSaisie = dateSaisie;
+	}
+
+	public String getPays() {
+		return pays;
+	}
+
+	public void setPays(String pays) {
+		this.pays = pays;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GradProjectFile other = (GradProjectFile) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 
