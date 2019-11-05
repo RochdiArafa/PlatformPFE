@@ -24,6 +24,7 @@ public class Teacher  extends User  implements Serializable {
 
 	private String image;
 	private String departement;
+	private int maxAction;
 
 	@ManyToMany(fetch = FetchType.EAGER)//our l xml
 	private Set<projectCategory> PreferedCategories = new HashSet<>();
@@ -321,6 +322,16 @@ public class Teacher  extends User  implements Serializable {
 		} else if (!image.equals(other.image))
 			return false;
 		return true;
+	}
+
+
+	public int getMaxAction() {
+		return maxAction;
+	}
+
+
+	public void setMaxAction(int maxAction) {
+		this.maxAction = maxAction;
 	}
 
 	
