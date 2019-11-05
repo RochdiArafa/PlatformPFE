@@ -65,7 +65,7 @@ public class StudentService implements StudentServiceRemote, StudentServiceLocal
 		emailcontent = "Bonjour Monsieur ,Bonjour Madame  <br>  <br>  Votre email pour connecter à notre plateforme de stage PFE est "+EmailRecip+" votre mot de passe est "+password;
 		 
 		try {
-			SendEmail.generateAndSendEmail(EmailRecip, "Compte information", emailcontent, "keeptooui@gmail.com", "az191+AZ");
+			SendEmail.generateAndSendEmail(EmailRecip, "Compte information", emailcontent, "keeptooui@gmail.com", "******");
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
