@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: sofiene
-Build-Jdk: 1.8.0_211
-=======
-Built-By: ROCH
-Build-Jdk: 1.8.0_131
->>>>>>> 2195faeefd615f1d1c6a4d5a4e0edccec46e733e
+Built-By: ASUS
+Build-Jdk: 1.8.0_151
 Created-By: Maven Integration for Eclipse
 

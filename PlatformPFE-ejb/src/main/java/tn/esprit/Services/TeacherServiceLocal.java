@@ -16,8 +16,6 @@ public interface TeacherServiceLocal {
 	void deleteTeacherById(int id);
 	boolean updateTeacherById(Teacher t);
 	Teacher getTeacherById(int id);
-	void encadrerEtudiant(int idT, int idStu);
-	void rappporterEtudiant(int idT, int idStu);
 	Set<Student> listerSdtEncadre(int idT);
 	Set<Student> listerSdtarapporter(int idT);
 	Set<Student> listerSdtpresedent(int idT);
@@ -27,7 +25,16 @@ public interface TeacherServiceLocal {
 	void prevalide(int idt,int idfile,String role);
 	void noterpfeFile(int idt,int idfile,double note,String role);
 	void donnerUnMotif(int idt,int idfile,String motif,String role);
-	
+	//el king
+	public void encadrerEtudiant(int idStu);
+	public void rappporterEtudiant(int idStu);
+	public void updateRapporteur(int idStu,int idT);
+	public void updateEncadrant(int idStu,int idT);
+	public List<GradProjectFile> AfficherListeSansRapporteurs();
+	public Map<Teacher,List<GradProjectFile>> teacherbynbencadrement();
+	public List<GradProjectFile> fichesansrapporteur();
+	public List<GradProjectFile> fichesansencadrant();
+	public void validercat(int catid);
 	
 	//stat
 	List<GradProjectFile> getFilesencadredByYear(int idt, int year);

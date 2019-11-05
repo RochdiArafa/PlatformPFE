@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,6 +22,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.ws.rs.DefaultValue;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -32,10 +35,11 @@ import tn.pfe.entity.Student;
 @Entity
 @Table(name="GradProject_File")
 @XmlRootElement(name ="GradProjectFile")
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class GradProjectFile implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int id;
 	@Column(name="title_gradproject")
 	private String title;
@@ -49,7 +53,7 @@ public class GradProjectFile implements Serializable{
 	private String keyword;
 
 	
-	
+private boolean validated;
 private boolean preValidated;
 	
 	@Temporal(TemporalType.DATE)
@@ -59,11 +63,16 @@ private boolean preValidated;
 	
 	private double note;
 	
+	@DefaultValue("nouveau")
+	private String nouveau;
+	
 	private double note_rapporteur;
 
 	@OneToOne(fetch=FetchType.EAGER)
 	private Student Student;
 	
+	@ManyToOne
+	private Teacher encadreur;
 	
 	@OneToOne(mappedBy="pfe",cascade =CascadeType.MERGE,fetch=FetchType.EAGER)
 	private Soutenance soutenance ;
@@ -269,10 +278,27 @@ private boolean preValidated;
 	}
 
 
+	public Teacher getEncadreur() {
+		return encadreur;
+	}
 	
+	public boolean getValidated() {
+		return validated;
+	}
+	public void setEncadreur(Teacher encadreur) {
+		this.encadreur = encadreur;
+	}
+public void setValidated(boolean validated) {
+	this.validated = validated;
+}
 	
 
-
+public String getNouveau() {
+	return nouveau;
+}
+public void setNouveau(String nouveau) {
+	this.nouveau = nouveau;
+}
 
 	
 	

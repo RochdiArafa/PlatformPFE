@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.rmi.CORBA.Stub;
 
+
 import tn.pfe.entity.*;
 
 /**
@@ -104,16 +105,7 @@ public class TeacherService implements TeacherServiceRemote, TeacherServiceLocal
 	
 	//// teacher with student
 
-	@Override
-	public void encadrerEtudiant(int idT, int idStu) {
-		// TODO Auto-generated method stub
-		Teacher t  = em.find(Teacher.class, idT);
-		Student s = em.find(Student.class, idStu);
-		
-		t.getEtudiantAEncadrer().add(s);
-		s.setEncadrants(t);
-		
-	}
+	
 
 
 	@Override
@@ -246,17 +238,7 @@ pfefiles = listerFileEncadrer(idt);
 	}
 
 
-	@Override
-	public void rappporterEtudiant(int idT, int idStu) {
-		
-		// TODO Auto-generated method stub
-				Teacher t  = em.find(Teacher.class, idT);
-				Student s = em.find(Student.class, idStu);
-				
-				t.getEtudiantarapporter().add(s);
-				s.setEncadrants(t);
-		
-	}
+	
 
 
 	@Override
@@ -792,8 +774,260 @@ pfefiles = listerFileEncadrer(idt);
 	
 
 
+	//ahmed
+@Override
+	public List<GradProjectFile> AfficherListeSansRapporteurs() {
+	List<GradProjectFile>ppList=new ArrayList<GradProjectFile>();
+	List<GradProjectFile>pfes = em.createQuery(" select c from GradProjectFile c where c.nouveau = :nouveau",GradProjectFile.class).setParameter("nouveau", "nouveau").getResultList();
+	List<Student>listStudents = em.createQuery(" select s from Student s",Student.class).getResultList();	
+	if(pfes.size()>0) {
 	
+		for(GradProjectFile pfe : pfes) {
+			
+				if(pfe.getNote_rapporteur() == 0 || pfe.getNote()==0) {					
+					ppList.add(pfe);
+				
+			}
+		
+		}
 	
+	}else {
+		System.out.println("liste ferghin");
+	}
+	System.out.println(pfes.size());
+	return ppList;
+	}
+@Override
+public void encadrerEtudiant(int idStu) {
+	boolean kk=false;
+	boolean cbon= false ;
+	GradProjectFile pfe = new GradProjectFile();
+	
+	List<Teacher> lt = em.createQuery(" select c from Teacher c",Teacher.class).getResultList();
+	List<GradProjectFile> pfes = em.createQuery(" select p from GradProjectFile p where c.nouveau = :nouveau",GradProjectFile.class).setParameter("nouveau", "nouveau").getResultList();
+	Student s = em.find(Student.class, idStu);
+	for(GradProjectFile p : pfes) {
+		if(p.getStudent().getId() == s.getId()) {
+			kk=true;
+			pfe = s.getPfeFile();
+		}
+	}
+		
+		
+		Set<projectCategory>categories = new HashSet<projectCategory>();
+		if(kk) {
+		categories = pfe.getCategoriesoffile();
+		if(categories.size()!=0) {
+				for(projectCategory categorie : categories) {
+				for (Teacher teacher : lt) {
+					Set<projectCategory> tCategories = new HashSet<projectCategory>();
+						tCategories = teacher.getPreferedCategories();
+					for(projectCategory cat : tCategories) {
+						if(cat.getName().equals(categorie.getName())) {
+							if(teacher.getEtudiantAEncadrer().size()<teacher.getNbmaxencadrement()) {														
+							teacher.getEtudiantAEncadrer().add(s);
+							s.setEncadrants(teacher);
+							teacher.getPfeencadre().add(pfe);
+							pfe.setEncadreur(teacher);
+							cbon=true;
+							}else {
+								System.out.println("nb non disponible");
+							}
+						}else {
+							System.out.println("mafamech b nafs el categorie");
+						}
+				}
+				}
+			}
+				
+		}else {
+			System.out.println("file maandhech categories");
+		}
+		
+		for(Teacher teacher : lt) {	
+			if(teacher.getEtudiantAEncadrer().size()<teacher.getNbmaxencadrement()) {
+				teacher.getEtudiantAEncadrer().add(s);
+				s.setEncadrants(teacher);	
+			}			
+		}
+		}else {
+			System.out.println("maandouch fiche pfe");
+		}		
+	
+}
+@Override
+public List<GradProjectFile> fichesansrapporteur() {
+	List<GradProjectFile>pfes = em.createQuery(" select c from GradProjectFile c where c.nouveau = :nouveau",GradProjectFile.class).setParameter("nouveau", "nouveau").getResultList();
+	List<Student>listStudents = em.createQuery(" select s from Student s",Student.class).getResultList();	
+	List<GradProjectFile> listpfeList=new ArrayList<GradProjectFile>();
+	for(GradProjectFile pfe : pfes) {
+		if(pfe.getStudent() != null) {
+			for(Student student : listStudents) {
+				if(pfe.getStudent().getId() == student.getId()) {
+					if(student.getRapporteurs() == null) {
+						listpfeList.add(pfe);
+					}
+				}
+			}
+		}
+	}
+	return listpfeList;
+}
+
+@Override
+public List<GradProjectFile> fichesansencadrant() {
+	List<GradProjectFile>pfes = em.createQuery(" select c from GradProjectFile c where c.nouveau = :nouveau",GradProjectFile.class).setParameter("nouveau", "nouveau").getResultList();
+	List<Student>listStudents = em.createQuery(" select s from Student s",Student.class).getResultList();	
+	List<GradProjectFile> listpfeList=new ArrayList<GradProjectFile>();
+	for(GradProjectFile pfe : pfes) {
+		if(pfe.getStudent() != null) {
+			for(Student student : listStudents) {
+				if(pfe.getStudent().getId() == student.getId()) {
+					if(student.getEncadrants() == null) {
+						listpfeList.add(pfe);
+					}
+				}
+			}
+		}
+	}
+	return listpfeList;
+}
+
+@Override
+public void rappporterEtudiant(int idStu) {
+	boolean kk=false;
+	boolean cbon= false ;
+	GradProjectFile pfe = new GradProjectFile();
+	List<Teacher> lt = em.createQuery(" select c from Teacher c",Teacher.class).getResultList();
+	List<GradProjectFile> pfes = em.createQuery("select p from GradProjectFile p where c.nouveau = :nouveau",GradProjectFile.class).setParameter("nouveau", "nouveau").getResultList();
+	Student s = em.find(Student.class, idStu);
+	for(GradProjectFile p : pfes) {
+		if(p.getStudent()!=null && p.getStudent().getId() == s.getId()) {
+			kk=true;
+			pfe = s.getPfeFile();
+		}
+	}
+		
+		
+		Set<projectCategory>categories = new HashSet<projectCategory>();
+		if(kk) {
+		categories = pfe.getCategoriesoffile();
+		if(categories.size()!=0) {
+				for(projectCategory categorie : categories) {
+				for (Teacher teacher : lt) {
+					Set<projectCategory> tCategories = new HashSet<projectCategory>();
+						tCategories = teacher.getPreferedCategories();
+					for(projectCategory cat : tCategories) {
+						if(cat.getName().equals(categorie.getName())) {
+							if(teacher.getEtudiantarapporter().size()<teacher.getNbmaxrap()) {														
+							teacher.getEtudiantarapporter().add(s);
+							s.setRapporteurs(teacher);
+							cbon=true;
+							}else {
+								System.out.println("nb non disponible");
+							}
+						}else {
+							System.out.println("mafamech b nafs el categorie");
+						}
+				}
+				}
+			}
+				
+		}else {
+			System.out.println("file maandhech categories");
+		}
+		
+		for(Teacher teacher : lt) {	
+			if(teacher.getEtudiantarapporter().size()<teacher.getNbmaxrap()) {
+				teacher.getEtudiantarapporter().add(s);
+				s.setRapporteurs(teacher);
+			}			
+		}
+		}else {
+			System.out.println("maandouch fiche pfe");
+		}		
+	
+}
+@Override
+public Map<Teacher, List<GradProjectFile>> teacherbynbencadrement() {
+	List<Teacher> lst = new ArrayList<Teacher>();
+	List<GradProjectFile> lstPfes = new ArrayList<GradProjectFile>();
+	Map<Teacher, List<GradProjectFile>> teaMap = new HashMap<Teacher, List<GradProjectFile>>();
+	lst = em.createQuery("select c from Teacher c",Teacher.class).getResultList();
+	lstPfes = em.createQuery("select c from GradProjectFile c where c.nouveau = :nouveau",GradProjectFile.class).setParameter("nouveau", "nouveau").getResultList();
+	for (GradProjectFile pfe : lstPfes) {
+		if(pfe.getEncadreur() != null) {
+		for(Teacher teacher : lst) {
+			if(pfe.getEncadreur().getId() == teacher.getId())
+			if(teaMap.containsKey(teacher)) {
+				List<GradProjectFile> lsttList = new ArrayList<GradProjectFile>();
+				lsttList = teaMap.get(teacher);
+				lsttList.add(pfe);
+				teaMap.put(teacher, lsttList);
+			}else if (!teaMap.containsKey(teacher)) {
+				List<GradProjectFile> lsttList = new ArrayList<GradProjectFile>();
+				lsttList.add(pfe);
+				teaMap.put(teacher, lsttList);
+			}
+		}
+		}
+	}
+	System.out.println(teaMap.size());
+	return teaMap;
+}
+@Override
+public void updateRapporteur(int idStu, int idT) {
+	Student s = em.find(Student.class, idStu);
+	Teacher teacher = em.find(Teacher.class, idT);
+	if(teacher != null && s!= null) {
+		if(s.getPfeFile().getNote_rapporteur()==0.0) {
+			if(teacher.getNbmaxrap()>teacher.getEtudiantarapporter().size()) {
+				teacher.getEtudiantarapporter().add(s);
+				s.setRapporteurs(teacher);	
+				s.getRapporteurs().getPfeencadre().remove(s.getPfeFile());
+				teacher.getPfeencadre().add(s.getPfeFile());
+			}else {
+				System.out.println("fet el nombre max des rapp!");
+			}
+		}else {
+			System.out.println("maandouch fiche pfe");
+		}
+	}else {
+		System.out.println("verifier les parametres");
+	}
+	
+}
+@Override
+public void updateEncadrant(int idStu, int idT) {
+	Student s = em.find(Student.class, idStu);
+	Teacher teacher = em.find(Teacher.class, idT);
+	if(teacher != null && s!= null) {
+		if(s.getPfeFile().getNote()==0.0) {
+			if(teacher.getNbmaxencadrement()>teacher.getEtudiantAEncadrer().size()) {
+				teacher.getEtudiantAEncadrer().add(s);
+				s.setEncadrants(teacher);	
+			}else {
+				System.out.println("fet el nombre max des encardrements!");
+			}
+		}else {
+			System.out.println("maandouch fiche pfe");
+		}
+	}else {
+		System.out.println("verifier les parametres");
+	}
+	
+}
+@Override
+	public void validercat(int catid) {
+	List<projectCategory> categories = new ArrayList<projectCategory>();
+	categories = em.createQuery("select c from projectCategory c",projectCategory.class).getResultList();
+	for(projectCategory cat : categories) {
+		if (cat.getId() == catid) {
+			cat.setValide(true);
+		}
+	}
+		
+	}	
 	
 	
 	
