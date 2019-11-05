@@ -96,7 +96,7 @@ public class DirecteurRest {
 
 		else {
 			SendEmail mail=new SendEmail();
-			mail.generateAndSendEmail("abdennadher.ismail@gmail.com","Fiche acceptée", "Vous trouvez ci-joint une fiche acceptée "+
+			mail.generateAndSendEmail(directeurServices.getChefDepartement().getEmail(),"Fiche acceptée", "Vous trouvez ci-joint une fiche acceptée "+
 			directeurServices.findGradFile(Integer.parseInt(id)).toString(), "ismail.abdennadher@esprit.tn", "22827736");//ne9sa
 			return Response.ok(directeurServices.findGradFile(Integer.parseInt(id)),MediaType.APPLICATION_JSON)
 					.header("Access-Control-Allow-Origin", "*").build();//ne9sa

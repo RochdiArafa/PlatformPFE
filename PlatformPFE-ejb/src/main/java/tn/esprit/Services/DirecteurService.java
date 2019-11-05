@@ -11,6 +11,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import tn.pfe.entity.Archive_GradProjectFile;
+import tn.pfe.entity.Chefdepartement;
 import tn.pfe.entity.GradProjectFile;
 import tn.pfe.entity.Student;
 import tn.pfe.entity.User;
@@ -104,5 +105,10 @@ public class DirecteurService implements DirecteurServiceRemote, DirecteurServic
 		s1.setPfeFile(null);
 		ar.setStudent(s1);
     	em.persist(ar);
+    }
+    @Override 
+    public User getChefDepartement() {
+		TypedQuery<Chefdepartement> query =  em.createQuery("Select s from Chefdepartement s ",Chefdepartement.class);
+		return query.getSingleResult();
     }
 }

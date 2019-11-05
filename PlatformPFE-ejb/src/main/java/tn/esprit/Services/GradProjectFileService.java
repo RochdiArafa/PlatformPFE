@@ -58,7 +58,7 @@ public class GradProjectFileService implements GradProjectFileServiceRemote, Gra
 	}
 	@Override
 	public List<GradProjectFile> getWaitingDefense(){
-		TypedQuery<GradProjectFile> query = em.createQuery("SELECT f FROM GradProjectFile f WHERE f.note>:noteE AND f.note_Rapporteur>:noteR ", GradProjectFile.class);
+		TypedQuery<GradProjectFile> query = em.createQuery("SELECT f FROM GradProjectFile f WHERE f.note>:noteE AND f.note_rapporteur>:noteR ", GradProjectFile.class);
     	query.setParameter("noteE", 0);
     	query.setParameter("noteR", 0);
 		return query.getResultList();

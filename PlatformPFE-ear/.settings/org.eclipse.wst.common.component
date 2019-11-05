@@ -2,10 +2,10 @@
     <wb-module deploy-name="PlatformPFE-ear">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
-        <dependent-module archiveName="PlatformPFE-web.war" deploy-path="/" handle="module:/classpath/var/M2_REPO/tn/esprit/PlatformPFE-web/0.0.1-SNAPSHOT/PlatformPFE-web-0.0.1-SNAPSHOT.war">
+        <dependent-module archiveName="PlatformPFE-web.war" deploy-path="/" handle="module:/resource/PlatformPFE-web/PlatformPFE-web">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="PlatformPFE-ejb.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/tn/esprit/PlatformPFE-ejb/0.0.1-SNAPSHOT/PlatformPFE-ejb-0.0.1-SNAPSHOT.jar">
+        <dependent-module archiveName="PlatformPFE-ejb.jar" deploy-path="/" handle="module:/resource/PlatformPFE-ejb/PlatformPFE-ejb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="gson.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/google/code/gson/gson/2.8.0/gson-2.8.0.jar">
