@@ -24,10 +24,10 @@ public class DirecteurRest {
 	@EJB(mappedName="PlatformPFE-ear/PlatformPFE-ejb/DirecteurService!tn.esprit.Services.DirecteurServiceServiceRemote") 
 	DirecteurServiceLocal directeurServices;
 	
-	@Path("/ficheCetteAnnee")
+	@Path("/activerEtudiant")
 	@PUT
 	@Produces("application/json")
-	public Response getSheetsThisYear(@QueryParam(value="id") String id) {
+	public Response enableStudent(@QueryParam(value="id") String id) {
 	if(directeurServices.enableStudent(Integer.parseInt(id))==0)
 		return Response.status(Response.Status.NOT_MODIFIED).entity("Pas de contenu").build();
 
