@@ -161,7 +161,6 @@ public class projectCategory implements Serializable{
 		result = prime * result + ((gradProjectFiles == null) ? 0 : gradProjectFiles.hashCode());
 		result = prime * result + id;
 		result = prime * result + (( Name == null) ? 0 : Name.hashCode());
-		result = prime * result + ((teacherspreferdCategorie == null) ? 0 : teacherspreferdCategorie.hashCode());
 		result = prime * result + ((valide == null) ? 0 : valide.hashCode());
 		return result;
 	}

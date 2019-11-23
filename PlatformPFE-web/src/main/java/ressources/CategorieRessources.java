@@ -26,7 +26,7 @@ public class CategorieRessources {
 	@EJB
 	CategorieService catser;
 	
-	
+	// http://localhost:9080/PlatformPFE-web/rest/categories
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<projectCategory> getallCategories() {
@@ -34,7 +34,7 @@ public class CategorieRessources {
 	}
 	
 	
-	
+	// http://localhost:9080/PlatformPFE-web/rest/categories
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
@@ -43,6 +43,8 @@ public class CategorieRessources {
 		return "categorie added";
 	}
 	
+	
+	// http://localhost:9080/PlatformPFE-web/rest/categories/2
 	@DELETE
 	@Path("{idc}")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -51,6 +53,8 @@ public class CategorieRessources {
 		return "categorie deleted";
 	}
 	
+	
+	// http://localhost:9080/PlatformPFE-web/rest/categories
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
@@ -59,6 +63,8 @@ public class CategorieRessources {
 		return "categorie updated";
 	}
 	
+	
+	// http://localhost:9080/PlatformPFE-web/rest/categories/{idc}/{idt}
 	@POST
 	@Path("{idc}/{idt}")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -67,16 +73,17 @@ public class CategorieRessources {
 		return "categorie affected";
 	}
 	
+	// http://localhost:9080/PlatformPFE-web/rest/categories/preferedCat/{idc}/{idt}
 	@POST
 	@Path("preferedCat/{idc}/{idt}")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String affecterpreferedcategorie(@PathParam("idc")int idc, @PathParam("idt")int idt) {
-		catser.affecterCategorieToTeacher(idc, idt);
+		catser.affecterCategoriePrefereToTeacher(idc, idt);
 		return "categorie affected";
 	}
 	
 	
-	
+	// http://localhost:9080/PlatformPFE-web/rest/categories/DELETEpreferedCat/{idc}/{idt}
 	@DELETE
 	@Path("DELETEpreferedCat/{idc}/{idt}")
 	@Produces(MediaType.TEXT_PLAIN)
