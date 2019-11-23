@@ -246,13 +246,7 @@ public class Teacher  extends User  implements Serializable {
 		ActionsTeacher = actionsTeacher;
 
 		Etudiantsapresident = etudiantsapresident;
-<<<<<<< HEAD
-=======
 
-	
-
-		
->>>>>>> 420758a1a4fcdc3e942ad95d05ae0a15273fead9
 	}
 	
 
@@ -325,10 +319,7 @@ public class Teacher  extends User  implements Serializable {
 
 		return true;
 
-<<<<<<< HEAD
-=======
-		
->>>>>>> 420758a1a4fcdc3e942ad95d05ae0a15273fead9
+
 	}
 
 

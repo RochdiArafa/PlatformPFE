@@ -74,12 +74,10 @@ private Set<Classes> classes = new HashSet<Classes>();
 
 	
 
-<<<<<<< HEAD
+
 	@XmlTransient
-	public List<Payment> getPayments() {
-=======
-	public Set<Payment> getPayments() {
->>>>>>> 420758a1a4fcdc3e942ad95d05ae0a15273fead9
+		public Set<Payment> getPayments() {
+
 		return payments;
 	}
 
