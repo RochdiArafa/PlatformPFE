@@ -17,6 +17,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import tn.esprit.Services.servicesiteLocal;
+import tn.pfe.entity.Site;
 import tn.pfe.entity.TemplatePFE;
 import tn.pfe.entity.TemplateTrainingCertificate;
 import tn.pfe.service.TemplateTrainingCertificated.TemplateTrainingCertificateServiceLocal;
@@ -28,21 +30,31 @@ public class TemplateTrainingCertificateRest {
 	@EJB
 	TemplateTrainingCertificateServiceLocal templateService;
 	
+	@EJB
+	servicesiteLocal serviceSite;
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response ajouter(@QueryParam(value="template") String template) {
-		TemplateTrainingCertificate T = new TemplateTrainingCertificate(template);
+	public String ajouter(@QueryParam(value="template") String template , @QueryParam(value="site_id") int site_id) {
 		
-		templateService.ajouter(T);
-		return Response.status(Status.CREATED).entity(T).build();
+		Site s = serviceSite.getSiteById(site_id);
+		if(s != null) {
+			TemplateTrainingCertificate T = new TemplateTrainingCertificate(template);
+			T.setSite(s);
+			
+			templateService.ajouter(T);
+			return "Template added";
+		}else
+			return "there is no Site with the id = "+site_id;	
 	}
 	
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	public String modifier(@QueryParam(value="id") int id , @QueryParam(value="template") String Template) {
+	public String modifier(@QueryParam(value="id") int id , @QueryParam(value="template") String Template , @QueryParam(value="site_id") int site_id) {
+		Site s = serviceSite.getSiteById(site_id);
 		
-		TemplateTrainingCertificate T = new TemplateTrainingCertificate(id, Template);
+		if(s != null) {
+		TemplateTrainingCertificate T = new TemplateTrainingCertificate(id, Template , s);
 		
 		if(searchTemplateTrainingCertificate(T.getId()) != null) {
 			templateService.modifier(T);;
@@ -50,6 +62,8 @@ public class TemplateTrainingCertificateRest {
 		}
 		else	
 			return "there is no object with the id = "+id;
+		}else
+			return "there is no Site with the id = "+id;
 	}
 	
 	@GET

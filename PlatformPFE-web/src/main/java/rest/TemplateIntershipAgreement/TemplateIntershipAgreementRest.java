@@ -17,6 +17,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import tn.esprit.Services.servicesiteLocal;
+import tn.pfe.entity.Site;
 import tn.pfe.entity.TemplateIntershipAgreement;
 import tn.pfe.service.TemplateIntershipAgreement.TemplateIntershipAgreementServiceLocal;
 
@@ -27,28 +29,40 @@ public class TemplateIntershipAgreementRest {
 	@EJB
 	TemplateIntershipAgreementServiceLocal templateIntershipAgreementService;
 	
+	@EJB
+	servicesiteLocal serviceSite;
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response ajouter(@QueryParam(value="template") String template) {
+	public String ajouter(@QueryParam(value="template") String template , @QueryParam(value="site_id") int site_id) {
+		Site s = serviceSite.getSiteById(site_id);
+		if(s != null) {
 		TemplateIntershipAgreement T = new TemplateIntershipAgreement(template);
-		
+		T.setSite(s);
 		templateIntershipAgreementService.ajouter(T);
-		return Response.status(Status.CREATED).entity(T).build();
+		return "Template added";
+		}
+		else
+			return "there is no Site with the id = "+site_id;
+			
 	}
 	
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	public String modifier(@QueryParam(value="id") int id , @QueryParam(value="template") String Template) {
-		
-		TemplateIntershipAgreement T = new TemplateIntershipAgreement(id, Template);
-		
-		if(searchTemplateIntershipAgreement(T.getId()) != null) {
-			templateIntershipAgreementService.modifier(T);;
-			return "The object was updated !";
-		}
-		else	
-			return "there is no object with the id = "+id;
+	public String modifier(@QueryParam(value="id") int id , @QueryParam(value="template") String Template , @QueryParam(value="site_id") int site_id) {
+		Site s = serviceSite.getSiteById(site_id);
+
+		if(s != null) {
+			TemplateIntershipAgreement T = new TemplateIntershipAgreement(id, Template , s );
+			
+			if(searchTemplateIntershipAgreement(T.getId()) != null) {
+				templateIntershipAgreementService.modifier(T);;
+				return "The object was updated !";
+			}
+			else	
+				return "there is no Template with the id = "+id;
+		}else
+			return "there is no Site with the id = "+id;
 	}
 	
 	

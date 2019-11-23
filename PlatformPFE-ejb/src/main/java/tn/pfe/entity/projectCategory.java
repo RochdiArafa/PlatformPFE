@@ -150,6 +150,7 @@ public class projectCategory implements Serializable{
 	public Set<Teacher> getTeacherspreferdCategorie() {
 		return teacherspreferdCategorie;
 	}
+<<<<<<< HEAD
 
 	@Override
 	public int hashCode() {
@@ -164,6 +165,9 @@ public class projectCategory implements Serializable{
 		result = prime * result + ((valide == null) ? 0 : valide.hashCode());
 		return result;
 	}
+=======
+	
+>>>>>>> 420758a1a4fcdc3e942ad95d05ae0a15273fead9
 
 	@Override
 	public String toString() {

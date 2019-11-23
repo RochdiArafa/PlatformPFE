@@ -25,6 +25,15 @@ public class Site {
 	@ManyToOne
 	private Directeurdestages directeurdesstages ;
 	
+	@OneToOne
+	private TemplatePFE templatePFE;
+	
+	@OneToOne
+	private TemplateIntershipAgreement templateIntershipAgreement;
+	
+	@OneToOne
+	private TemplateTrainingCertificate templateTrainingCertificate;
+	
 	@XmlElement
 public Directeurdestages getDirecteurdesstages() {
 		return directeurdesstages;
@@ -67,4 +76,30 @@ public Directeurdestages getDirecteurdesstages() {
 		this.admin = admin;
 	}
 
+	public TemplatePFE getTemplatePFE() {
+		return templatePFE;
+	}
+
+	public void setTemplatePFE(TemplatePFE templatePFE) {
+		this.templatePFE = templatePFE;
+	}
+
+	public TemplateIntershipAgreement getTemplateIntershipAgreement() {
+		return templateIntershipAgreement;
+	}
+
+	public void setTemplateIntershipAgreement(TemplateIntershipAgreement templateIntershipAgreement) {
+		this.templateIntershipAgreement = templateIntershipAgreement;
+	}
+
+	public TemplateTrainingCertificate getTemplateTrainingCertificate() {
+		return templateTrainingCertificate;
+	}
+
+	public void setTemplateTrainingCertificate(TemplateTrainingCertificate templateTrainingCertificate) {
+		this.templateTrainingCertificate = templateTrainingCertificate;
+	}
+
+	
+	
 }

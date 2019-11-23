@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 
+
 @Entity
 @XmlRootElement(name = "teacher")
 public class Teacher  extends User  implements Serializable {
@@ -24,6 +25,13 @@ public class Teacher  extends User  implements Serializable {
 
 	private String image;
 	private String departement;
+
+	private int nbmaxprevalidation;
+	private int nbmaxencadrement;
+	private int nbmaxrap;
+
+	private int maxAction;
+
 
 	@ManyToMany(fetch = FetchType.EAGER)//our l xml
 	private Set<projectCategory> PreferedCategories = new HashSet<>();
@@ -54,7 +62,8 @@ public class Teacher  extends User  implements Serializable {
 	@OneToMany(mappedBy="teacher", fetch=FetchType.EAGER)
 	private Set<ActionTeacher> ActionsTeacher = new HashSet<>();
 	
-	
+	@OneToMany(mappedBy="encadreur" ,fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	private Set<GradProjectFile> pfeencadre = new HashSet<>();
 	
 	@OneToMany(mappedBy = "president", fetch = FetchType.EAGER)
 	private Set<Student> Etudiantsapresident = new HashSet<>();
@@ -235,9 +244,18 @@ public class Teacher  extends User  implements Serializable {
 		EtudiantAEncadrer = etudiantAEncadrer;
 		Etudiantarapporter = etudiantarapporter;
 		ActionsTeacher = actionsTeacher;
+
 		Etudiantsapresident = etudiantsapresident;
+<<<<<<< HEAD
+=======
+
+	
+
+		
+>>>>>>> 420758a1a4fcdc3e942ad95d05ae0a15273fead9
 	}
 	
+
 
 
 	@Override
@@ -304,10 +322,52 @@ public class Teacher  extends User  implements Serializable {
 				return false;
 		} else if (!image.equals(other.image))
 			return false;
+
 		return true;
 
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 420758a1a4fcdc3e942ad95d05ae0a15273fead9
 	}
 
+
+	public int getMaxAction() {
+		return maxAction;
+	}
+
+
+	public void setMaxAction(int maxAction) {
+		this.maxAction = maxAction;
+	}
+
+
+	
+public int getNbmaxencadrement() {
+	return nbmaxencadrement;
+}
+public void setNbmaxencadrement(int nbmaxencadrement) {
+	this.nbmaxencadrement = nbmaxencadrement;
+}
+public int getNbmaxprevalidation() {
+	return nbmaxprevalidation;
+}
+public void setNbmaxprevalidation(int nbmaxprevalidation) {
+	this.nbmaxprevalidation = nbmaxprevalidation;
+}
+public int getNbmaxrap() {
+	return nbmaxrap;
+}
+public void setNbmaxrap(int nbmaxrap) {
+	this.nbmaxrap = nbmaxrap;
+}
+
+	public Set<GradProjectFile> getPfeencadre() {
+		return pfeencadre;
+	}
+	public void setPfeencadre(Set<GradProjectFile> pfeencadre) {
+		this.pfeencadre = pfeencadre;
+	}
 	
 
 	
