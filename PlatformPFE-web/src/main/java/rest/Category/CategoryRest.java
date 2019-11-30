@@ -29,4 +29,11 @@ public class CategoryRest {
 	public List<GradProjectFile> getNbStageParCategorie(@QueryParam(value="id")int id) {
 		return  categorieService.getNbStageParCategorie(id);
 	}
+	
+	@GET
+	@Path("/ListStageParCategory")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Object> NbStageParCategorie(@QueryParam(value="site_id")int site_id) {
+		return  categorieService.StageParCategory(site_id);
+	}
 }

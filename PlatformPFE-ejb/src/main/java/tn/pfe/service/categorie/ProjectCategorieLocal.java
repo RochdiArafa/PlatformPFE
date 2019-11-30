@@ -11,5 +11,6 @@ import tn.pfe.entity.GradProjectFile;
 public interface ProjectCategorieLocal {
 
 	public List<GradProjectFile> getNbStageParCategorie(int id_category);
+	public List<Object> StageParCategory(int site_id);
 
 }

@@ -52,11 +52,8 @@ public class projectCategory implements Serializable{
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<GradProjectFile> gradProjectFiles;
 	
-	
-	
-	
-	
-	
+	@ManyToOne
+	private Site site;
 	
 	
 	@XmlTransient
@@ -182,9 +179,17 @@ public class projectCategory implements Serializable{
 		return true;
 	}
 
-	
-	
+	public Site getSite() {
+		return site;
+	}
 
+	public void setSite(Site site) {
+		this.site = site;
+	}
+
+	
+	
+	
 
 	
 	

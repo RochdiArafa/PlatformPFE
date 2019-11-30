@@ -44,6 +44,11 @@ public class Site {
 	@OneToMany(mappedBy="site" ,fetch = FetchType.EAGER)
 	private Set<Student> students;
 	
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="site" ,fetch = FetchType.EAGER)
+	private Set<projectCategory> projetcategorys;
+	
 	@XmlElement
 public Directeurdestages getDirecteurdesstages() {
 		return directeurdesstages;
@@ -116,6 +121,14 @@ public Directeurdestages getDirecteurdesstages() {
 
 	public void setStudents(Set<Student> students) {
 		this.students = students;
+	}
+
+	public Set<projectCategory> getProjetcategorys() {
+		return projetcategorys;
+	}
+
+	public void setProjetcategorys(Set<projectCategory> projetcategorys) {
+		this.projetcategorys = projetcategorys;
 	}
 
 	

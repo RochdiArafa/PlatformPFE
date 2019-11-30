@@ -12,6 +12,8 @@ import javax.persistence.PersistenceContext;
 import tn.pfe.entity.GradProjectFile;
 import tn.pfe.entity.Student;
 import tn.pfe.entity.projectCategory;
+import tn.pfe.entity.StageParCategory;;
+
 
 /**
  * Session Bean implementation class ProjectCategorie
@@ -48,6 +50,19 @@ public class ProjectCategorie implements ProjectCategorieRemote, ProjectCategori
 		else
 			return null;
 	}
+
+	@Override
+	public List<Object> StageParCategory(int site_id) {
+		// TODO Auto-generated method stub
+		List<Object> stageparcategory = new ArrayList<Object>();
+		List<projectCategory> projectCategorys = em.createQuery("Select c from projectCategory c where c.site.id=:site_id  ", projectCategory.class).setParameter("site_id", site_id).getResultList();
+		for (projectCategory projectCategory : projectCategorys) {
+			
+			stageparcategory.add(new StageParCategory(getNbStageParCategorie(projectCategory.getId()).size(),projectCategory.getName()));
+		}
+		return stageparcategory;
+	}
+	
 	
 }	
     
