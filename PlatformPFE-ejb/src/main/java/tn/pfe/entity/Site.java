@@ -1,14 +1,20 @@
 package tn.pfe.entity;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @XmlRootElement(name="Site")
@@ -33,6 +39,10 @@ public class Site {
 	
 	@OneToOne
 	private TemplateTrainingCertificate templateTrainingCertificate;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="site" ,fetch = FetchType.EAGER)
+	private Set<Student> students;
 	
 	@XmlElement
 public Directeurdestages getDirecteurdesstages() {
@@ -98,6 +108,14 @@ public Directeurdestages getDirecteurdesstages() {
 
 	public void setTemplateTrainingCertificate(TemplateTrainingCertificate templateTrainingCertificate) {
 		this.templateTrainingCertificate = templateTrainingCertificate;
+	}
+
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(Set<Student> students) {
+		this.students = students;
 	}
 
 	

@@ -9,5 +9,5 @@ import tn.pfe.entity.Company;
 @Remote
 public interface CompanyServiceRemote {
 
-	public List<Object> getRecrutedCompayByOrder();
+	public List<Object> getRecrutedCompayByOrder(int site_id);
 }

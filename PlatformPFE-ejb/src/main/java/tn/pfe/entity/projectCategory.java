@@ -155,20 +155,27 @@ public class projectCategory implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Description == null) ? 0 : Description.hashCode());
-		result = prime * result + ((Name == null) ? 0 : Name.hashCode());
-		result = prime * result + ((Teacher == null) ? 0 : Teacher.hashCode());
-		result = prime * result + ((gradProjectFiles == null) ? 0 : gradProjectFiles.hashCode());
 		result = prime * result + id;
-		result = prime * result + (( Name == null) ? 0 : Name.hashCode());
-		result = prime * result + ((teacherspreferdCategorie == null) ? 0 : teacherspreferdCategorie.hashCode());
-		result = prime * result + ((valide == null) ? 0 : valide.hashCode());
 		return result;
 	}
 
 	@Override
 	public String toString() {
 		return ""+id+" , "+Name;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		projectCategory other = (projectCategory) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 	

@@ -1,6 +1,7 @@
 package tn.pfe.service.categorie;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -32,14 +33,20 @@ public class ProjectCategorie implements ProjectCategorieRemote, ProjectCategori
 	@Override
 	public List<GradProjectFile> getNbStageParCategorie(int id_category) {
 		projectCategory c = em.find(projectCategory.class, id_category);
-		// TODO Auto-generated method stub
-		//List<Object> stages = em.createQuery("Select COUNT(*) as nb from GradProject_File s , project_Categoy c where  c.ID_projectCategory =:id_category", Object.class).setParameter("id_category", id_category).getResultList();
-		List<GradProjectFile> stages = c.getGradProjectFiles();
-		for (GradProjectFile g : stages) {
-			System.out.println(g);
+		if(c != null) {
+
+			List<GradProjectFile> stages = new ArrayList<GradProjectFile>();
+
+			List<GradProjectFile> GradProjectFiles = em.createQuery("Select s from GradProjectFile s ", GradProjectFile.class).getResultList();
+			for (GradProjectFile file : GradProjectFiles) {
+				if(file.getCategorys().contains(c))
+					stages.add(file);
+			}
 			
+			return stages;
 		}
-		return stages;
+		else
+			return null;
 	}
 	
 }	

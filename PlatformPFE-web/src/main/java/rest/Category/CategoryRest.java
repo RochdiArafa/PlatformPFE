@@ -26,7 +26,7 @@ public class CategoryRest {
 	@GET
 	@Path("/StageParCategory")
 	@Produces(MediaType.APPLICATION_JSON)
-	public int getNbStageParCategorie(@QueryParam(value="id")int id) {
-		return  categorieService.getNbStageParCategorie(id).size();
+	public List<GradProjectFile> getNbStageParCategorie(@QueryParam(value="id")int id) {
+		return  categorieService.getNbStageParCategorie(id);
 	}
 }

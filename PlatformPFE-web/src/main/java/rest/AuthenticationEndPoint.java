@@ -34,14 +34,21 @@ public class AuthenticationEndPoint {
 	UserServiceLocal userService;
 	
 	@POST
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response antentificateUser(@QueryParam(value="email")String email , @QueryParam(value="password")String password) {
-		if(userService.getUserByEmailandPassword(email, password) != null) {
-			authenticate(email , password);
+		User u = userService.getUserByEmailandPassword(email, password);
+		
+		if(u != null) {
+			/*
+			authenticate(u.getEmail() , u.getPassword());
 			
-			String token = issueToken(email);
+			String token = issueToken(u.getEmail());
 			
 			return Response.ok(token).build();
+			
+			*/
+			return Response.status(Status.OK).entity(u).build();
 		}
 		else
 			return Response.status(Status.NOT_FOUND).build();
