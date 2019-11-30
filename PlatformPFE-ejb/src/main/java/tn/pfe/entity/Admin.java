@@ -74,7 +74,10 @@ private Set<Classes> classes = new HashSet<Classes>();
 
 	
 
-	public Set<Payment> getPayments() {
+
+	@XmlTransient
+		public Set<Payment> getPayments() {
+
 		return payments;
 	}
 

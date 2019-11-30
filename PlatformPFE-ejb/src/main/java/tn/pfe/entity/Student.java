@@ -28,7 +28,7 @@ public class Student extends User implements Serializable{
 	@ManyToOne
 	private Admin admin ;
 	
-	@OneToOne(mappedBy = "Student")
+	@OneToOne
 	private GradProjectFile PfeFile;
 	
 	

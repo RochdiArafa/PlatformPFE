@@ -12,7 +12,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+
 import tn.esprit.Services.SkillServices;
+
 import tn.pfe.entity.Skill;
 
 @Path("skills")
@@ -20,6 +22,7 @@ public class SkillRessources {
 
 	@EJB
 	SkillServices skillser;
+	
 	
 	@POST
 	@Path("{idt}/{idc}")
@@ -38,6 +41,8 @@ public class SkillRessources {
 		return skillser.getTeacherSkills(idt);
 		
 	}       
+	
+	
 	
 	
 }

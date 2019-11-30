@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 
 
+
 @Entity
 @XmlRootElement(name = "teacher")
 public class Teacher  extends User  implements Serializable {
@@ -24,6 +25,13 @@ public class Teacher  extends User  implements Serializable {
 
 	private String image;
 	private String departement;
+
+	private int nbmaxprevalidation;
+	private int nbmaxencadrement;
+	private int nbmaxrap;
+
+	private int maxAction;
+
 
 	@ManyToMany(fetch = FetchType.EAGER)//our l xml
 	private Set<projectCategory> PreferedCategories = new HashSet<>();
@@ -54,7 +62,8 @@ public class Teacher  extends User  implements Serializable {
 	@OneToMany(mappedBy="teacher", fetch=FetchType.EAGER)
 	private Set<ActionTeacher> ActionsTeacher = new HashSet<>();
 	
-	
+	@OneToMany(mappedBy="encadreur" ,fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	private Set<GradProjectFile> pfeencadre = new HashSet<>();
 	
 	@OneToMany(mappedBy = "president", fetch = FetchType.EAGER)
 	private Set<Student> Etudiantsapresident = new HashSet<>();
@@ -205,6 +214,7 @@ public class Teacher  extends User  implements Serializable {
 	}
 
 
+
 	public Teacher(String email, String password, boolean isEnable) {
 		super(email, password, isEnable);
 		// TODO Auto-generated constructor stub
@@ -234,26 +244,12 @@ public class Teacher  extends User  implements Serializable {
 		EtudiantAEncadrer = etudiantAEncadrer;
 		Etudiantarapporter = etudiantarapporter;
 		ActionsTeacher = actionsTeacher;
+
 		Etudiantsapresident = etudiantsapresident;
+
 	}
-		
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((ActionsTeacher == null) ? 0 : ActionsTeacher.hashCode());
-		result = prime * result + ((EtudiantAEncadrer == null) ? 0 : EtudiantAEncadrer.hashCode());
-		result = prime * result + ((Etudiantarapporter == null) ? 0 : Etudiantarapporter.hashCode());
-		result = prime * result + ((Etudiantsapresident == null) ? 0 : Etudiantsapresident.hashCode());
-		result = prime * result + ((PreferedCategories == null) ? 0 : PreferedCategories.hashCode());
-		result = prime * result + ((Recomendations == null) ? 0 : Recomendations.hashCode());
-		result = prime * result + ((Sections == null) ? 0 : Sections.hashCode());
-		result = prime * result + ((Skills == null) ? 0 : Skills.hashCode());
-		result = prime * result + ((categoriesProposed == null) ? 0 : categoriesProposed.hashCode());
-		result = prime * result + ((departement == null) ? 0 : departement.hashCode());
-		result = prime * result + ((image == null) ? 0 : image.hashCode());
-		return result;
-	}
+	
+
 
 
 	@Override
@@ -320,9 +316,49 @@ public class Teacher  extends User  implements Serializable {
 				return false;
 		} else if (!image.equals(other.image))
 			return false;
+
 		return true;
+
+
 	}
 
+
+	public int getMaxAction() {
+		return maxAction;
+	}
+
+
+	public void setMaxAction(int maxAction) {
+		this.maxAction = maxAction;
+	}
+
+
+	
+public int getNbmaxencadrement() {
+	return nbmaxencadrement;
+}
+public void setNbmaxencadrement(int nbmaxencadrement) {
+	this.nbmaxencadrement = nbmaxencadrement;
+}
+public int getNbmaxprevalidation() {
+	return nbmaxprevalidation;
+}
+public void setNbmaxprevalidation(int nbmaxprevalidation) {
+	this.nbmaxprevalidation = nbmaxprevalidation;
+}
+public int getNbmaxrap() {
+	return nbmaxrap;
+}
+public void setNbmaxrap(int nbmaxrap) {
+	this.nbmaxrap = nbmaxrap;
+}
+
+	public Set<GradProjectFile> getPfeencadre() {
+		return pfeencadre;
+	}
+	public void setPfeencadre(Set<GradProjectFile> pfeencadre) {
+		this.pfeencadre = pfeencadre;
+	}
 	
 
 	

@@ -151,13 +151,17 @@ public class projectCategory implements Serializable{
 		return teacherspreferdCategorie;
 	}
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
+		result = prime * result + (( Name == null) ? 0 : Name.hashCode());
+		result = prime * result + ((valide == null) ? 0 : valide.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public String toString() {
