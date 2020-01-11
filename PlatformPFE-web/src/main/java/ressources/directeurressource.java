@@ -11,10 +11,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import tn.esprit.Services.servicedirecteurstage;
 import tn.pfe.entity.Directeurdestages;
+import tn.pfe.entity.Site;
 
 
 @Path("directeurdestages")
@@ -55,4 +57,14 @@ public class directeurressource {
 		
 		return "directeur modifer" ;
 	}
+	
+		@Path("{id}")
+			@GET
+			@Produces(MediaType.APPLICATION_JSON)
+			public Directeurdestages getdirecteurbyid(@PathParam(value="id")int id) {
+				
+				return sds.getdirecteurbyid(id);
+			}
+		
+
 }

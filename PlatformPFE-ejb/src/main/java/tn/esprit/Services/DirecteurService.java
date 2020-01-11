@@ -1,7 +1,10 @@
 package tn.esprit.Services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -12,7 +15,9 @@ import javax.persistence.TypedQuery;
 
 import tn.pfe.entity.Archive_GradProjectFile;
 import tn.pfe.entity.Chefdepartement;
+import tn.pfe.entity.Directeurdestages;
 import tn.pfe.entity.GradProjectFile;
+import tn.pfe.entity.Site;
 import tn.pfe.entity.Student;
 import tn.pfe.entity.User;
 
@@ -111,4 +116,18 @@ public class DirecteurService implements DirecteurServiceRemote, DirecteurServic
 		TypedQuery<Chefdepartement> query =  em.createQuery("Select s from Chefdepartement s ",Chefdepartement.class);
 		return query.getSingleResult();
     }
+
+	@Override
+	public Site getSiteDirecteurStage(int id) {
+		// TODO Auto-generated method stub
+		Set<Site> Listesites = new HashSet<Site>();
+
+		Listesites = em.find(Directeurdestages.class, id).getSites();
+
+		for (Site site : Listesites) {
+				return site;
+		}
+		return null;
+
+	}
 }

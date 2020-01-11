@@ -15,6 +15,8 @@ public interface StudentServiceRemote {
 	public List<Student> getAllStudentRecrutedoverContry(int site_id);
 	public List<Student> getAllStudentRecrutedByContryByYear(String contry , int year , int site_id);
 	public void ajouterEncadrent(String EmailRecip);
+	public Student getStudnetById(int id);
+
 
 
 }

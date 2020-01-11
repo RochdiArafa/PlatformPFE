@@ -1,5 +1,6 @@
 package tn.esprit.Services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -70,6 +71,15 @@ public class servicesites implements servicesitesRemote ,servicesiteLocal{
 	public Site getSiteById(int id) {
 		// TODO Auto-generated method stub
 		return em.find(Site.class, id);
+	}
+
+	@Override
+	public Site getsiteByidDirecteur(int id) {
+		// TODO Auto-generated method stub
+		List<Site> listsites = new ArrayList<>();
+		listsites = em.createQuery("select e from Site e where directeurdesstages.id = :id").setParameter("id", id).getResultList();
+		
+		return listsites.get(0);
 	}
 
 }

@@ -73,4 +73,12 @@ public class StudentService implements StudentServiceRemote, StudentServiceLocal
 		
 	}
 
+	@Override
+	public Student getStudnetById(int id) {
+		// TODO Auto-generated method stub
+		return em.find(Student.class, id);
+	}
+	
+	
+
 }

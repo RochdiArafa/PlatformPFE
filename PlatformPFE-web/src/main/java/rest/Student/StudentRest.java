@@ -86,6 +86,22 @@ public class StudentRest {
 		studentService.ajouterEncadrent(email);
 	}
 	
-	
+	@GET
+	@Path("searchStudent")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getStudnetById(@QueryParam(value="id")int id) {
+		Student student = studentService.getStudnetById(id);
+		
+		if(student != null)
+			return Response.ok()
+				.entity(student)
+                .header("Access-Control-Allow-Origin", "*")
+                .build();
+		else
+			return Response.ok()
+	                .header("Access-Control-Allow-Origin", "*")
+	                .build();
+			
+	}
 	
 }

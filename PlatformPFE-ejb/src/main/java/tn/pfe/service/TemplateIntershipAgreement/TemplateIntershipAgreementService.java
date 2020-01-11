@@ -14,6 +14,7 @@ import com.docraptor.ApiException;
 import com.docraptor.Doc;
 import com.docraptor.DocApi;
 
+import tn.pfe.entity.Site;
 import tn.pfe.entity.TemplateIntershipAgreement;
 
 
@@ -28,6 +29,9 @@ public class TemplateIntershipAgreementService  implements TemplateIntershipAgre
 	public void ajouter(TemplateIntershipAgreement T) {
 		// TODO Auto-generated method stub
 		em.persist(T);
+		Site site = em.find(Site.class, T.getSite().getId());
+		site.setTemplateIntershipAgreement(T);
+		em.merge(site);
 	}
 
 	@Override

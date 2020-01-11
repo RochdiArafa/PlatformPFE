@@ -30,7 +30,7 @@ public class CompanyService implements CompanyServiceRemote, CompanyServiceLocal
 	@Override
 	public List<Object> getRecrutedCompayByOrder(int site_id) {
 		// TODO Auto-generated method stub
-		List<Object> Companys = em.createQuery("select c , COUNT(s.company.id) AS nb from Student s , Company c WHERE s.company.id = c.id GROUP BY c.id ORDER by nb DESC").getResultList();
+		List<Object> Companys = em.createQuery("select c , COUNT(s.company.id) AS nb from Student s , Company c WHERE s.company.id = c.id and s.site.id =:site_id  GROUP BY c.id ORDER by nb DESC").setParameter("site_id", site_id).getResultList();
 		return Companys;
 	}
 

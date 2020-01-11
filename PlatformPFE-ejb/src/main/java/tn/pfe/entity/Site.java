@@ -34,6 +34,7 @@ public class Site {
 	@OneToOne
 	private TemplatePFE templatePFE;
 	
+	
 	@OneToOne
 	private TemplateIntershipAgreement templateIntershipAgreement;
 	
