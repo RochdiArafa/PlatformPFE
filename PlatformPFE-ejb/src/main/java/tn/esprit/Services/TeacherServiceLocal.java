@@ -12,6 +12,9 @@ import tn.pfe.entity.*;
 
 @Local
 public interface TeacherServiceLocal {
+	
+	
+	
 	int addTeacher(Teacher t);
 	List<Teacher>  getTeachers();
 	void deleteTeacherById(int id);
@@ -52,7 +55,7 @@ public interface TeacherServiceLocal {
 	Map<projectCategory, Integer> getmostRapportedCategorie(int idt);
 	Map<projectCategory, Integer> getmostpresedentCategorie(int idt);
 
-	Map<GradProjectFile, Double> getFileMostNote(int idt);
+	Map<GradProjectFile, Double> getFileMostNote(int idt); 
 	
 	Map<projectCategory, Double> getcategorieMostNote(int idt);
 	Map<projectCategory, Double> getcategorieMostNoteenTTQRapporteur(int idt);

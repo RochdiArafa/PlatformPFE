@@ -1,5 +1,6 @@
 package rest.Company;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -12,6 +13,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import tn.pfe.entity.GradProjectFile;
+import tn.pfe.entity.Student;
 import tn.pfe.entity.projectCategory;
 import tn.pfe.service.Company.CompanyServiceLocal;
 
@@ -26,7 +28,19 @@ public class CompanyRest {
 	@GET
 	@Path("/TopRecruted")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Object> getRecrutedCompayByOrder() {
-		return  companyService.getRecrutedCompayByOrder();
+	public Response getRecrutedCompayByOrder(@QueryParam(value="site_id")int site_id) {
+		
+		List<Object> liste = new ArrayList<Object>();
+		liste =  companyService.getRecrutedCompayByOrder(site_id);
+		
+		if(liste != null)
+			return Response.ok()
+				.entity(liste)
+                .header("Access-Control-Allow-Origin", "*")
+                .build();
+		else
+			return Response.ok()
+	                .header("Access-Control-Allow-Origin", "*")
+	                .build();
 	}
 }

@@ -23,7 +23,7 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 
-
+import tn.pfe.entity.Site;
 import tn.pfe.entity.TemplatePFE;
 
 
@@ -37,6 +37,9 @@ public class TemplatePFEService  implements TemplatePFEServiceLocal , TemplatePF
 	public void ajouter(TemplatePFE T) {
 		// TODO Auto-generated method stub
 		em.persist(T);
+		Site site = em.find(Site.class, T.getSite().getId());
+		site.setTemplatePFE(T);
+		em.merge(site);
 	}
 
 	@Override

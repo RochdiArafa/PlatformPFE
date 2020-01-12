@@ -254,10 +254,8 @@ public class Teacher  extends User  implements Serializable {
 
 		Etudiantsapresident = etudiantsapresident;
 
-	
-
-		
 	}
+	
 
 
 
@@ -328,7 +326,7 @@ public class Teacher  extends User  implements Serializable {
 
 		return true;
 
-		
+
 	}
 
 	

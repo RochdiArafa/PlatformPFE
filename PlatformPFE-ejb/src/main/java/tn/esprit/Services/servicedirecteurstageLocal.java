@@ -13,4 +13,5 @@ public interface servicedirecteurstageLocal {
 	public List<Directeurdestages> affedirecteur();
 	public void deletedirecteurbyid(int idds);
 	public void updatdirecteur(Directeurdestages ds );
+	public Directeurdestages getdirecteurbyid(int id);
 }

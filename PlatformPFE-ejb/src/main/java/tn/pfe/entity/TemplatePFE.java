@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class TemplatePFE implements Serializable {
 	
@@ -20,6 +22,7 @@ public class TemplatePFE implements Serializable {
 	private int id;
 	private String Template;
 	
+	@JsonIgnore
 	@OneToOne
 	private Site site;
 	

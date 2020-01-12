@@ -46,6 +46,10 @@ public class Student extends User implements Serializable{
 	@ManyToOne
 	private Teacher president;
 	
+	@ManyToOne
+	private Site site;
+
+	
 	
 	public Student() {
 		super();
@@ -117,6 +121,12 @@ public class Student extends User implements Serializable{
 	}
 	public void setPresident(Teacher president) {
 		this.president = president;
+	}
+	public Site getSite() {
+		return site;
+	}
+	public void setSite(Site site) {
+		this.site = site;
 	}
 	
 	

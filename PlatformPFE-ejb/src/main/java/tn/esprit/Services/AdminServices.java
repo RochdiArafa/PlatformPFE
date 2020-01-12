@@ -90,5 +90,10 @@ public class AdminServices implements AdminServicesRemote, AdminServicesLocal {
 
 		
 	}
+	
+	@Override
+	public Admin getadminby(int id) {
+		return em.find(Admin.class, id);
+	}
 
 }

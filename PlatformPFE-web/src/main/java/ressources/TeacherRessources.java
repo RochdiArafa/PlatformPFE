@@ -32,6 +32,15 @@ public class TeacherRessources {
 	TeacherService teachSer;
 	
 	
+	// http://localhost:9080/PlatformPFE-web/rest/teacher/all
+		@GET
+		@Path("authuser/{login}/{password}")
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response authUser(@PathParam("login")String login,@PathParam("password")String password) {
+			
+			return  Response.ok(teachSer.authetificate(login, password), MediaType.APPLICATION_JSON).build() ;
+		}
+	
 	
 	// afficher Teachers
 	// http://localhost:9080/PlatformPFE-web/rest/teacher/all
@@ -43,6 +52,7 @@ public class TeacherRessources {
 		return  Response.ok(teachSer.getTeachers(), MediaType.APPLICATION_JSON).build() ;
 	}
 	
+	// http://localhost:9080/PlatformPFE-web/rest/teacher/update
 	@PUT
 	@Path("update")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -274,14 +284,7 @@ public class TeacherRessources {
     	return Response.ok(teachSer.autoCompletePreferdCategorie(idt)).build() ;
     	}
     
- // teacher ressource
- // http://localhost:9080/PlatformPFE-web/rest/teacher/all
- 		@GET
- 		@Path("authuser/{login}/{password}")
- 		@Produces(MediaType.APPLICATION_JSON)
- 		public Response authUser(@PathParam("login")String login,@PathParam("password")String password) { 			
- 			return  Response.ok(teachSer.authetificate(login, password), MediaType.APPLICATION_JSON).build() ;
- 		}
+
  	//chef dep
  		@GET
  		@Path("/chef/{idt}")

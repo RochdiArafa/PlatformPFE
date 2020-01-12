@@ -52,11 +52,8 @@ public class projectCategory implements Serializable{
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<GradProjectFile> gradProjectFiles;
 	
-	
-	
-	
-	
-	
+	@ManyToOne
+	private Site site;
 	
 	
 	@XmlTransient
@@ -150,16 +147,49 @@ public class projectCategory implements Serializable{
 	public Set<Teacher> getTeacherspreferdCategorie() {
 		return teacherspreferdCategorie;
 	}
-	
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + (( Name == null) ? 0 : Name.hashCode());
+		result = prime * result + ((valide == null) ? 0 : valide.hashCode());
+		return result;
+	}
+
 
 	@Override
 	public String toString() {
 		return ""+id+" , "+Name;
 	}
 
-	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		projectCategory other = (projectCategory) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
 
+	public Site getSite() {
+		return site;
+	}
+
+	public void setSite(Site site) {
+		this.site = site;
+	}
+
+	
+	
+	
 
 	
 	

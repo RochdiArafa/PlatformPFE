@@ -87,8 +87,11 @@ public class TemplateTrainingCertificateRest {
 	@Path("/export")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String exportTemplateTrainingCertificate(@QueryParam(value="id")int id) {
-		templateService.exportTemplateFile(id);
-		return "Template exported !!";
+		if(templateService.search(id)!= null ) {
+			templateService.exportTemplateFile(id);
+			return "Template exported !!";
+		}else
+			return "There is no Template with id "+id;
 	}
 	
 	

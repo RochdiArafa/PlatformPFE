@@ -1,5 +1,6 @@
 package rest.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -25,22 +26,57 @@ public class StudentRest {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Student> getAllStudent() {
-		return  studentService.getAllStudent();
+	public Response getAllStudent(@QueryParam(value="site_id")int site_id) {
+		List<Student> liste = new ArrayList<Student>();
+		liste = studentService.getAllStudent(site_id);
+		
+		if(liste != null)
+			return Response.ok()
+				.entity(liste)
+                .header("Access-Control-Allow-Origin", "*")
+                .build();
+		else
+			return Response.ok()
+	                .header("Access-Control-Allow-Origin", "*")
+	                .build();
+			
 	}
 	
 	@GET
 	@Path("getAllStudentRecrutedoverContry")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Student> getAllStudentRecrutedoverContry() {
-		return  studentService.getAllStudentRecrutedoverContry();
+	public Response getAllStudentRecrutedoverContry(@QueryParam(value="site_id")int site_id) {
+		List<Student> liste = new ArrayList<Student>();
+		liste = studentService.getAllStudentRecrutedoverContry(site_id);
+		
+		if(liste != null)
+			return Response.ok()
+				.entity(liste)
+                .header("Access-Control-Allow-Origin", "*")
+                .build();
+		else
+			return Response.ok()
+	                .header("Access-Control-Allow-Origin", "*")
+	                .build();
 	}
 	
 	@GET
 	@Path("getAllStudentRecrutedbyContryandYear")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Student> getAllStudentRecrutedByContryByYear(@QueryParam(value="contry")String contry , @QueryParam(value="year")int year) {
-		return  studentService.getAllStudentRecrutedByContryByYear(contry , year);
+	public Response getAllStudentRecrutedByContryByYear(@QueryParam(value="contry")String contry , @QueryParam(value="year")int year ,@QueryParam(value="site_id")int site_id) {
+		
+		List<Student> liste = new ArrayList<Student>();
+		liste =  studentService.getAllStudentRecrutedByContryByYear(contry , year , site_id);
+		
+		if(liste != null)
+			return Response.ok()
+				.entity(liste)
+                .header("Access-Control-Allow-Origin", "*")
+                .build();
+		else
+			return Response.ok()
+	                .header("Access-Control-Allow-Origin", "*")
+	                .build();
 	}
 	
 	@POST
@@ -50,6 +86,22 @@ public class StudentRest {
 		studentService.ajouterEncadrent(email);
 	}
 	
-	
+	@GET
+	@Path("searchStudent")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getStudnetById(@QueryParam(value="id")int id) {
+		Student student = studentService.getStudnetById(id);
+		
+		if(student != null)
+			return Response.ok()
+				.entity(student)
+                .header("Access-Control-Allow-Origin", "*")
+                .build();
+		else
+			return Response.ok()
+	                .header("Access-Control-Allow-Origin", "*")
+	                .build();
+			
+	}
 	
 }

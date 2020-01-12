@@ -473,8 +473,9 @@ Set<Student> setStudent = new HashSet<>();
 
 		for(GradProjectFile file :listerFileRapporter(idt)) {
 			ropportedCategories.addAll(file.getCategoriesoffile());
+			System.out.println("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/");
+
 		}
-		System.out.println("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/");
 		/*System.out.println("proposed :"+proposedCategories.size());
 		System.out.println("proposed :"+preferedCategories.size());
 		System.out.println("proposed :"+skillsCategories.size());*/
@@ -497,7 +498,10 @@ Set<Student> setStudent = new HashSet<>();
 			categoriesScores.put(c, categoriesScores.get(c)*1.5);
 		}
 		for(projectCategory c :ropportedCategories) {
-			categoriesScores.put(c, categoriesScores.get(c)*1.2);		}
+			categoriesScores.put(c, categoriesScores.get(c)*1.2);
+			System.out.println("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/");
+
+			}
 		
 		
 		Map<projectCategory,Double> result = categoriesScores.entrySet().stream()
@@ -553,6 +557,8 @@ Set<Student> setStudent = new HashSet<>();
 		Teacher t = em.find(Teacher.class, idt);	
 		Set<projectCategory> encaredCategories = new HashSet<>();
 		
+		
+		// en cours
 		for(GradProjectFile file :listerFileRapporter(idt)) {
 			encaredCategories.addAll(file.getCategoriesoffile());
 		}
@@ -765,6 +771,22 @@ pfefiles = listerFileEncadrer(idt);
 		}
 		
 		
+	}
+
+
+	@Override
+	public User authetificate(String login, String password) {
+	User  u = null;
+		TypedQuery<User> query = em.createQuery("select e from User e where e.password  =:password and e.email =:email   ",User.class).setParameter("password", password)
+				.setParameter("email", login);
+		
+		try {
+			u= query.getSingleResult();
+		} catch (Exception e2) {
+			System.out.println(" pas de resulta");
+		}
+		
+		return u;
 	}
 
 
@@ -1067,26 +1089,7 @@ for(projectCategory cat : categories) {
 	
 	
 	
-	
-@Override
-public User authetificate(String login, String password) {
-User  u = null;
-	TypedQuery<User> query = em.createQuery("select e from User e where e.password  =:password and e.email =:email   ",User.class).setParameter("password", password)
-			.setParameter("email", login);
-	
-	try {
-		u= query.getSingleResult();
-	} catch (Exception e2) {
-		System.out.println(" pas de resultat");
-	}
-	
-	return u;
-}
-	
-	
-	
-	
-	
+
 	
 	
 

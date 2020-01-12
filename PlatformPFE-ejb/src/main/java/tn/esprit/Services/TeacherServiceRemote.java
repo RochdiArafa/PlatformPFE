@@ -12,6 +12,7 @@ import tn.pfe.entity.*;
 
 @Remote
 public interface TeacherServiceRemote {
+	
 	int addTeacher(Teacher t);
 	List<Teacher>  getTeachers();
 	void deleteTeacherById(int id);

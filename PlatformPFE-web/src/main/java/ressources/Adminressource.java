@@ -48,4 +48,23 @@ public class Adminressource {
 		sa.sendMessage();
 		return "mail okk ";
 	}
+	
+	
+	
+	
+	@POST
+	@Path("payer/{idf}")
+	public void payer(@PathParam("idf")int ida) {
+		sa.payerLicence(ida);
+	}
+	
+	@GET
+	@Path("{ida}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Admin getadmin (@PathParam("ida")int ida) {
+		return sa.getadminQuiAPaye(ida);
+	}
+	
+	
+	
 }
