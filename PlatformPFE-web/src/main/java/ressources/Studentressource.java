@@ -14,6 +14,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.xml.bind.annotation.XmlTransient;
 
 import tn.esprit.Services.servicestudent;
 import tn.pfe.entity.GradProjectFile;
@@ -45,6 +47,42 @@ public String addetudiant( @PathParam("ida")int ida,Student s) {
 	   return es.affStudent();
 	   
    }
+   
+   @GET
+   @Path("studentsansrapetencad")
+   @Produces(MediaType.APPLICATION_JSON)
+   public List<Student> studentssansrappetencad() {
+	   return es.getStudentsansrapporteuretencadrant();   
+   }
+   
+   @GET
+   @Path("studentsansrap")
+   @Produces(MediaType.APPLICATION_JSON)
+   public List<Student> studentssansrap() {
+	   return es.getStudentssansrapporteur();
+	   
+   }
+   
+   @GET
+   @Path("studentsansencad")
+   @Produces(MediaType.APPLICATION_JSON)
+   public List<Student> studentssansencad() {
+	   return es.getStudentssansencadrant();   
+   }
+   
+   @GET
+   @Path("studentavecencad")
+   @Produces(MediaType.APPLICATION_JSON)
+   public List<Student> getstudentavecencadrant() {
+	   return es.getStudentavecencadrant();   
+   }
+   @GET
+   @Path("studentavecrapp")
+   @Produces(MediaType.APPLICATION_JSON)
+   public List<Student> getstudentavecrapp() {
+	   return es.getStudentavecrapp();   
+   }
+   
    @Path("tt")
    @GET
    @Produces(MediaType.APPLICATION_JSON)
@@ -86,5 +124,10 @@ es.notifchefdepartement();;
 	   return "mail ok"
 ;   }
    
- 
+   	@GET
+	@Path("getstudentbyid/{ids}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getChefDepartement(@PathParam("ids")int ids) {
+		return Response.ok(es.getStudentbyid(ids),MediaType.APPLICATION_JSON).build();
+	}
 }

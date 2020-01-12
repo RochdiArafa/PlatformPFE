@@ -24,7 +24,12 @@ public interface servicestudentRemote {
 	public void notifchefdepartement();
 	public List<GradProjectFile> PFEvalide(List<GradProjectFile> pfes);
 	public boolean affecterPtoS(int id_stduent ,int idpresident,Date ds);
-
+	public List<Student> getStudentssansrapporteur();
+	public List<Student>getStudentssansencadrant();
+	public List<Student>getStudentsansrapporteuretencadrant();
+	public List<Student>getStudentavecencadrant();
+	public List<Student>getStudentavecrapp();
+	public List<Student> getStudentbyid(int ids);
 
 
 }

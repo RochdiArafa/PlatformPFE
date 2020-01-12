@@ -1,11 +1,14 @@
 package tn.pfe.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,6 +41,5 @@ public Admin getAdminchefdep() {
 	public void setDepartement(Departement departement) {
 		this.departement = departement;
 	}
-	
 
 }

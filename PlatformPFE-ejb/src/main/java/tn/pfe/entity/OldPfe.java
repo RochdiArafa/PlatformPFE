@@ -11,7 +11,8 @@ import javax.persistence.Id;
 
 @Entity
 public class OldPfe extends GradProjectFile implements Serializable{
-	
+	@Id
+	private int id;
 	private Date datemodif;
 	private String event;
 	private String emetteur;
@@ -196,6 +197,98 @@ public void setEmetteur(String emetteur) {
 public void setEvent(String event) {
 	this.event = event;
 }
+
+@Override
+public String getAnneeScolairee() {
+	// TODO Auto-generated method stub
+	return super.getAnneeScolairee();
+}
+@Override
+public Date getDateSaisie() {
+	// TODO Auto-generated method stub
+	return super.getDateSaisie();
+}
+@Override
+public Teacher getEncadreur() {
+	// TODO Auto-generated method stub
+	return super.getEncadreur();
+}
+@Override
+public int getId() {
+	// TODO Auto-generated method stub
+	return super.getId();
+}
+@Override
+public String getNouveau() {
+	// TODO Auto-generated method stub
+	return super.getNouveau();
+}
+@Override
+public String getPays() {
+	// TODO Auto-generated method stub
+	return super.getPays();
+}
+@Override
+public String getState() {
+	// TODO Auto-generated method stub
+	return super.getState();
+}
+@Override
+public String getStateRapport() {
+	// TODO Auto-generated method stub
+	return super.getStateRapport();
+}
+@Override
+public boolean getValidated() {
+	// TODO Auto-generated method stub
+	return super.getValidated();
+}
+@Override
+public void setAnneeScolairee(String anneeScolairee) {
+	// TODO Auto-generated method stub
+	super.setAnneeScolairee(anneeScolairee);
+}
+@Override
+public void setDateSaisie(Date dateSaisie) {
+	// TODO Auto-generated method stub
+	super.setDateSaisie(dateSaisie);
+}
+@Override
+public void setEncadreur(Teacher encadreur) {
+	// TODO Auto-generated method stub
+	super.setEncadreur(encadreur);
+}
+@Override
+public void setId(int id) {
+	// TODO Auto-generated method stub
+	super.setId(id);
+}
+@Override
+public void setNouveau(String nouveau) {
+	// TODO Auto-generated method stub
+	super.setNouveau(nouveau);
+}
+@Override
+public void setPays(String pays) {
+	// TODO Auto-generated method stub
+	super.setPays(pays);
+}
+@Override
+public void setState(String state) {
+	// TODO Auto-generated method stub
+	super.setState(state);
+}
+@Override
+public void setStateRapport(String stateRapport) {
+	// TODO Auto-generated method stub
+	super.setStateRapport(stateRapport);
+}
+@Override
+public void setValidated(boolean validated) {
+	// TODO Auto-generated method stub
+	super.setValidated(validated);
+}
+
 
 
 }

@@ -88,5 +88,10 @@ public class GradProjectFileRest {
 					.header("Access-Control-Allow-Origin", "*").build();
 		}
 	}
-	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("getallpfe")
+	public Response getoldpfe() {
+		return Response.ok(ficheService.GetPfe()).build();
+	}
 }

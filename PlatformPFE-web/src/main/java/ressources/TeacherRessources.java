@@ -274,5 +274,26 @@ public class TeacherRessources {
     	return Response.ok(teachSer.autoCompletePreferdCategorie(idt)).build() ;
     	}
     
-	
+ // teacher ressource
+ // http://localhost:9080/PlatformPFE-web/rest/teacher/all
+ 		@GET
+ 		@Path("authuser/{login}/{password}")
+ 		@Produces(MediaType.APPLICATION_JSON)
+ 		public Response authUser(@PathParam("login")String login,@PathParam("password")String password) { 			
+ 			return  Response.ok(teachSer.authetificate(login, password), MediaType.APPLICATION_JSON).build() ;
+ 		}
+ 	//chef dep
+ 		@GET
+ 		@Path("/chef/{idt}")
+ 		@Produces(MediaType.APPLICATION_JSON)
+ 		public Response getChefDepartement(@PathParam("idt")int idt) {
+ 			return Response.ok(teachSer.getChefdepartement(idt),MediaType.APPLICATION_JSON).build();
+ 		}
+ 		//student
+ 		@GET
+ 		@Path("/student/{idst}")
+ 		@Produces(MediaType.APPLICATION_JSON)
+ 		public Response getStudent(@PathParam("idst")int idst) {
+ 			return Response.ok(teachSer.getStudent(idst),MediaType.APPLICATION_JSON).build();
+ 		}
 }

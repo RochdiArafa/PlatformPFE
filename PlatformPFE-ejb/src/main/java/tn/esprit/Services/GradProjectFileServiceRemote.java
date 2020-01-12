@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import tn.pfe.entity.GradProjectFile;
+import tn.pfe.entity.OldPfe;
 
 
 @Remote
@@ -24,5 +25,5 @@ public interface GradProjectFileServiceRemote {
 	public List<GradProjectFile> getSheetsByPays(String pays);
 	public List<GradProjectFile> getSheetsOfYear();
 	public List<GradProjectFile> getWaitingDefense();
-
+	public List<OldPfe> getoldpfe();
 }
