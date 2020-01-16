@@ -221,8 +221,12 @@ pfefiles = listerFileEncadrer(idt);
 		for( GradProjectFile file : pfefiles ) {
 			if(file != null) {
 			if(file.getId() == idfile) {
-				file.setNote(note);
-				
+				if(Role.equals("encadrant")) {
+					file.setNote(note);
+							}
+				else {
+				file.setNote_rapporteur(note);
+				}
 				//action
 				Timestamp time = new Timestamp(System.currentTimeMillis());
 				
@@ -459,7 +463,11 @@ Set<Student> setStudent = new HashSet<>();
 		Set<projectCategory> encaredCategories = new HashSet<>();
 		Set<projectCategory> ropportedCategories = new HashSet<>();
 		Set<projectCategory> skillsCategories = new HashSet<>();
+		
 		List<projectCategory> allCategories = categorieser.getCategories();
+		
+		
+		
 		
 		for(Skill sk : t.getSkills()) {
 			skillsCategories.add(sk.getCategorie());
@@ -501,8 +509,22 @@ Set<Student> setStudent = new HashSet<>();
 
 			}
 		
+		/*for(Map.Entry<projectCategory, Double> mp : categoriesScores.entrySet() ) {
+			
+		if(mp.getKey().getValide() == false) {
+				categoriesScores.remove(mp.getKey());
+			}
+			
+			for(projectCategory c : t.getPreferedCategories()) {
+				if(c.getId() == mp.getKey().getId()) {
+					categoriesScores.remove(mp.getKey());
+				}
+			}
+			
+		}*/
 		
-		Map<projectCategory,Double> result = categoriesScores.entrySet().stream()
+		
+		Map<projectCategory,Double> result = categoriesScores.entrySet().stream().filter( e -> e.getKey().getValide())
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
@@ -1050,7 +1072,56 @@ public void updateEncadrant(int idStu, int idT) {
 		}
 	}
 		
-	}	
+	}
+
+
+@Override
+public Set<GradProjectFile> listerFileWorkingOn(int idt) {
+	Set<Student> setStudentpresedent = new HashSet<>();
+	Set<Student>  setStudentencadred = new HashSet<>();
+	Set<Student>  setStudentRapported = new HashSet<>();
+	
+	
+	setStudentpresedent = listerSdtpresedent(idt);
+	Set<GradProjectFile> files = new HashSet<>() ;
+	for(Student s : setStudentpresedent) {
+		
+		if(s.getPfeFile() != null ) {
+		 if(s.getPfeFile().isPreValidated()== true ) {
+		files.add(s.getPfeFile());
+		 }
+		}
+	}
+	
+	setStudentencadred = listerSdtpresedent(idt);
+	//Set<GradProjectFile> filesEncadred = new HashSet<>() ;
+	for(Student s : setStudentencadred ) {
+		
+		if(s.getPfeFile() != null ) {
+		 if(s.getPfeFile().isPreValidated() == true ) {
+		files.add(s.getPfeFile());
+		 }
+		}
+	}
+	
+	
+	setStudentRapported = listerSdtpresedent(idt);
+	//Set<GradProjectFile> filesEncadred = new HashSet<>() ;
+	for(Student s : setStudentRapported ) {
+		
+		if(s.getPfeFile() != null ) {
+		 if(s.getPfeFile().isPreValidated() == true ) {
+		files.add(s.getPfeFile());
+		 }
+		}
+	}
+	
+	
+	
+	return files;
+
+
+}	
 	
 	
 	

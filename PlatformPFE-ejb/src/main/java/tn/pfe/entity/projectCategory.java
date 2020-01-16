@@ -169,7 +169,7 @@ public class projectCategory implements Serializable{
 
 	@Override
 	public String toString() {
-		return ""+id+" , "+Name;
+		return ""+Name;
 	}
 
 	

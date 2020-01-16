@@ -1,6 +1,7 @@
 package tn.esprit.Services;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -34,9 +35,13 @@ public class CategorieService implements CategorieServiceRemote, CategorieServic
 	}
 
 	@Override
-	public int addCategorie(projectCategory c) {
+	public int addCategorie(projectCategory c, int idt) {
 		
 		em.persist(c);
+		Teacher t = em.find(Teacher.class, idt);
+		t.getCategoriesProposed().add(c);
+		c.setTeacher(t);
+		
 		return c.getId();
 	}
 
@@ -120,7 +125,19 @@ public class CategorieService implements CategorieServiceRemote, CategorieServic
 		
 		//em.flush();
 	}
-	
+
+	@Override
+	public Set<projectCategory> getMyPreferedCtegories(int idt) {
+		Teacher t  = em.find(Teacher.class, idt);
+		return t.getPreferedCategories();
+	}
+
+	@Override
+	public Set<projectCategory> getMyProposedCtegories(int idt) {
+		Teacher t  = em.find(Teacher.class, idt);
+		return t.getCategoriesProposed();
+	}
+
 	
 	
 

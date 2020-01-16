@@ -23,6 +23,7 @@ public interface TeacherServiceLocal {
 	Set<Student> listerSdtEncadre(int idT);
 	Set<Student> listerSdtarapporter(int idT);
 	Set<Student> listerSdtpresedent(int idT);
+	Set<GradProjectFile> listerFileWorkingOn(int idt);
 	Set<GradProjectFile> listerFileEncadrer(int idt);
 	Set<GradProjectFile> listerFileRapporter(int idt);
 	Set<GradProjectFile> listerFilePresedent(int idt);

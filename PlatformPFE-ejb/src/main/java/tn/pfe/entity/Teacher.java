@@ -322,7 +322,7 @@ public class Teacher  extends User  implements Serializable {
 
 	}
 
-
+	
 	public int getMaxAction() {
 		return maxAction;
 	}

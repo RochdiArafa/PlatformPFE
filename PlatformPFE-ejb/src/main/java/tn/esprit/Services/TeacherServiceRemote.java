@@ -20,6 +20,7 @@ public interface TeacherServiceRemote {
 	boolean updateTeacherById(Teacher t);
 	Teacher getTeacherById(int id);
 	Set<Student> listerSdtEncadre(int idT);
+	Set<GradProjectFile> listerFileWorkingOn(int idt);
 	Set<GradProjectFile> listerFileEncadrer(int idt);
 	Set<GradProjectFile> listerFileRapporter(int idt);
 	Set<Student> listerSdtpresedent(int idT);

@@ -9,6 +9,6 @@ import tn.pfe.entity.*;
 
 @Local
 public interface SkillServicesLocal {
-	int addSkill(int idt,int idc,Skill comp);
+	int addSkill(int idt,int idc);
 	Set<Skill> getTeacherSkills(int idt);
 }

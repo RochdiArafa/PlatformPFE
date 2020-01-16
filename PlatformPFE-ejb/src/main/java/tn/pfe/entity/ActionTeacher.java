@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ActionTeacher implements Serializable {
@@ -23,6 +26,7 @@ public class ActionTeacher implements Serializable {
 	private Timestamp dateaction = new Timestamp(System.currentTimeMillis());
 
 	@ManyToOne
+	@JsonIgnore
 	private Teacher teacher;
 	
 	
@@ -55,6 +59,7 @@ public class ActionTeacher implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	@XmlTransient
 	public Teacher getTeacher() {
 		return teacher;
 	}

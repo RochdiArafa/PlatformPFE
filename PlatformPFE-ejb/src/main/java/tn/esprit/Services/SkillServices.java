@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.pfe.entity.*;
+import tn.pfe.service.categorie.ProjectCategorie;
 
 /**
  * Session Bean implementation class SkillServices
@@ -29,16 +30,20 @@ public class SkillServices implements SkillServicesRemote, SkillServicesLocal {
     }
 
 	@Override
-	public int addSkill(int idt,int idc, Skill comp) {
-		em.persist(comp);
-		Teacher t = em.find(Teacher.class, idt);
-		Skill sk = em.find(Skill.class,comp.getId());
-		projectCategory c = em.find(projectCategory.class, idc);
+	public int addSkill(int idt,int idc) {
 		
+		Teacher t = em.find(Teacher.class, idt);
+		projectCategory c = em.find(projectCategory.class, idc);
+		Skill sk  = new Skill();
 		sk.setCategorie(c);
-		t.getSkills().add(sk);
 		sk.getTeachers().add(t);
-		return comp.getId();
+		em.persist(sk);
+		t.getSkills().add(sk);
+
+		
+		
+	
+		return 1;
 	}
 
 	@Override

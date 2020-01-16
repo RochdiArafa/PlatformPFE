@@ -109,6 +109,9 @@
 			<scope>provided</scope>
 		</dependency>
 		
+		
+  
+		
 		<dependency>
 			<groupId>javax.transaction</groupId>
 			<artifactId>javax.transaction-api</artifactId>
@@ -120,6 +123,12 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.6.0</version>
 		</dependency>
+
+<dependency>
+		<groupId>com.sun.mail</groupId>
+		<artifactId>javax.mail</artifactId>
+		<version>1.6.2</version>
+	</dependency>
 
    </dependencies>
 

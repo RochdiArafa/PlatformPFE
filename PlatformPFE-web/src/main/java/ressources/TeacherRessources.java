@@ -5,18 +5,32 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.itextpdf.awt.geom.gl.Crossing;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+import com.itextpdf.tool.xml.css.parser.state.Properties;
 
+import tn.esprit.Services.ActionTeacherServices;
 import tn.esprit.Services.TeacherService;
+import tn.pfe.entity.ActionTeacher;
 import tn.pfe.entity.Teacher;
 import tn.pfe.entity.projectCategory;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.decorator.Delegate;
 import javax.ejb.EJB;
 import javax.json.JsonObject;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,11 +39,15 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+
 @Path("teacher")
 public class TeacherRessources {
 
 	@EJB
 	TeacherService teachSer;
+	
+	@EJB
+	ActionTeacherServices actionSer;
 	
 	
 	// http://localhost:9080/PlatformPFE-web/rest/teacher/all
@@ -108,7 +126,13 @@ public class TeacherRessources {
 		return Response.ok(teachSer.listerSdtarapporter(idt),MediaType.APPLICATION_JSON).build();
 	}
 	
-	
+	// http://localhost:9080/PlatformPFE-web/rest/teacher/listfileworkingon/1
+		@GET
+		@Path("listfileworkingon/{idt}")
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response getfilesWorkingOn(@PathParam("idt")int idt) {
+			return Response.ok(teachSer.listerFileWorkingOn(idt),MediaType.APPLICATION_JSON).build();
+		}
 	
 	// http://localhost:9080/PlatformPFE-web/rest/teacher/listfileaencadrer/1
 	@GET
@@ -141,10 +165,12 @@ public class TeacherRessources {
 	// http://localhost:9080/PlatformPFE-web/rest/teacher/prevalider/1/1/encadrant 
     @GET
 	@Path("prevalider/{idt}/{idf}/{role}")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String prevaliderfile(@PathParam("idt")int idt,@PathParam("idf")int idf,@PathParam("role")String role) {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response prevaliderfile(@PathParam("idt")int idt,@PathParam("idf")int idf,@PathParam("role")String role) {
 		teachSer.prevalide(idt, idf, role);
-		return "file prevalidated";
+		 
+	        
+		    return Response.ok(teachSer.getTeacherById(idt), MediaType.APPLICATION_JSON).build();
 	}
 	
 	
@@ -152,9 +178,10 @@ public class TeacherRessources {
     @GET
    	@Path("notter/{idt}/{idf}/{note}/{role}")
    	@Produces(MediaType.TEXT_PLAIN)
-   	public String noterfile(@PathParam("idt")int idt,@PathParam("idf")int idf,@PathParam("note")double note,@PathParam("role")String role) {
+   	public Response noterfile(@PathParam("idt")int idt,@PathParam("idf")int idf,@PathParam("note")double note,@PathParam("role")String role) {
    		teachSer.noterpfeFile(idt, idf, note, role);
-   		return "file note";
+   		return Response.ok("file note", MediaType.TEXT_PLAIN).build();
+
    	}
     
     
@@ -162,9 +189,10 @@ public class TeacherRessources {
     @GET
    	@Path("motif/{idt}/{idf}/{motif}/{role}")
    	@Produces(MediaType.TEXT_PLAIN)
-   	public String motiffile(@PathParam("idt")int idt,@PathParam("idf")int idf,@PathParam("motif")String motif,@PathParam("role")String role) {
+   	public Response motiffile(@PathParam("idt")int idt,@PathParam("idf")int idf,@PathParam("motif")String motif,@PathParam("role")String role) {
    		teachSer.donnerUnMotif(idt, idf, motif, role);
-   		return "motif added";
+   		return Response.ok("motif added", MediaType.TEXT_PLAIN).build();
+   		
    	}
    	
     
@@ -283,6 +311,31 @@ public class TeacherRessources {
     public Response getautoComplete(@PathParam("idt")int idt) {
     	return Response.ok(teachSer.autoCompletePreferdCategorie(idt)).build() ;
     	}
+    
+    // http://localhost:9080/PlatformPFE-web/rest/teacher/getActions/1
+    @GET
+    @Path("getActions/{idt}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getactions(@PathParam("idt")int idt) {
+    	 List<ActionTeacher> lstOfEmployee = actionSer.getTeachresActions(idt).stream()
+    	    		.sorted(Comparator.comparing(
+    	    		        ActionTeacher::getId).reversed()) //comparator
+    	    		        .collect(Collectors.toList());
+    	 
+    	 List<ActionTeacher> last8Actions = new ArrayList<ActionTeacher>();
+    	
+    	 for(int i = 0 ; i < 5 ; i++) {
+    		 
+    		 if(lstOfEmployee.get(i) != null) {
+    			 last8Actions.add(lstOfEmployee.get(i));
+    		 }
+    		 
+    	 }
+    	 
+    	return Response.ok(last8Actions).build() ;
+    	}
+   
+    
     
 	
 }
