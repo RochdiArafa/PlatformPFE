@@ -26,8 +26,11 @@ public class CoachCompanyRest {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public CoachCompany modifier(CoachCompany user ) {
-		coachCompanyService.modifier(user);
-		return user;
+		if(coachCompanyService.getCoachCompanyById(user.getId()) != null) {
+			coachCompanyService.modifier(user);
+			return user;
+		}else
+			return null;
 	}
 	
 	@DELETE

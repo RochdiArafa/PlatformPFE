@@ -1,5 +1,6 @@
 package tn.esprit.Services;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +12,6 @@ import tn.pfe.entity.*;
 
 @Remote
 public interface TeacherServiceRemote {
-	
-	User authetificate(String login, String password);
 	
 	int addTeacher(Teacher t);
 	List<Teacher>  getTeachers();
@@ -35,10 +34,14 @@ public interface TeacherServiceRemote {
 		public void updateRapporteur(int idStu,int idT);
 		public List<GradProjectFile> AfficherListeSansRapporteurs();
 		public Map<Teacher,List<GradProjectFile>> teacherbynbencadrement();
+		public Student getStudent(int idst);
 		public List<GradProjectFile> fichesansrapporteur();
 		public List<GradProjectFile> fichesansencadrant();
 		public void updateEncadrant(int idStu,int idT);
 		public void validercat(int catid);
+		public List<Student> csvList () throws IOException;
+		public void affecterprevalidateur(int idt , int idst);
+		public User authetificate(String login, String password);
 	//stat
 	List<GradProjectFile> getFilesencadredByYear(int idt, int year);
 	List<GradProjectFile> getFilesencadredBetween2Years(int idt, int year1, int year2);
@@ -63,4 +66,7 @@ public interface TeacherServiceRemote {
 	//extra
 		void addEmploye(Student s);
 		void addpfe(GradProjectFile e);
+		Chefdepartement getChefdepartement(int id);
+		public List<projectCategory> getallcat();
+		public void unvalidercat(int catid);
 }

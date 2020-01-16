@@ -1,6 +1,7 @@
 package tn.esprit.Services;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.rmi.CORBA.Stub;
 
-
+import DAO.StudentsDAO;
 import tn.pfe.entity.*;
 
 /**
@@ -44,6 +45,7 @@ public class TeacherService implements TeacherServiceRemote, TeacherServiceLocal
 	@EJB
 	ActionTeacherServices ActionService;
 	
+	StudentsDAO studentsDAO = new StudentsDAO();
     /**
      * Default constructor. 
      */
@@ -849,10 +851,10 @@ public void encadrerEtudiant(int idStu) {
 	GradProjectFile pfe = new GradProjectFile();
 	
 	List<Teacher> lt = em.createQuery(" select c from Teacher c",Teacher.class).getResultList();
-	List<GradProjectFile> pfes = em.createQuery(" select p from GradProjectFile p where c.nouveau = :nouveau",GradProjectFile.class).setParameter("nouveau", "nouveau").getResultList();
+	List<GradProjectFile> pfes = em.createQuery(" select p from GradProjectFile p where p.nouveau = :nouveau",GradProjectFile.class).setParameter("nouveau", "nouveau").getResultList();
 	Student s = em.find(Student.class, idStu);
 	for(GradProjectFile p : pfes) {
-		if(p.getStudent().getId() == s.getId()) {
+		if(p.getId() == s.getPfeFile().getId()) {
 			kk=true;
 			pfe = s.getPfeFile();
 		}
@@ -944,10 +946,10 @@ public void rappporterEtudiant(int idStu) {
 	boolean cbon= false ;
 	GradProjectFile pfe = new GradProjectFile();
 	List<Teacher> lt = em.createQuery(" select c from Teacher c",Teacher.class).getResultList();
-	List<GradProjectFile> pfes = em.createQuery("select p from GradProjectFile p where c.nouveau = :nouveau",GradProjectFile.class).setParameter("nouveau", "nouveau").getResultList();
+	List<GradProjectFile> pfes = em.createQuery("select p from GradProjectFile p where p.nouveau = :nouveau",GradProjectFile.class).setParameter("nouveau", "nouveau").getResultList();
 	Student s = em.find(Student.class, idStu);
 	for(GradProjectFile p : pfes) {
-		if(p.getStudent()!=null && p.getStudent().getId() == s.getId()) {
+		if( p.getId() == s.getPfeFile().getId()) {
 			kk=true;
 			pfe = s.getPfeFile();
 		}
@@ -999,11 +1001,12 @@ public Map<Teacher, List<GradProjectFile>> teacherbynbencadrement() {
 	List<GradProjectFile> lstPfes = new ArrayList<GradProjectFile>();
 	Map<Teacher, List<GradProjectFile>> teaMap = new HashMap<Teacher, List<GradProjectFile>>();
 	lst = em.createQuery("select c from Teacher c",Teacher.class).getResultList();
-	lstPfes = em.createQuery("select c from GradProjectFile c where c.nouveau = :nouveau",GradProjectFile.class).setParameter("nouveau", "nouveau").getResultList();
+	lstPfes = em.createQuery("select c from GradProjectFile c",GradProjectFile.class).getResultList();
 	for (GradProjectFile pfe : lstPfes) {
-		if(pfe.getEncadreur() != null) {
+		if(pfe.getStudent()!=null) {
+		if(pfe.getStudent().getEncadrants() != null) {
 		for(Teacher teacher : lst) {
-			if(pfe.getEncadreur().getId() == teacher.getId())
+			if(pfe.getStudent().getEncadrants().getId() == teacher.getId())
 			if(teaMap.containsKey(teacher)) {
 				List<GradProjectFile> lsttList = new ArrayList<GradProjectFile>();
 				lsttList = teaMap.get(teacher);
@@ -1014,6 +1017,7 @@ public Map<Teacher, List<GradProjectFile>> teacherbynbencadrement() {
 				lsttList.add(pfe);
 				teaMap.put(teacher, lsttList);
 			}
+		}
 		}
 		}
 	}
@@ -1035,7 +1039,7 @@ public void updateRapporteur(int idStu, int idT) {
 				System.out.println("fet el nombre max des rapp!");
 			}
 		}else {
-			System.out.println("maandouch fiche pfe");
+			System.out.println("note mouch 0");
 		}
 	}else {
 		System.out.println("verifier les parametres");
@@ -1047,16 +1051,12 @@ public void updateEncadrant(int idStu, int idT) {
 	Student s = em.find(Student.class, idStu);
 	Teacher teacher = em.find(Teacher.class, idT);
 	if(teacher != null && s!= null) {
-		if(s.getPfeFile().getNote()==0.0) {
 			if(teacher.getNbmaxencadrement()>teacher.getEtudiantAEncadrer().size()) {
 				teacher.getEtudiantAEncadrer().add(s);
 				s.setEncadrants(teacher);	
 			}else {
 				System.out.println("fet el nombre max des encardrements!");
-			}
-		}else {
-			System.out.println("maandouch fiche pfe");
-		}
+			}		
 	}else {
 		System.out.println("verifier les parametres");
 	}
@@ -1071,6 +1071,7 @@ public void updateEncadrant(int idStu, int idT) {
 			cat.setValide(true);
 		}
 	}
+
 		
 	}
 
@@ -1133,9 +1134,41 @@ public Set<GradProjectFile> listerFileWorkingOn(int idt) {
 	
 	
 	
+
+
+}	
+@Override
+public void unvalidercat(int catid) {
+List<projectCategory> categories = new ArrayList<projectCategory>();
+categories = em.createQuery("select c from projectCategory c",projectCategory.class).getResultList();
+for(projectCategory cat : categories) {
+	if (cat.getId() == catid) {
+		cat.setValide(false);
+	}
+}
+
+}	
+	
+@Override
+	public List<Student> csvList() throws IOException {
+		List<Student>list = new ArrayList<>();
+		list = studentsDAO.findEleves();
+		return list;
+	}	
 	
 	
-	
+@Override
+	public void affecterprevalidateur(int idt, int idst) {
+		Teacher teacher = em.find(Teacher.class, idt);
+		Student student = em.find(Student.class, idst);
+		if(teacher.getEtudiantaprevalider().size()<teacher.getNbmaxprevalidation()) {
+			student.setPrevalidateur(teacher);
+			teacher.getEtudiantaprevalider().add(student);
+		}else {
+			System.out.println("fet el nombre");
+		}
+		
+	}	
 	
 	
 	
@@ -1145,9 +1178,22 @@ public Set<GradProjectFile> listerFileWorkingOn(int idt) {
 
 	
 	
+
 	
 	
 	
 	
+@Override
+	public Chefdepartement getChefdepartement(int id) {
+	return em.find(Chefdepartement.class, id);
+	}	
+@Override
+public Student getStudent(int idst) {
+return em.find(Student.class, idst);
+}	
 	
+@Override
+	public List<projectCategory> getallcat() {
+		return (List<projectCategory>) em.createQuery("select t from  projectCategory t",projectCategory.class).getResultList();
+	}	
 }

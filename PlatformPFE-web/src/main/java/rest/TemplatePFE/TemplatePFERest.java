@@ -16,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.Response.StatusType;
 
 import rest.Secured;
 import tn.esprit.Services.servicesiteLocal;
@@ -35,60 +36,78 @@ public class TemplatePFERest {
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public String ajouter(@QueryParam(value="template") String template , @QueryParam(value="site_id") int site_id) {
+	public Response ajouter(@QueryParam(value="template") String template , @QueryParam(value="site_id") int site_id) {
 		Site s = serviceSite.getSiteById(site_id);
 		if(s != null) {
 			TemplatePFE T = new TemplatePFE(template , s);
 			templateService.ajouter(T);
-			return "Template added";
+			return Response.ok()
+					.entity(templateService.search(T.getId()))
+	                .header("Access-Control-Allow-Origin", "*")
+	                .build();
 		}else
-			return "there is no Site with the id = "+site_id;	
+			return Response.status(Status.BAD_REQUEST)
+	                .header("Access-Control-Allow-Origin", "*")
+	                .build();
 	}
 	
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	public String modifier(@QueryParam(value="id") int id , @QueryParam(value="template") String Template , @QueryParam(value="site_id") int site_id) {
+	public Response modifier(@QueryParam(value="id") int id , @QueryParam(value="template") String Template , @QueryParam(value="site_id") int site_id) {
 		Site s = serviceSite.getSiteById(site_id);
 		
 		if(s != null) {
 			TemplatePFE T = new TemplatePFE(id, Template , s);
 			
-			if(searchTemplatePFE(T.getId()) != null) {
-				templateService.modifier(T);;
-				return "The Template was updated !";
+			if(templateService.search(T.getId()) != null) {
+				templateService.modifier(T);
+				return Response.ok()
+						.entity(templateService.search(T.getId()))
+		                .header("Access-Control-Allow-Origin", "*")
+		                .build();
 			}
 			else	
-				return "there is no Template with the id = "+id;
+				return Response.status(Status.NOT_FOUND)
+		                .header("Access-Control-Allow-Origin", "*")
+		                .build();
 		}
 		else
-			return "there is no Site with the id = "+site_id;
+			return Response.status(Status.NOT_FOUND)
+	                .header("Access-Control-Allow-Origin", "*")
+	                .build();
 			
 	}
 	
-	@Secured
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public TemplatePFE searchTemplatePFE(@QueryParam(value="id")int id) {
-		return templateService.search(id);
+	public Response searchTemplatePFE(@QueryParam(value="id")int id) {
+		return Response.ok() // 200
+                .entity(templateService.search(id))
+                .header("Access-Control-Allow-Origin", "*")
+                .build();
 	}
 	
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
-	public String delteTemplatePFE(@QueryParam(value="id")int id) {
-		if(searchTemplatePFE(id) != null) {
+	public Response deleteTemplatePFE(@QueryParam(value="id")int id) {
+		if(templateService.search(id) != null) {
 			templateService.delete(id);
-			return "The object was deleted !";
-	}
-	else	
-		return "there is no object with the id = "+id;
+		}
+		
+		return Response.ok() // 200
+	                .build();
+
 	}
 	
 	@GET
 	@Path("/export")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String exportTemplatePFE(@QueryParam(value="id")int id) {
-		templateService.exportTemplateFile(id);
-		return "Template exported !!";
+		if(templateService.search(id)!= null ) {
+			templateService.exportTemplateFile(id);
+			return "Template exported !!";
+		}else
+			return "There is no Template with id "+id;
 	}
 	
 	

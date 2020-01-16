@@ -297,8 +297,31 @@ return a;
 	}
 
 	
-
-	
+	@Override
+	public List<Student> getStudentsansrapporteuretencadrant() {
+		return (List<Student>) em.createQuery(" select c from Student c where c.rapporteurs=null and c.encadrants=null ",Student.class).getResultList();		
 	}
+	@Override
+	public List<Student> getStudentssansencadrant() {
+		return (List<Student>) em.createQuery(" select c from Student c where c.encadrants=null",Student.class).getResultList();		
+	}
+	@Override
+	public List<Student> getStudentssansrapporteur() {
+		return (List<Student>) em.createQuery(" select c from Student c where c.rapporteurs=null",Student.class).getResultList();		
+	}
+	@Override
+	public List<Student> getStudentavecencadrant() {
+		return (List<Student>) em.createQuery(" select c from Student c where c.encadrants!=null",Student.class).getResultList();
+	}
+	@Override
+	public List<Student> getStudentavecrapp() {
+		return (List<Student>) em.createQuery(" select c from Student c where c.rapporteurs!=null",Student.class).getResultList();
+	}
+	@Override
+	public List<Student> getStudentbyid(int ids) {
+		return (List<Student>) em.createQuery(" select c from Student c where c.id=:id",Student.class).setParameter("id", ids).getResultList();
+	}
+
+}
 
 

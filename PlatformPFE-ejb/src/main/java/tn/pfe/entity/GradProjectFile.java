@@ -76,7 +76,9 @@ private String stateRapport;
 	private String nouveau;
 	
 	private double note_rapporteur;
-
+	
+	private double note_encadrant;
+	
 	@OneToOne(mappedBy = "PfeFile",fetch=FetchType.EAGER)
 	private Student Student;
 
@@ -151,7 +153,7 @@ private String stateRapport;
 		this.anneeScolaire = anneeScolaire;
 	}
 
-	@XmlTransient
+	
 	public Student getStudent() {
 		return Student;
 	}
@@ -374,7 +376,12 @@ public void setNouveau(String nouveau) {
 }
 
 	
-	
+public double getNote_encadrant() {
+	return note_encadrant;
+}
+public void setNote_encadrant(double note_encadrant) {
+	this.note_encadrant = note_encadrant;
+}
 	
 	
 

@@ -72,31 +72,60 @@ public class GradProjectFileService implements GradProjectFileServiceRemote, Gra
     }
     @Override
     public List<GradProjectFile> GetPfeValidated() {
-    	// TODO Auto-generated method stub
-    	return null;
+    	return (List<GradProjectFile>) em.createQuery(" select c from GradProjectFile c where c.validated = 1 ",GradProjectFile.class).getResultList();
+    }
+    @Override
+    public List<OldPfe> getoldpfe() {
+    	return (List<OldPfe>) em.createQuery(" select c from OldPfe c ",OldPfe.class).getResultList();
     }
     @Override
     public void updatepfe(GradProjectFile pfe, int id) {
     	// System.out.println("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*"+pfe.getMotif()+"/*//*/*/*/*"+id);
+    	Student ssStudent = new Student() ;
     	GradProjectFile ppPfe = em.find(GradProjectFile.class, id);
+    	TypedQuery<Student> query = em.createQuery("SELECT f FROM Student f WHERE f.PfeFile.id=:id", Student.class);
+    	query.setParameter("id", ppPfe.getId());
+    	if(query.getResultList().size() != 0) {
+		ssStudent =  query.getResultList().get(0);}
     	if(ppPfe != null) {
     		System.out.println("ahla");
     	OldPfe oPfe = new OldPfe();
 		oPfe.setMotif(ppPfe.getMotif());
+		oPfe.setNote(ppPfe.getNote());
 		Date datemodi = new Date();		
 		oPfe.setDatemodif(datemodi);
-		oPfe.setEvent("modification");
-		oPfe.setDescription(pfe.getDescription());
-		if(pfe.getEncadreur() != null) {
-		oPfe.setEncadreur(pfe.getEncadreur());}
-		if(pfe.getStudent() != null) {
-		oPfe.setEmetteur(ppPfe.getStudent().getFirstName()+""+ppPfe.getStudent().getLastName());	}	
-		em.persist(oPfe);
-		ppPfe.setMotif(ppPfe.getMotif());
+		//oPfe.setEvent("modification");
+		oPfe.setDescription(ppPfe.getDescription());
+		if(ppPfe.getEncadreur() != null) {
+		oPfe.setEncadreur(ppPfe.getEncadreur());}
+		if(ssStudent.getFirstName()!= null && ssStudent.getLastName()!=null) {
+		oPfe.setEmetteur(ssStudent.getFirstName()+" "+ssStudent.getLastName());		}	
+		ppPfe.setMotif(pfe.getMotif());
 		ppPfe.setNote(pfe.getNote());
 		ppPfe.setNote_rapporteur(pfe.getNote_rapporteur());
 		ppPfe.setDescription(pfe.getDescription());
-		
+		em.persist(ppPfe);
+		String a = "";
+		if(oPfe.getDescription()!=null && ppPfe.getDescription()!=null && !oPfe.getDescription().equals(ppPfe.getDescription())) {
+			a = a+"changement de description / ";
+			
+			oPfe.setDescription("nouvelle description : "+ppPfe.getDescription()+" | ancienne description : "+oPfe.getDescription());
+		}
+		if(oPfe.getEncadreur()!=null && ppPfe.getEncadreur()!=null && !oPfe.getEncadreur().equals(ppPfe.getEncadreur())) {
+			a = a+"changement d'encadreur / ";
+		}
+		if( oPfe.getNote() != ppPfe.getNote()) {
+			a = a+"changement de note de la fiche pfe / ";
+		}
+		if(oPfe.getNote_rapporteur()!= ppPfe.getNote_rapporteur()) {
+			a = a+"changement de note rapporteur / ";
+		}
+		if(!oPfe.getMotif().equals(ppPfe.getMotif())) {
+			a = a+"changement de Motif / ";			
+			oPfe.setMotif("nouveau motif : "+ppPfe.getMotif()+" | ancien motif : "+oPfe.getMotif());
+		}
+		oPfe.setEvent(a);
+		em.persist(oPfe);
     }else {
     	System.out.println("non trouvé");
     	System.out.println(id);

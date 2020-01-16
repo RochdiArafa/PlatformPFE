@@ -23,6 +23,7 @@ public class TemplateIntershipAgreement implements Serializable {
 	private int id;
 	private String Template;
 	
+	@JsonIgnore
 	@OneToOne
 	private Site site;
 	

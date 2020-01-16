@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 import tn.esprit.Services.DirecteurServiceLocal;
 import tn.pfe.entity.Archive_GradProjectFile;
 import tn.pfe.entity.SendEmail;
+import tn.pfe.entity.Site;
 import tn.pfe.entity.Student;
 
 @Path("Direction")
@@ -148,4 +149,12 @@ public class DirecteurRest {
 					.header("Access-Control-Allow-Origin", "*").build();
 		}
 	}
+	
+	@Path("Site")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Site getSiteDirecteurStage(@QueryParam(value="id")int id) {
+		
+		return directeurServices.getSiteDirecteurStage(id);
+	}	
 }

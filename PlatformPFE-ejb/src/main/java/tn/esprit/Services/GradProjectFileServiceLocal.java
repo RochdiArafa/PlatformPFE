@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import tn.pfe.entity.GradProjectFile;
+import tn.pfe.entity.OldPfe;
 
 @Local
 public interface GradProjectFileServiceLocal {
@@ -21,4 +22,5 @@ public interface GradProjectFileServiceLocal {
 	public List<GradProjectFile> getSheetsOfYear();
 	public List<GradProjectFile> getWaitingDefense();
 	public List<GradProjectFile> getSheetsByEtat(String etat);
+	public List<OldPfe> getoldpfe();
 }

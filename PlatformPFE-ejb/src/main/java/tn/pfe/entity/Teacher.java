@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 
 
 
@@ -59,6 +61,9 @@ public class Teacher  extends User  implements Serializable {
 	@OneToMany(mappedBy = "rapporteurs", cascade= CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<Student> Etudiantarapporter = new HashSet<>();
 	
+	@OneToMany(mappedBy = "prevalidateur", cascade= CascadeType.ALL,fetch = FetchType.EAGER)
+	private Set<Student> Etudiantaprevalider = new HashSet<>();
+	
 	@OneToMany(mappedBy="teacher", fetch=FetchType.EAGER)
 	private Set<ActionTeacher> ActionsTeacher = new HashSet<>();
 	
@@ -68,6 +73,8 @@ public class Teacher  extends User  implements Serializable {
 	@OneToMany(mappedBy = "president", fetch = FetchType.EAGER)
 	private Set<Student> Etudiantsapresident = new HashSet<>();
 	
+	@OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
+	private Set<Notification> notifications  = new HashSet<>();
 	
 	
 	public void addCategorie(projectCategory c) {
@@ -127,7 +134,7 @@ public class Teacher  extends User  implements Serializable {
 
 	@XmlElement
 	@XmlElementWrapper
-	//@XmlTransient
+	@XmlTransient
 	public Set<projectCategory> getCategoriesProposed() {
 		return categoriesProposed;
 	}
@@ -153,7 +160,7 @@ public class Teacher  extends User  implements Serializable {
 
 	@XmlElement
 	@XmlElementWrapper
-	//@XmlTransient
+	@XmlTransient
 	public Set<projectCategory> getPreferedCategories() {
 		return PreferedCategories;
 	}
@@ -207,7 +214,7 @@ public class Teacher  extends User  implements Serializable {
 	public Set<Student> getEtudiantsapresident() {
 		return Etudiantsapresident;
 	}
-
+	
 
 	public void setEtudiantsapresident(Set<Student> etudiantsapresident) {
 		Etudiantsapresident = etudiantsapresident;
@@ -352,14 +359,31 @@ public int getNbmaxrap() {
 public void setNbmaxrap(int nbmaxrap) {
 	this.nbmaxrap = nbmaxrap;
 }
-
+	@XmlTransient
 	public Set<GradProjectFile> getPfeencadre() {
 		return pfeencadre;
 	}
+	
 	public void setPfeencadre(Set<GradProjectFile> pfeencadre) {
 		this.pfeencadre = pfeencadre;
 	}
+	@XmlTransient
+	public Set<Notification> getNotifications() {
+		return notifications;
+	}
 	
-
-	
+	public void setNotifications(Set<Notification> notifications) {
+		this.notifications = notifications;
+	}
+	@XmlTransient
+	public Set<Student> getEtudiantaprevalider() {
+		return Etudiantaprevalider;
+	}
+	public void setEtudiantaprevalider(Set<Student> etudiantaprevalider) {
+		Etudiantaprevalider = etudiantaprevalider;
+	}
+	@Override
+	public String toString() {
+		return getFirstName()+" "+getLastName();		
+	}
 }

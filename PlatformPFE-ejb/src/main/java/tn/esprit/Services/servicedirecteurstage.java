@@ -62,5 +62,11 @@ public class servicedirecteurstage implements servicedirecteurstageRemote, servi
 		
 		
 	}
+	
+	@Override
+	public Directeurdestages getdirecteurbyid(int id) {
+		// TODO Auto-generated method stub
+		return em.find(Directeurdestages.class, id);
+}
 
 }
